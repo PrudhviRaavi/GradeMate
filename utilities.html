@@ -1,0 +1,388 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GradeMate | Toolkit</title>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Outfit:wght@500;700;800&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+
+    <nav class="navbar">
+        <div class="logo">
+            Grade<span>Mate</span>
+        </div>
+        <ul class="nav-links">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="utilities.html" class="active">Utilities</a></li>
+            <li><a href="useful_links.html">Quick Links</a></li>
+        </ul>
+    </nav>
+
+    <div class="container page-header">
+        <h1>Student Toolkit</h1>
+        <p>Calculators and tools to help you plan your academic success.</p>
+    </div>
+
+    <div class="container">
+        <!-- Tabs -->
+        <div class="tabs-container">
+            <button class="tab-btn active" onclick="switchTab('gradePredictor')">Grade Predictor</button>
+            <button class="tab-btn" onclick="switchTab('cgpaPercent')">CGPA to %</button>
+            <button class="tab-btn" onclick="switchTab('sgpaCalc')">SGPA Calculator</button>
+            <button class="tab-btn" onclick="switchTab('cgpaCalc')">CGPA Calculator</button>
+            <button class="tab-btn" onclick="switchTab('reqSgpa')">Required SGPA</button>
+            <button class="tab-btn" onclick="switchTab('academicRef')"
+                style="background: var(--accent-color); color: white; border-color: var(--accent-color);">Academic
+                Reference</button>
+        </div>
+
+        <!-- Grade Predictor Section -->
+        <div id="gradePredictor" class="calculator-section active">
+            <div class="calc-card">
+                <h2><i class="fa-solid fa-chart-pie"></i> Grade Predictor</h2>
+                <p>Estimate your grade based on Internals and End Sem marks.</p>
+                <br>
+
+                <div class="form-group">
+                    <label>Course Type</label>
+                    <select id="courseType" class="form-control" onchange="updatePredictorUI()">
+                        <option value="theory">Theory Only</option>
+                        <option value="practical">Practical Only</option>
+                        <option value="integrated">Theory & Practical (Integrated)</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label>Internal Marks (Max 50) <span class="required">*</span></label>
+                    <input type="number" id="internalMarks" class="form-control" placeholder="Enter marks out of 50"
+                        min="0" max="50">
+                    <div class="checkbox-group">
+                        <input type="checkbox" id="absentInternals">
+                        <label for="absentInternals" style="margin:0; font-weight:400;">Absent for Internals (CIA) -
+                            Triggers <strong>RI</strong></label>
+                    </div>
+                </div>
+
+                <div class="form-group" id="extPracGroup" style="display:none;">
+                    <label>External Practical Marks (Max 100) <span class="required">*</span></label>
+                    <input type="number" id="extPracMarks" class="form-control" placeholder="Enter marks out of 100"
+                        min="0" max="100">
+                </div>
+
+                <div class="form-group">
+                    <label>Attendance Status</label>
+                    <div class="checkbox-group">
+                        <input type="checkbox" id="lowAttendance">
+                        <label for="lowAttendance" style="margin:0; font-weight:400;">Low Attendance (< 75%) - Triggers
+                                <strong>RA</strong></label>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label>Expected / Actual End Sem Marks (Max 100)</label>
+                    <input type="number" id="endSemMarks" class="form-control"
+                        placeholder="Optional: Enter to predict final grade">
+                    <div class="checkbox-group">
+                        <input type="checkbox" id="absentEndSem">
+                        <label for="absentEndSem" style="margin:0; font-weight:400;">Absent for End Sem Exam - Triggers
+                            <strong>AB</strong></label>
+                    </div>
+                </div>
+
+                <button class="btn btn-primary" onclick="calculateGrade()">Calculate Grade</button>
+                <div id="gradeResult" class="result-box"></div>
+                <button class="btn btn-secondary btn-sm" style="margin-top: 1rem; width: 100%; display: none;"
+                    id="exportGrade" onclick="exportResults('gradePredictor')">
+                    <i class="fa-solid fa-file-export"></i> Export Report
+                </button>
+                <!-- Result will show here -->
+            </div>
+        </div>
+    </div>
+
+    <!-- CGPA to Percentage Section -->
+    <div id="cgpaPercent" class="calculator-section">
+        <div class="calc-card">
+            <h2><i class="fa-solid fa-percent"></i> CGPA to Percentage</h2>
+            <div class="form-group">
+                <label>Enter CGPA <span class="required">*</span></label>
+                <input type="number" id="cgpaInput" class="form-control" step="0.01" placeholder="e.g. 8.5" min="0"
+                    max="10">
+            </div>
+            <button class="btn btn-primary" onclick="convertCgpa()">Convert</button>
+            <div id="cgpaPercentResult" class="result-box"></div>
+            <button class="btn btn-secondary btn-sm" style="margin-top: 1rem; width: 100%; display: none;"
+                id="exportCgpa" onclick="exportResults('cgpaPercent')">
+                <i class="fa-solid fa-file-export"></i> Export Report
+            </button>
+        </div>
+    </div>
+
+    <!-- SGPA Calculator Section (Placeholder) -->
+    <div id="sgpaCalc" class="calculator-section">
+        <div class="calc-card">
+            <h2><i class="fa-solid fa-calculator"></i> SGPA Calculator</h2>
+            <div id="sgpaRows">
+                <!-- Rows will be added dynamically -->
+                <div class="form-group row-container" style="display:flex; gap:1rem; align-items:center;">
+                    <input type="text" class="form-control" placeholder="Subject Name">
+                    <input type="number" class="form-control credit-input" placeholder="Credits" style="width:100px;">
+                    <select class="form-control grade-input" style="width:120px;">
+                        <option value="10">S</option>
+                        <option value="9">A+</option>
+                        <option value="8">A</option>
+                        <option value="7">B+</option>
+                        <option value="6">B</option>
+                        <option value="5">C</option>
+                        <option value="4">P</option>
+                        <option value="0">F</option>
+                    </select>
+                    <button class="btn-delete" onclick="this.parentElement.remove()" title="Delete Row">
+                        <i class="fa-solid fa-trash"></i>
+                    </button>
+                </div>
+            </div>
+            <button class="btn btn-secondary" onclick="addSgpaRow()">+ Add Subject</button>
+            <button class="btn btn-primary" onclick="calculateSgpa()">Calculate SGPA</button>
+            <div id="sgpaCalcResult" class="result-box"></div>
+            <button class="btn btn-secondary btn-sm" style="margin-top: 1rem; width: 100%; display: none;"
+                id="exportSgpa" onclick="exportResults('sgpaCalc')">
+                <i class="fa-solid fa-file-export"></i> Export Report
+            </button>
+        </div>
+    </div>
+
+    <!-- CGPA Calculator Section -->
+    <div id="cgpaCalc" class="calculator-section">
+        <div class="calc-card">
+            <h2><i class="fa-solid fa-layer-group"></i> CGPA Calculator</h2>
+            <p>Calculate your Cumulative GPA from previous semesters.</p>
+            <div id="cgpaRows">
+                <div class="form-group row-container" style="display:flex; gap:1rem; align-items:center;">
+                    <label style="flex:1">Semester 1 SGPA: <input type="number" class="form-control sgpa-val"
+                            placeholder="SGPA"></label>
+                    <label style="flex:1">Credits: <input type="number" class="form-control sem-credit"
+                            placeholder="Credits"></label>
+                    <button class="btn-delete" onclick="this.parentElement.remove()" title="Delete Row"
+                        style="margin-top: 1.5rem;">
+                        <i class="fa-solid fa-trash"></i>
+                    </button>
+                </div>
+            </div>
+            <button class="btn btn-secondary" onclick="addCgpaRow()">+ Add Semester</button>
+            <button class="btn btn-primary" onclick="calculateCgpa()">Calculate CGPA</button>
+            <div id="cgpaCalcResult" class="result-box"></div>
+            <button class="btn btn-secondary btn-sm" style="margin-top: 1rem; width: 100%; display: none;"
+                id="exportCgpaCalc" onclick="exportResults('cgpaCalc')">
+                <i class="fa-solid fa-file-export"></i> Export Report
+            </button>
+        </div>
+    </div>
+
+    <!-- Required SGPA Section -->
+    <div id="reqSgpa" class="calculator-section">
+        <div class="calc-card">
+            <h2><i class="fa-solid fa-bullseye"></i> Required SGPA</h2>
+            <p>Calculate what SGPA you need in the next semester to reach your target CGPA.</p>
+            <div class="form-group">
+                <label>Current CGPA <span class="required">*</span></label>
+                <input type="number" id="curCgpa" class="form-control" step="0.01" placeholder="e.g. 7.5" min="0"
+                    max="10">
+            </div>
+            <div class="form-group">
+                <label>Total Credits Earned <span class="required">*</span></label>
+                <input type="number" id="curTotalCredits" class="form-control" placeholder="e.g. 80" min="0">
+            </div>
+            <div class="form-group">
+                <label>Target CGPA <span class="required">*</span></label>
+                <input type="number" id="targetCgpa" class="form-control" step="0.01" placeholder="e.g. 8.0" min="0"
+                    max="10">
+            </div>
+            <div class="form-group">
+                <label>Next Semester Credits <span class="required">*</span></label>
+                <input type="number" id="nextSemCredits" class="form-control" placeholder="e.g. 20" min="1">
+            </div>
+            <button class="btn btn-primary" onclick="calculateRequiredSGPA()">Calculate Target SGPA</button>
+            <div id="reqSgpaResult" class="result-box"></div>
+            <button class="btn btn-secondary btn-sm" style="margin-top: 1rem; width: 100%; display: none;"
+                id="exportReq" onclick="exportResults('reqSgpa')">
+                <i class="fa-solid fa-file-export"></i> Export Report
+            </button>
+
+            <div class="info-note"
+                style="margin-top: 1.5rem; font-size: 0.85rem; color: var(--text-light); line-height: 1.4;">
+                <p><strong><i class="fa-solid fa-info-circle"></i> How it works:</strong></p>
+                <p>1. <strong>Current CGPA:</strong> Your cumulative GPA as shown on your latest grade sheet.</p>
+                <p>2. <strong>Total Credits Earned:</strong> Sum of credits for all courses you have completed so
+                    far.</p>
+                <p>3. <strong>Target CGPA:</strong> The CGPA you want to have after the next semester.</p>
+                <p>4. <strong>Next Sem Credits:</strong> Total credits of the subjects you are taking in the
+                    upcoming semester.</p>
+            </div>
+        </div>
+    </div>
+    </div>
+
+    <!-- Academic Reference Section -->
+    <div id="academicRef" class="calculator-section">
+        <div class="calc-card">
+            <h2><i class="fa-solid fa-book-open"></i> Academic Reference</h2>
+            <p>Understanding the logic and standards behind the calculations.</p>
+
+            <div class="reference-section">
+                <h3><i class="fa-solid fa-calculator"></i> The Math Explained</h3>
+                <div class="logic-grid">
+                    <div class="logic-card">
+                        <h4>SGPA Formula</h4>
+                        <p>Weighted average of grade points earned in a semester.</p>
+                        <div class="formula-box">
+                            SGPA = Σ(Credits × Grade Points) / Σ(Total Credits)
+                        </div>
+                    </div>
+                    <div class="logic-card">
+                        <h4>CGPA Formula</h4>
+                        <p>Weighted average of SGPA over all completed semesters.</p>
+                        <div class="formula-box">
+                            CGPA = Σ(SGPA × Sem Credits) / Σ(Total Credits)
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="reference-section" style="margin-top: 2rem;">
+                <h3><i class="fa-solid fa-circle-question"></i> FAQ: How it Works</h3>
+                <p style="font-size: 0.95rem; margin-bottom: 0.5rem;"><strong>Weighted Average:</strong> Unlike a simple
+                    average, we multiply your grade points by the "credits" of the subject. This means a 4-credit
+                    subject affects your GPA twice as much as a 2-credit subject.</p>
+                <p style="font-size: 0.95rem;"><strong>Required SGPA:</strong> This tool calculates the exact points gap
+                    between your current standing and your goal, then divides it by your upcoming credits to show you
+                    the minimum effort needed.</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Grading Schema Reference -->
+    <div class="container" style="margin-top: 4rem;">
+        <div class="calc-card">
+            <h2><i class="fa-solid fa-info-circle"></i> Standard Grading System</h2>
+            <div class="grade-table-wrapper">
+                <table class="grade-table">
+                    <thead>
+                        <tr>
+                            <th>Range of Marks</th>
+                            <th>Letter Grade</th>
+                            <th>Grade Points</th>
+                            <th>Qualitative Assessment</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>90 - 100</td>
+                            <td>S</td>
+                            <td>10</td>
+                            <td>Outstanding</td>
+                        </tr>
+                        <tr>
+                            <td>80 - 89</td>
+                            <td>A+</td>
+                            <td>09</td>
+                            <td>Excellent</td>
+                        </tr>
+                        <tr>
+                            <td>70 - 79</td>
+                            <td>A</td>
+                            <td>08</td>
+                            <td>Very Good</td>
+                        </tr>
+                        <tr>
+                            <td>60 - 69</td>
+                            <td>B+</td>
+                            <td>07</td>
+                            <td>Good</td>
+                        </tr>
+                        <tr>
+                            <td>55 - 59</td>
+                            <td>B</td>
+                            <td>06</td>
+                            <td>Above Average</td>
+                        </tr>
+                        <tr>
+                            <td>50 - 54</td>
+                            <td>C</td>
+                            <td>05</td>
+                            <td>Average</td>
+                        </tr>
+                        <tr>
+                            <td>45 - 49</td>
+                            <td>P</td>
+                            <td>04</td>
+                            <td>Pass</td>
+                        </tr>
+                        <tr>
+                            <td>
+                                < 45 (Theory, Theory with Practical)</td>
+                            <td>F</td>
+                            <td>00</td>
+                            <td>To reappear for end semester examination</td>
+                        </tr>
+                        <tr>
+                            <td>
+                                < 50 (Practical Course, Design Project, etc.)</td>
+                            <td>F</td>
+                            <td>00</td>
+                            <td>To reappear for end semester examination</td>
+                        </tr>
+                        <tr>
+                            <td>-</td>
+                            <td>F / AB</td>
+                            <td>00</td>
+                            <td>Absent for the end semester Examination</td>
+                        </tr>
+                        <tr>
+                            <td>-</td>
+                            <td>F / RA</td>
+                            <td>00</td>
+                            <td>Repeat the course due to lack of minimum attendance</td>
+                        </tr>
+                        <tr>
+                            <td>-</td>
+                            <td>F / DE</td>
+                            <td>00</td>
+                            <td>DETAINED (DE) 'RA' in all theory courses except Non Department Elective (NE) of a
+                                semester</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <p style="margin-top: 1rem; font-size: 0.9rem; color: var(--text-light);">
+                <strong>Note:</strong> Semester wise indicative percentage of marks = 10 × GPA<br>
+                Overall indicative percentage of marks = 10 × CGPA<br>
+                * RI: Absent for CIA | RA: Lack of Attendance | AB: Absent for End Sem.
+            </p>
+        </div>
+    </div>
+
+    </div>
+
+    <footer>
+        <p>&copy; Copyright GradeMate 2026. All rights reserved.</p>
+        <div class="footer-links">
+            <a href="#">Terms and Conditions</a>
+            <span class="footer-separator">•</span>
+            <a href="#">Credits</a>
+            <span class="footer-separator">•</span>
+            <a href="https://github.com" target="_blank">GitHub</a>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+
+</html>

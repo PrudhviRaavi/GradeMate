@@ -1,0 +1,822 @@
+@import url('https://fonts.googleapis.com/css2?family=Pacifico&display=swap');
+
+:root {
+    --primary-color: #1a56db;
+    --secondary-color: #1e88e5;
+    --accent-color: #0ea5e9;
+    /* Sky Blue Accent */
+    --bg-light: #f8fafc;
+    --text-dark: #1e293b;
+    --text-light: #64748b;
+    --glass-bg: rgba(255, 255, 255, 0.8);
+    --glass-border: rgba(255, 255, 255, 0.5);
+    --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.05);
+    --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+    --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+    --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    --font-heading: 'Outfit', sans-serif;
+    --font-body: 'Inter', sans-serif;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: var(--font-body);
+    background-color: var(--bg-light);
+    color: var(--text-dark);
+    line-height: 1.6;
+    overflow-x: hidden;
+    transition: background-color 0.3s ease, color 0.3s ease;
+    position: relative;
+}
+
+/* Background blob animations */
+body::before,
+body::after {
+    content: '';
+    position: fixed;
+    width: 500px;
+    height: 500px;
+    border-radius: 50%;
+    filter: blur(80px);
+    z-index: -1;
+    opacity: 0.4;
+    animation: drift 20s infinite alternate;
+}
+
+body::before {
+    background: radial-gradient(circle, #4299e1, #0d47a1);
+    top: -100px;
+    left: -100px;
+}
+
+body::after {
+    background: radial-gradient(circle, #7dd3fc, #0ea5e9);
+    bottom: -100px;
+    right: -100px;
+    animation-delay: -10s;
+}
+
+@keyframes drift {
+    0% {
+        transform: translate(0, 0) scale(1);
+    }
+
+    100% {
+        transform: translate(50px, 50px) scale(1.1);
+    }
+}
+
+/* Typography */
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    font-family: var(--font-heading);
+    font-weight: 700;
+    color: var(--primary-color);
+}
+
+a {
+    text-decoration: none;
+    color: inherit;
+    transition: all 0.3s ease;
+}
+
+/* Navbar */
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1.5rem 5%;
+    background: var(--glass-bg);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--glass-border);
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+}
+
+.logo {
+    font-family: 'Pacifico', cursive;
+    font-size: 2.2rem;
+    color: var(--primary-color);
+    /* Theme Blue */
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    gap: 0;
+    transition: var(--transition);
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.05);
+}
+
+.logo span {
+    color: #1e88e5;
+    /* Lighter Blue */
+    margin-left: -2px;
+}
+
+.logo:hover {
+    transform: scale(1.05);
+    filter: brightness(1.1);
+}
+
+.nav-links {
+    display: flex;
+    list-style: none;
+    gap: 2rem;
+    align-items: center;
+}
+
+.nav-links a {
+    font-weight: 500;
+    font-size: 1rem;
+    color: var(--text-dark);
+    position: relative;
+}
+
+.nav-links a::after {
+    content: '';
+    position: absolute;
+    width: 0;
+    height: 2px;
+    bottom: -4px;
+    left: 0;
+    background-color: var(--primary-color);
+    transition: width 0.3s ease;
+}
+
+.nav-links a.active::after {
+    width: 100%;
+}
+
+.nav-links a:hover::after {
+    width: 100%;
+}
+
+.nav-links a:hover {
+    color: var(--primary-color);
+}
+
+.nav-links a.active {
+    color: var(--primary-color);
+    font-weight: 600;
+}
+
+.nav-links a.nav-btn {
+    background: var(--primary-color);
+    color: white !important;
+    padding: 0.6rem 1.2rem;
+    border-radius: 10px;
+    font-weight: 600;
+    transition: var(--transition);
+    box-shadow: 0 4px 12px rgba(26, 86, 219, 0.2);
+}
+
+.nav-links a.nav-btn:hover {
+    background: var(--secondary-color);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 15px rgba(26, 86, 219, 0.3);
+}
+
+.nav-links a.nav-btn::after {
+    display: none;
+}
+
+/* Hero Section */
+.hero {
+    min-height: 85vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 0 5%;
+    flex-direction: column;
+}
+
+.hero-content {
+    max-width: 800px;
+    animation: fadeInUp 1s ease-out;
+}
+
+.hero-badge {
+    background: rgba(13, 71, 161, 0.1);
+    color: var(--primary-color);
+    padding: 0.5rem 1rem;
+    border-radius: 50px;
+    font-size: 0.9rem;
+    font-weight: 600;
+    margin-bottom: 1.5rem;
+    display: inline-block;
+}
+
+.hero h1 {
+    font-size: 4rem;
+    line-height: 1.1;
+    margin-bottom: 1.5rem;
+    background: linear-gradient(135deg, var(--primary-color), #1e88e5);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.hero p {
+    font-size: 1.25rem;
+    color: var(--text-light);
+    margin-bottom: 2.5rem;
+    max-width: 600px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.cta-group {
+    display: flex;
+    gap: 1.5rem;
+    justify-content: center;
+}
+
+.btn {
+    padding: 1rem 2rem;
+    border-radius: 12px;
+    font-weight: 600;
+    font-size: 1rem;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    cursor: pointer;
+    border: none;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.btn-primary {
+    background: var(--primary-color);
+    color: white;
+    box-shadow: 0 10px 20px -10px rgba(13, 71, 161, 0.5);
+}
+
+.btn-primary:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 15px 30px -10px rgba(13, 71, 161, 0.6);
+}
+
+.btn-secondary {
+    background: white;
+    color: var(--text-dark);
+    border: 1px solid #e2e8f0;
+}
+
+.btn-secondary:hover {
+    transform: translateY(-3px);
+    border-color: var(--primary-color);
+    color: var(--primary-color);
+}
+
+/* Feature Cards */
+.features {
+    padding: 5rem 10%;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 2rem;
+}
+
+.feature-card {
+    background: var(--glass-bg);
+    padding: 2.5rem;
+    border-radius: 20px;
+    border: 1px solid var(--glass-border);
+    box-shadow: var(--shadow-md);
+    transition: all 0.3s ease;
+    text-align: left;
+}
+
+.feature-card:hover {
+    transform: translateY(-10px);
+    box-shadow: var(--shadow-lg);
+    border-color: rgba(66, 153, 225, 0.3);
+}
+
+.icon-box {
+    width: 60px;
+    height: 60px;
+    background: linear-gradient(135deg, #e3f2fd 0%, #bbdefb 100%);
+    border-radius: 15px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 1.5rem;
+    color: var(--primary-color);
+    font-size: 1.5rem;
+}
+
+.feature-card h3 {
+    font-size: 1.5rem;
+    margin-bottom: 1rem;
+}
+
+.feature-card p {
+    color: var(--text-light);
+    margin-bottom: 1.5rem;
+}
+
+.link-arrow {
+    color: var(--primary-color);
+    font-weight: 600;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.link-arrow i {
+    transition: transform 0.3s ease;
+}
+
+.feature-card:hover .link-arrow i {
+    transform: translateX(5px);
+}
+
+/* Footer */
+footer {
+    text-align: center;
+    padding: 3rem 2rem;
+    color: var(--text-light);
+    font-size: 0.95rem;
+    background: white;
+    border-top: 1px solid #e2e8f0;
+}
+
+.footer-links {
+    margin-top: 1.5rem;
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+    align-items: center;
+}
+
+.footer-links a {
+    color: var(--primary-color);
+    text-decoration: underline;
+    transition: color 0.2s;
+}
+
+.footer-links a:hover {
+    color: #1a365d;
+}
+
+.footer-separator {
+    color: #cbd5e0;
+    font-size: 0.8rem;
+}
+
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Utility Wrapper */
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 2rem;
+}
+
+.page-header {
+    text-align: center;
+    margin-bottom: 3rem;
+    padding-top: 3rem;
+}
+
+.page-header h1 {
+    font-size: 3rem;
+    margin-bottom: 1rem;
+}
+
+/* Utilities Page Specifics */
+.tabs-container {
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+    margin-bottom: 2rem;
+    flex-wrap: wrap;
+}
+
+.tab-btn {
+    padding: 0.8rem 1.5rem;
+    border-radius: 50px;
+    background: white;
+    border: 1px solid #e2e8f0;
+    cursor: pointer;
+    font-weight: 600;
+    color: var(--text-light);
+    transition: all 0.3s ease;
+    box-shadow: var(--shadow-md);
+}
+
+.tab-btn.active,
+.tab-btn:hover {
+    background: var(--primary-color);
+    color: white;
+    border-color: var(--primary-color);
+    transform: translateY(-2px);
+}
+
+.calculator-section {
+    display: none;
+    animation: fadeInUp 0.5s ease-out;
+}
+
+.calculator-section.active {
+    display: block;
+}
+
+.calc-card {
+    background: var(--glass-bg);
+    padding: 2.5rem;
+    border-radius: 20px;
+    border: 1px solid var(--glass-border);
+    box-shadow: var(--shadow-lg);
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.form-group {
+    margin-bottom: 1.5rem;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 0.5rem;
+    font-weight: 600;
+    color: var(--text-dark);
+}
+
+.required {
+    color: #e53e3e;
+    margin-left: 3px;
+    font-weight: bold;
+}
+
+.form-control {
+    width: 100%;
+    padding: 0.8rem 1rem;
+    border-radius: 10px;
+    border: 1px solid #cbd5e0;
+    background: rgba(255, 255, 255, 0.9);
+    font-family: var(--font-body);
+    font-size: 1rem;
+    transition: all 0.2s;
+}
+
+.form-control:focus {
+    outline: none;
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 3px rgba(13, 71, 161, 0.1);
+}
+
+.checkbox-group {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin-top: 0.5rem;
+}
+
+.checkbox-group input {
+    width: 1.2rem;
+    height: 1.2rem;
+    cursor: pointer;
+}
+
+.result-box {
+    margin-top: 2rem;
+    padding: 1.5rem;
+    border-radius: 12px;
+    background: #ebf8ff;
+    border: 1px solid #bee3f8;
+    color: #2c5282;
+    display: none;
+}
+
+.result-box.show {
+    display: block;
+}
+
+.grade-badge {
+    display: inline-block;
+    padding: 0.5rem 1rem;
+    border-radius: 8px;
+    font-weight: 800;
+    font-size: 1.2rem;
+    background: var(--primary-color);
+    color: white;
+    margin-top: 0.5rem;
+}
+
+/* Table Styles */
+.grade-table-wrapper {
+    overflow-x: auto;
+    margin-top: 1rem;
+}
+
+.grade-table {
+    width: 100%;
+    border-collapse: collapse;
+    background: white;
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+.grade-table th,
+.grade-table td {
+    padding: 1rem;
+    text-align: left;
+    border-bottom: 1px solid #e2e8f0;
+}
+
+.grade-table th {
+    background: #f7fafc;
+    font-weight: 600;
+    color: var(--text-dark);
+}
+
+.grade-table tr:last-child td {
+    border-bottom: none;
+}
+
+.btn-delete {
+    background: #fff5f5;
+    color: #e53e3e;
+    border: 1px solid #feb2b2;
+    padding: 0.8rem;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: all 0.2s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.btn-delete:hover {
+    background: #e53e3e;
+    color: white;
+    transform: scale(1.05);
+}
+
+.row-container {
+    margin-bottom: 1rem;
+}
+
+/* Academic Reference Styles */
+.reference-section {
+    margin-top: 1.5rem;
+    padding: 1.5rem;
+    background: rgba(14, 165, 233, 0.05);
+    border-radius: 15px;
+    border: 1px solid rgba(14, 165, 233, 0.1);
+}
+
+.reference-section h3 {
+    font-size: 1.25rem;
+    margin-bottom: 1rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.logic-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 1.5rem;
+}
+
+.logic-card {
+    background: white;
+    padding: 1.2rem;
+    border-radius: 12px;
+    border: 1px solid #e2e8f0;
+}
+
+.logic-card h4 {
+    color: var(--primary-color);
+    margin-bottom: 0.5rem;
+}
+
+.formula-box {
+    margin-top: 1rem;
+    padding: 1rem;
+    background: #f8fafc;
+    border-left: 4px solid var(--accent-color);
+    font-family: 'Courier New', Courier, monospace;
+    font-weight: 600;
+    color: var(--primary-color);
+    font-size: 0.9rem;
+}
+
+.btn-sm {
+    padding: 0.6rem 1.2rem;
+    font-size: 0.85rem;
+}
+
+/* Print Styles for Export */
+@media print {
+    body * {
+        visibility: hidden;
+    }
+
+    .calculator-section.active,
+    .calculator-section.active * {
+        visibility: visible;
+    }
+
+    .calculator-section.active {
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 100%;
+        padding: 0;
+        margin: 0;
+    }
+
+    .navbar,
+    footer,
+    .tabs-container,
+    .btn,
+    .page-header,
+    .btn-delete,
+    .add-row-btn {
+        display: none !important;
+    }
+
+    .calc-card {
+        box-shadow: none;
+        border: none;
+        background: white;
+    }
+
+    .result-box {
+        display: block !important;
+        background: #f0f9ff !important;
+        border: 2px solid #0ea5e9 !important;
+    }
+}
+
+/ *   G u i d e   G r i d   a n d   C a r d s   * /     . g u i d e - g r i d    {
+                 d i s p l a y :    g r i d ;
+                 g r i d - t e m p l a t e - c o l u m n s :    r e p e a t ( a u t o - f i t ,    m i n m a x ( 3 0 0 p x ,    1 f r ) ) ;
+                 g a p :    2 r e m ;
+                 m a r g i n - b o t t o m :    3 r e m ;
+         
+}
+
+         . g u i d e - c a r d    {
+                 b a c k g r o u n d :    v a r ( - - g l a s s - b g ) ;
+                 p a d d i n g :    2 r e m ;
+                 b o r d e r - r a d i u s :    2 0 p x ;
+                 b o r d e r :    1 p x   s o l i d   v a r ( - - g l a s s - b o r d e r ) ;
+                 b o x - s h a d o w :    v a r ( - - s h a d o w - m d ) ;
+                 t r a n s i t i o n :    v a r ( - - t r a n s i t i o n ) ;
+         
+}
+
+         . g u i d e - c a r d : h o v e r    {
+                 t r a n s f o r m :    t r a n s l a t e Y ( - 5 p x ) ;
+                 b o x - s h a d o w :    v a r ( - - s h a d o w - l g ) ;
+         
+}
+
+         . g u i d e - i c o n    {
+                 w i d t h :    5 0 p x ;
+                 h e i g h t :    5 0 p x ;
+                 b a c k g r o u n d :    l i n e a r - g r a d i e n t ( 1 3 5 d e g ,    v a r ( - - p r i m a r y - c o l o r ) ,    v a r ( - - s e c o n d a r y - c o l o r ) ) ;
+                 b o r d e r - r a d i u s :    1 2 p x ;
+                 d i s p l a y :    f l e x ;
+                 a l i g n - i t e m s :    c e n t e r ;
+                 j u s t i f y - c o n t e n t :    c e n t e r ;
+                 c o l o r :    w h i t e ;
+                 f o n t - s i z e :    1 . 3 r e m ;
+                 m a r g i n - b o t t o m :    1 . 5 r e m ;
+         
+}
+
+         . g u i d e - c a r d   h 3    {
+                 f o n t - s i z e :    1 . 3 r e m ;
+                 m a r g i n - b o t t o m :    1 r e m ;
+                 c o l o r :    v a r ( - - p r i m a r y - c o l o r ) ;
+         
+}
+
+         . g u i d e - s t e p s    {
+                 l i s t - s t y l e :    n o n e ;
+                 c o u n t e r - r e s e t :    s t e p - c o u n t e r ;
+                 p a d d i n g - l e f t :    0 ;
+         
+}
+
+         . g u i d e - s t e p s   l i    {
+                 c o u n t e r - i n c r e m e n t :    s t e p - c o u n t e r ;
+                 p o s i t i o n :    r e l a t i v e ;
+                 p a d d i n g - l e f t :    2 . 5 r e m ;
+                 m a r g i n - b o t t o m :    1 r e m ;
+                 l i n e - h e i g h t :    1 . 6 ;
+                 c o l o r :    v a r ( - - t e x t - d a r k ) ;
+         
+}
+
+         . g u i d e - s t e p s   l i : : b e f o r e    {
+                 c o n t e n t :    c o u n t e r ( s t e p - c o u n t e r ) ;
+                 p o s i t i o n :    a b s o l u t e ;
+                 l e f t :    0 ;
+                 t o p :    0 ;
+                 w i d t h :    1 . 8 r e m ;
+                 h e i g h t :    1 . 8 r e m ;
+                 b a c k g r o u n d :    v a r ( - - a c c e n t - c o l o r ) ;
+                 c o l o r :    w h i t e ;
+                 b o r d e r - r a d i u s :    5 0 % ;
+                 d i s p l a y :    f l e x ;
+                 a l i g n - i t e m s :    c e n t e r ;
+                 j u s t i f y - c o n t e n t :    c e n t e r ;
+                 f o n t - w e i g h t :    7 0 0 ;
+                 f o n t - s i z e :    0 . 8 5 r e m ;
+         
+}
+
+         . g u i d e - s t e p s   l i   s t r o n g    {
+                 c o l o r :    v a r ( - - p r i m a r y - c o l o r ) ;
+         
+}
+
+         / *   F e a t u r e s   L i s t   * /     . f e a t u r e s - l i s t    {
+                 d i s p l a y :    f l e x ;
+                 f l e x - d i r e c t i o n :    c o l u m n ;
+                 g a p :    1 . 5 r e m ;
+                 m a r g i n - t o p :    2 r e m ;
+         
+}
+
+         . f e a t u r e - i t e m    {
+                 d i s p l a y :    f l e x ;
+                 g a p :    1 . 5 r e m ;
+                 a l i g n - i t e m s :    f l e x - s t a r t ;
+                 p a d d i n g :    1 . 5 r e m ;
+                 b a c k g r o u n d :    r g b a ( 2 5 5 ,    2 5 5 ,    2 5 5 ,    0 . 0 5 ) ;
+                 b o r d e r - r a d i u s :    1 2 p x ;
+                 b o r d e r :    1 p x   s o l i d   r g b a ( 2 5 5 ,    2 5 5 ,    2 5 5 ,    0 . 1 ) ;
+         
+}
+
+         . f e a t u r e - i c o n    {
+                 w i d t h :    4 5 p x ;
+                 h e i g h t :    4 5 p x ;
+                 b a c k g r o u n d :    r g b a ( 2 5 5 ,    2 5 5 ,    2 5 5 ,    0 . 1 ) ;
+                 b o r d e r - r a d i u s :    1 0 p x ;
+                 d i s p l a y :    f l e x ;
+                 a l i g n - i t e m s :    c e n t e r ;
+                 j u s t i f y - c o n t e n t :    c e n t e r ;
+                 c o l o r :    w h i t e ;
+                 f o n t - s i z e :    1 . 2 r e m ;
+                 f l e x - s h r i n k :    0 ;
+         
+}
+
+         . f e a t u r e - i t e m   h 4    {
+                 c o l o r :    w h i t e ;
+                 m a r g i n - b o t t o m :    0 . 5 r e m ;
+                 f o n t - s i z e :    1 . 1 r e m ;
+         
+}
+
+         . f e a t u r e - i t e m   p    {
+                 c o l o r :    # 9 4 a 3 b 8 ;
+                 l i n e - h e i g h t :    1 . 6 ;
+                 m a r g i n :    0 ;
+         
+}
+
+         @ m e d i a   ( m a x - w i d t h :   7 6 8 p x )    {
+                 . g u i d e - g r i d    {
+                             g r i d - t e m p l a t e - c o l u m n s :    1 f r ;
+                     
+    }
+
+                     . f e a t u r e - i t e m    {
+                             f l e x - d i r e c t i o n :    c o l u m n ;
+                             t e x t - a l i g n :    c e n t e r ;
+                     
+    }
+
+         
+}
+
+     
