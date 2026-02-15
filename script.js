@@ -7,10 +7,55 @@ function switchTab(tabId) {
     if (activeSec) activeSec.classList.add('active');
 
     const buttons = document.querySelectorAll('.tab-btn');
-    const sections = ['gradePredictor', 'cgpaPercent', 'sgpaCalc', 'cgpaCalc', 'reqSgpa', 'academicRef'];
+    const sections = ['gradePredictor', 'cgpaPercent', 'sgpaCalc', 'cgpaCalc', 'reqSgpa', 'expectedMarks'];
     const index = sections.indexOf(tabId);
     if (index >= 0 && buttons[index]) buttons[index].classList.add('active');
 }
+
+// FAQ Accordion
+function toggleFaq(element) {
+    const item = element.parentElement;
+    const answer = item.querySelector('.faq-answer');
+
+    // Toggle active class
+    item.classList.toggle('active');
+
+    // Animate height
+    if (item.classList.contains('active')) {
+        answer.style.maxHeight = answer.scrollHeight + "px";
+    } else {
+        answer.style.maxHeight = null;
+    }
+}
+
+// Contact Form Handler
+document.addEventListener('DOMContentLoaded', function () {
+    const contactForm = document.getElementById('contactForm');
+    if (contactForm) {
+        contactForm.addEventListener('submit', function (e) {
+            e.preventDefault();
+
+            const name = document.getElementById('contactName').value;
+            const email = document.getElementById('contactEmail').value;
+            const message = document.getElementById('contactMessage').value;
+
+            // Create mailto link with form data
+            const subject = encodeURIComponent(`GradeMate Contact: Message from ${name}`);
+            const body = encodeURIComponent(`Name: ${name}\nEmail: ${email}\n\nMessage:\n${message}`);
+            const mailtoLink = `mailto:raaviprudhvi1@gmail.com?subject=${subject}&body=${body}`;
+
+            // Open default email client
+            window.location.href = mailtoLink;
+
+            // Reset form
+            contactForm.reset();
+
+            // Show success message
+            alert('Your default email client will open. Please send the email to complete your message.');
+        });
+    }
+});
+
 
 function exportResults(calcId) {
     window.print();
@@ -259,14 +304,27 @@ function convertCgpa() {
 // SGPA / CGPA BASICS (Placeholders)
 // ==========================================
 // Minimal implementation for SGPA
-let sgpaCount = 1;
+// Removed global sgpaCount to allow dynamic numbering
+// Helper to renumber all rows sequentially
+function updateSgpaRowNumbers() {
+    const rows = document.querySelectorAll('#sgpaRows .row-container');
+    rows.forEach((row, index) => {
+        const input = row.querySelector('input[type="text"]');
+        // Only update if it follows the "Subject X" pattern to avoid overwriting custom names
+        if (input && (input.value.startsWith('Subject ') || input.value === '')) {
+            input.value = `Subject ${index + 1}`;
+        }
+    });
+}
+
 function addSgpaRow() {
-    sgpaCount++;
     const row = document.createElement('div');
     row.className = 'form-group row-container';
     row.style = 'display:flex; gap:1rem; align-items:center; animation:fadeInUp 0.3s;';
+
+    // Create inner HTML
     row.innerHTML = `
-        <input type="text" class="form-control" value="Subject ${sgpaCount}" placeholder="Subject Name">
+        <input type="text" class="form-control" placeholder="Subject Name">
         <input type="number" class="form-control credit-input" placeholder="Credits" style="width:100px;">
         <select class="form-control grade-input" style="width:120px;">
             <option value="10">S</option>
@@ -278,11 +336,19 @@ function addSgpaRow() {
             <option value="4">P</option>
             <option value="0">F</option>
         </select>
-        <button class="btn-delete" onclick="this.parentElement.remove()" title="Delete Row">
+        <button class="btn-delete" title="Delete Row">
             <i class="fa-solid fa-trash"></i>
         </button>
     `;
+
+    // Add delete functionality with renumbering
+    row.querySelector('.btn-delete').onclick = function () {
+        row.remove();
+        updateSgpaRowNumbers();
+    };
+
     document.getElementById('sgpaRows').appendChild(row);
+    updateSgpaRowNumbers(); // Renumber immediately to set the new row's name
 }
 
 function calculateSgpa() {
@@ -445,6 +511,84 @@ function calculateRequiredSGPA() {
 // ==========================================
 // LOCAL STORAGE PERSISTENCE
 // ==========================================
+
+// ... EXPECTED MARKS CALCULATOR ...
+function calculateExpectedMarks() {
+    const internals = parseFloat(document.getElementById('expInternalMarks').value);
+    const resultBox = document.getElementById('expectedMarksResult');
+    const errorMsg = document.getElementById('expErrorMsg');
+
+    // Reset UI
+    resultBox.style.display = 'none';
+    if (errorMsg) {
+        errorMsg.style.visibility = 'hidden';
+        errorMsg.style.color = 'var(--text-light)'; // Reset color
+        errorMsg.innerHTML = '<i class="fa-solid fa-circle-exclamation"></i> Please enter a valid number between 0 and 50. Negative values and characters are not allowed.';
+    }
+
+    // Validation
+    if (isNaN(internals) || internals < 0 || internals > 50) {
+        if (errorMsg) {
+            errorMsg.style.visibility = 'visible';
+            errorMsg.style.color = '#e53e3e'; // Red color for error
+            if (isNaN(internals)) errorMsg.innerHTML = '<i class="fa-solid fa-circle-exclamation"></i> Please enter a valid number.';
+            else if (internals < 0) errorMsg.innerHTML = '<i class="fa-solid fa-circle-exclamation"></i> Negative marks are not allowed.';
+            else if (internals > 50) errorMsg.innerHTML = '<i class="fa-solid fa-circle-exclamation"></i> Internal marks cannot exceed 50.';
+        }
+        return;
+    }
+
+    // Thresholds
+    const grades = [
+        { label: 'S', minTotal: 90 },
+        { label: 'A+', minTotal: 80 },
+        { label: 'A', minTotal: 70 },
+        { label: 'B+', minTotal: 60 },
+        { label: 'B', minTotal: 55 },
+        { label: 'C', minTotal: 50 },
+        { label: 'P', minTotal: 45 }
+    ];
+
+    let tableRows = '';
+
+    grades.forEach(grade => {
+        // Formula: Total = Internals + (Externals/2)
+        // Externals = (Total - Internals) * 2
+        let requiredExt = (grade.minTotal - internals) * 2;
+        let extDisplay = '';
+
+        if (requiredExt > 100) {
+            extDisplay = '<span style="color: #ef4444; font-weight:600;">NA</span>'; // Not Possible
+        } else if (requiredExt <= 0) {
+            extDisplay = '<span style="color: #22c55e; font-weight:600;">0</span>'; // Already Achieved
+        } else {
+            extDisplay = `<strong>${Math.ceil(requiredExt)}</strong>`;
+        }
+
+        tableRows += `
+            <tr>
+                <td style="padding: 12px; border-bottom: 1px solid #eee;">${grade.label}</td>
+                <td style="padding: 12px; border-bottom: 1px solid #eee;">${extDisplay}</td>
+            </tr>
+        `;
+    });
+
+    resultBox.innerHTML = `
+        <table style="width:100%; border-collapse: collapse; text-align: center;">
+            <thead>
+                <tr style="background: #f8fafc;">
+                    <th style="padding: 12px; border-bottom: 2px solid #e2e8f0; color: var(--primary-color);">Grade</th>
+                    <th style="padding: 12px; border-bottom: 2px solid #e2e8f0; color: var(--primary-color);">Required External (100)</th>
+                </tr>
+            </thead>
+            <tbody>
+                ${tableRows}
+            </tbody>
+        </table>
+    `;
+    resultBox.style.display = 'block';
+}
+
 function saveInputs() {
     const data = {
         internalMarks: document.getElementById('internalMarks').value,

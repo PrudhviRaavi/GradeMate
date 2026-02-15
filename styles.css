@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Pacifico&display=swap');
+﻿@import url('https://fonts.googleapis.com/css2?family=Pacifico&display=swap');
 
 :root {
     --primary-color: #1a56db;
@@ -24,6 +24,10 @@
     box-sizing: border-box;
 }
 
+html {
+    scroll-behavior: smooth;
+}
+
 body {
     font-family: var(--font-body);
     background-color: var(--bg-light);
@@ -32,6 +36,19 @@ body {
     overflow-x: hidden;
     transition: background-color 0.3s ease, color 0.3s ease;
     position: relative;
+    animation: fadeIn 0.4s ease-out;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(5px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
 }
 
 /* Background blob animations */
@@ -672,151 +689,303 @@ footer {
     }
 }
 
-/ *   G u i d e   G r i d   a n d   C a r d s   * /     . g u i d e - g r i d    {
-                 d i s p l a y :    g r i d ;
-                 g r i d - t e m p l a t e - c o l u m n s :    r e p e a t ( a u t o - f i t ,    m i n m a x ( 3 0 0 p x ,    1 f r ) ) ;
-                 g a p :    2 r e m ;
-                 m a r g i n - b o t t o m :    3 r e m ;
-         
+
+/* Guide Grid and Cards */
+.guide-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 2rem;
+    margin-bottom: 3rem;
 }
 
-         . g u i d e - c a r d    {
-                 b a c k g r o u n d :    v a r ( - - g l a s s - b g ) ;
-                 p a d d i n g :    2 r e m ;
-                 b o r d e r - r a d i u s :    2 0 p x ;
-                 b o r d e r :    1 p x   s o l i d   v a r ( - - g l a s s - b o r d e r ) ;
-                 b o x - s h a d o w :    v a r ( - - s h a d o w - m d ) ;
-                 t r a n s i t i o n :    v a r ( - - t r a n s i t i o n ) ;
-         
+.guide-card {
+    background: var(--glass-bg);
+    padding: 2rem;
+    border-radius: 20px;
+    border: 1px solid var(--glass-border);
+    box-shadow: var(--shadow-md);
+    transition: var(--transition);
 }
 
-         . g u i d e - c a r d : h o v e r    {
-                 t r a n s f o r m :    t r a n s l a t e Y ( - 5 p x ) ;
-                 b o x - s h a d o w :    v a r ( - - s h a d o w - l g ) ;
-         
+.guide-card:hover {
+    transform: translateY(-5px);
+    box-shadow: var(--shadow-lg);
 }
 
-         . g u i d e - i c o n    {
-                 w i d t h :    5 0 p x ;
-                 h e i g h t :    5 0 p x ;
-                 b a c k g r o u n d :    l i n e a r - g r a d i e n t ( 1 3 5 d e g ,    v a r ( - - p r i m a r y - c o l o r ) ,    v a r ( - - s e c o n d a r y - c o l o r ) ) ;
-                 b o r d e r - r a d i u s :    1 2 p x ;
-                 d i s p l a y :    f l e x ;
-                 a l i g n - i t e m s :    c e n t e r ;
-                 j u s t i f y - c o n t e n t :    c e n t e r ;
-                 c o l o r :    w h i t e ;
-                 f o n t - s i z e :    1 . 3 r e m ;
-                 m a r g i n - b o t t o m :    1 . 5 r e m ;
-         
+.guide-icon {
+    width: 50px;
+    height: 50px;
+    background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-size: 1.3rem;
+    margin-bottom: 1.5rem;
 }
 
-         . g u i d e - c a r d   h 3    {
-                 f o n t - s i z e :    1 . 3 r e m ;
-                 m a r g i n - b o t t o m :    1 r e m ;
-                 c o l o r :    v a r ( - - p r i m a r y - c o l o r ) ;
-         
+.guide-card h3 {
+    font-size: 1.3rem;
+    margin-bottom: 1rem;
+    color: var(--primary-color);
 }
 
-         . g u i d e - s t e p s    {
-                 l i s t - s t y l e :    n o n e ;
-                 c o u n t e r - r e s e t :    s t e p - c o u n t e r ;
-                 p a d d i n g - l e f t :    0 ;
-         
+.guide-steps {
+    list-style: none;
+    counter-reset: step-counter;
+    padding-left: 0;
 }
 
-         . g u i d e - s t e p s   l i    {
-                 c o u n t e r - i n c r e m e n t :    s t e p - c o u n t e r ;
-                 p o s i t i o n :    r e l a t i v e ;
-                 p a d d i n g - l e f t :    2 . 5 r e m ;
-                 m a r g i n - b o t t o m :    1 r e m ;
-                 l i n e - h e i g h t :    1 . 6 ;
-                 c o l o r :    v a r ( - - t e x t - d a r k ) ;
-         
+.guide-steps li {
+    counter-increment: step-counter;
+    position: relative;
+    padding-left: 2.5rem;
+    margin-bottom: 1rem;
+    line-height: 1.6;
+    color: var(--text-dark);
 }
 
-         . g u i d e - s t e p s   l i : : b e f o r e    {
-                 c o n t e n t :    c o u n t e r ( s t e p - c o u n t e r ) ;
-                 p o s i t i o n :    a b s o l u t e ;
-                 l e f t :    0 ;
-                 t o p :    0 ;
-                 w i d t h :    1 . 8 r e m ;
-                 h e i g h t :    1 . 8 r e m ;
-                 b a c k g r o u n d :    v a r ( - - a c c e n t - c o l o r ) ;
-                 c o l o r :    w h i t e ;
-                 b o r d e r - r a d i u s :    5 0 % ;
-                 d i s p l a y :    f l e x ;
-                 a l i g n - i t e m s :    c e n t e r ;
-                 j u s t i f y - c o n t e n t :    c e n t e r ;
-                 f o n t - w e i g h t :    7 0 0 ;
-                 f o n t - s i z e :    0 . 8 5 r e m ;
-         
+.guide-steps li::before {
+    content: counter(step-counter);
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 1.8rem;
+    height: 1.8rem;
+    background: var(--accent-color);
+    color: white;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+    font-size: 0.85rem;
 }
 
-         . g u i d e - s t e p s   l i   s t r o n g    {
-                 c o l o r :    v a r ( - - p r i m a r y - c o l o r ) ;
-         
+.guide-steps li strong {
+    color: var(--primary-color);
 }
 
-         / *   F e a t u r e s   L i s t   * /     . f e a t u r e s - l i s t    {
-                 d i s p l a y :    f l e x ;
-                 f l e x - d i r e c t i o n :    c o l u m n ;
-                 g a p :    1 . 5 r e m ;
-                 m a r g i n - t o p :    2 r e m ;
-         
+/* Features List */
+.features-list {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    margin-top: 2rem;
 }
 
-         . f e a t u r e - i t e m    {
-                 d i s p l a y :    f l e x ;
-                 g a p :    1 . 5 r e m ;
-                 a l i g n - i t e m s :    f l e x - s t a r t ;
-                 p a d d i n g :    1 . 5 r e m ;
-                 b a c k g r o u n d :    r g b a ( 2 5 5 ,    2 5 5 ,    2 5 5 ,    0 . 0 5 ) ;
-                 b o r d e r - r a d i u s :    1 2 p x ;
-                 b o r d e r :    1 p x   s o l i d   r g b a ( 2 5 5 ,    2 5 5 ,    2 5 5 ,    0 . 1 ) ;
-         
+.feature-item {
+    display: flex;
+    gap: 1.5rem;
+    align-items: flex-start;
+    padding: 1.5rem;
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 12px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
 }
 
-         . f e a t u r e - i c o n    {
-                 w i d t h :    4 5 p x ;
-                 h e i g h t :    4 5 p x ;
-                 b a c k g r o u n d :    r g b a ( 2 5 5 ,    2 5 5 ,    2 5 5 ,    0 . 1 ) ;
-                 b o r d e r - r a d i u s :    1 0 p x ;
-                 d i s p l a y :    f l e x ;
-                 a l i g n - i t e m s :    c e n t e r ;
-                 j u s t i f y - c o n t e n t :    c e n t e r ;
-                 c o l o r :    w h i t e ;
-                 f o n t - s i z e :    1 . 2 r e m ;
-                 f l e x - s h r i n k :    0 ;
-         
+.feature-icon {
+    width: 45px;
+    height: 45px;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-size: 1.2rem;
+    flex-shrink: 0;
 }
 
-         . f e a t u r e - i t e m   h 4    {
-                 c o l o r :    w h i t e ;
-                 m a r g i n - b o t t o m :    0 . 5 r e m ;
-                 f o n t - s i z e :    1 . 1 r e m ;
-         
+
+.feature-item h4 {
+    color: white;
+    margin-bottom: 0.5rem;
+    font-size: 1.1rem;
 }
 
-         . f e a t u r e - i t e m   p    {
-                 c o l o r :    # 9 4 a 3 b 8 ;
-                 l i n e - h e i g h t :    1 . 6 ;
-                 m a r g i n :    0 ;
-         
+.feature-item p {
+    color: #94a3b8;
+    line-height: 1.6;
+    margin: 0;
 }
 
-         @ m e d i a   ( m a x - w i d t h :   7 6 8 p x )    {
-                 . g u i d e - g r i d    {
-                             g r i d - t e m p l a t e - c o l u m n s :    1 f r ;
-                     
+/* FAQ Accordion Styles */
+.faq-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    margin-top: 1.5rem;
+}
+
+.faq-item {
+    background: white;
+    border: 1px solid #e2e8f0;
+    border-radius: 12px;
+    overflow: hidden;
+    transition: all 0.3s ease;
+}
+
+.faq-item:hover {
+    border-color: var(--accent-color);
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+}
+
+.faq-question {
+    padding: 1.2rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    cursor: pointer;
+    font-weight: 600;
+    color: var(--primary-color);
+    background: white;
+    transition: background-color 0.2s ease;
+}
+
+.faq-question:hover {
+    background: #f8fafc;
+}
+
+.faq-question i {
+    transition: transform 0.3s ease;
+    color: var(--text-light);
+}
+
+.faq-item.active .faq-question i {
+    transform: rotate(180deg);
+    color: var(--accent-color);
+}
+
+.faq-item.active .faq-question {
+    color: var(--accent-color);
+    background: #f0f9ff;
+}
+
+.faq-answer {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.3s ease-out;
+    background: white;
+}
+
+.faq-answer p {
+    padding: 1.2rem;
+    padding-top: 0;
+    margin: 0;
+    color: var(--text-dark);
+    line-height: 1.6;
+    font-size: 0.95rem;
+    border-top: 1px solid transparent;
+}
+
+.faq-item.active .faq-answer p {
+    border-top-color: #f1f5f9;
+}
+
+
+@media (max-width: 768px) {
+    .guide-grid {
+        grid-template-columns: 1fr;
     }
 
-                     . f e a t u r e - i t e m    {
-                             f l e x - d i r e c t i o n :    c o l u m n ;
-                             t e x t - a l i g n :    c e n t e r ;
-                     
+    .feature-item {
+        flex-direction: column;
+        text-align: center;
     }
 
-         
+    /* Contact Form Responsive */
+    #contactForm {
+        grid-template-columns: 1fr !important;
+    }
 }
 
-     
+/* Testimonials Carousel */
+.testimonials-section {
+    padding: 2rem 0 4rem 0;
+    overflow: hidden;
+    background: linear-gradient(to bottom, transparent, rgba(14, 165, 233, 0.05));
+}
+
+.testimonials-container {
+    width: 100%;
+    overflow: hidden;
+    position: relative;
+}
+
+.testimonials-track {
+    display: flex;
+    gap: 2rem;
+    width: max-content;
+    animation: scroll 30s linear infinite;
+    padding: 1rem 0;
+}
+
+.testimonials-track:hover {
+    animation-play-state: paused;
+}
+
+@keyframes scroll {
+    0% {
+        transform: translateX(0);
+    }
+
+    100% {
+        transform: translateX(-50%);
+    }
+}
+
+.review-card {
+    background: white;
+    padding: 1.5rem;
+    border-radius: 16px;
+    border: 1px solid #e2e8f0;
+    width: 320px;
+    flex-shrink: 0;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+    transition: transform 0.3s ease;
+}
+
+.review-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+    border-color: var(--accent-color);
+}
+
+.user-profile {
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;
+    margin-bottom: 1rem;
+}
+
+.user-img {
+    width: 45px;
+    height: 45px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-size: 1.2rem;
+}
+
+.user-profile h4 {
+    margin: 0;
+    font-size: 1rem;
+    color: var(--text-dark);
+}
+
+.stars {
+    font-size: 0.8rem;
+    color: #fbbf24;
+}
+
+.review-card p {
+    margin: 0;
+    font-size: 0.95rem;
+    color: var(--text-light);
+    line-height: 1.5;
+    font-style: italic;
+}

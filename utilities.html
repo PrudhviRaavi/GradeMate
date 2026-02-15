@@ -20,8 +20,12 @@
         </div>
         <ul class="nav-links">
             <li><a href="index.html">Home</a></li>
+            <li><a href="how_to_use.html">How to Use</a></li>
             <li><a href="utilities.html" class="active">Utilities</a></li>
             <li><a href="useful_links.html">Quick Links</a></li>
+            <li><a href="https://forms.gle/csWWxGzdpwwfShxr9" target="_blank">Feedback</a></li>
+            <li><a href="https://www.linkedin.com/in/prudhvi-krishna-raavi-64484a315" target="_blank"
+                    class="nav-btn">About Developer</a></li>
         </ul>
     </nav>
 
@@ -38,9 +42,8 @@
             <button class="tab-btn" onclick="switchTab('sgpaCalc')">SGPA Calculator</button>
             <button class="tab-btn" onclick="switchTab('cgpaCalc')">CGPA Calculator</button>
             <button class="tab-btn" onclick="switchTab('reqSgpa')">Required SGPA</button>
-            <button class="tab-btn" onclick="switchTab('academicRef')"
-                style="background: var(--accent-color); color: white; border-color: var(--accent-color);">Academic
-                Reference</button>
+            <button class="tab-btn" onclick="switchTab('expectedMarks')">Expected Marks</button>
+
         </div>
 
         <!-- Grade Predictor Section -->
@@ -132,7 +135,7 @@
             <div id="sgpaRows">
                 <!-- Rows will be added dynamically -->
                 <div class="form-group row-container" style="display:flex; gap:1rem; align-items:center;">
-                    <input type="text" class="form-control" placeholder="Subject Name">
+                    <input type="text" class="form-control" value="Subject 1" placeholder="Subject Name">
                     <input type="number" class="form-control credit-input" placeholder="Credits" style="width:100px;">
                     <select class="form-control grade-input" style="width:120px;">
                         <option value="10">S</option>
@@ -144,7 +147,8 @@
                         <option value="4">P</option>
                         <option value="0">F</option>
                     </select>
-                    <button class="btn-delete" onclick="this.parentElement.remove()" title="Delete Row">
+                    <button class="btn-delete" onclick="this.parentElement.remove(); updateSgpaRowNumbers()"
+                        title="Delete Row">
                         <i class="fa-solid fa-trash"></i>
                     </button>
                 </div>
@@ -228,45 +232,34 @@
             </div>
         </div>
     </div>
-    </div>
 
-    <!-- Academic Reference Section -->
-    <div id="academicRef" class="calculator-section">
+    <!-- Expected Marks Section -->
+    <div id="expectedMarks" class="calculator-section">
         <div class="calc-card">
-            <h2><i class="fa-solid fa-book-open"></i> Academic Reference</h2>
-            <p>Understanding the logic and standards behind the calculations.</p>
+            <h2><i class="fa-solid fa-graduation-cap"></i> Expected Marks</h2>
+            <p>Know exactly what you need to score in End Semesters to get your desired grade.</p>
 
-            <div class="reference-section">
-                <h3><i class="fa-solid fa-calculator"></i> The Math Explained</h3>
-                <div class="logic-grid">
-                    <div class="logic-card">
-                        <h4>SGPA Formula</h4>
-                        <p>Weighted average of grade points earned in a semester.</p>
-                        <div class="formula-box">
-                            SGPA = Σ(Credits × Grade Points) / Σ(Total Credits)
-                        </div>
-                    </div>
-                    <div class="logic-card">
-                        <h4>CGPA Formula</h4>
-                        <p>Weighted average of SGPA over all completed semesters.</p>
-                        <div class="formula-box">
-                            CGPA = Σ(SGPA × Sem Credits) / Σ(Total Credits)
-                        </div>
-                    </div>
-                </div>
+            <div class="form-group">
+                <label>Internal Marks (Max 50) <span class="required">*</span></label>
+                <input type="number" id="expInternalMarks" class="form-control" placeholder="Enter marks out of 50"
+                    min="0" max="50">
+                <p style="font-size: 0.85rem; color: var(--text-light); margin-top: 0.5rem;" id="expErrorMsg">
+                    <i class="fa-solid fa-circle-exclamation"></i> Please enter a valid number between 0 and 50.
+                    Negative values and characters are not allowed.
+                </p>
             </div>
 
-            <div class="reference-section" style="margin-top: 2rem;">
-                <h3><i class="fa-solid fa-circle-question"></i> FAQ: How it Works</h3>
-                <p style="font-size: 0.95rem; margin-bottom: 0.5rem;"><strong>Weighted Average:</strong> Unlike a simple
-                    average, we multiply your grade points by the "credits" of the subject. This means a 4-credit
-                    subject affects your GPA twice as much as a 2-credit subject.</p>
-                <p style="font-size: 0.95rem;"><strong>Required SGPA:</strong> This tool calculates the exact points gap
-                    between your current standing and your goal, then divides it by your upcoming credits to show you
-                    the minimum effort needed.</p>
+            <button class="btn btn-primary" onclick="calculateExpectedMarks()">Calculate Expected Marks</button>
+
+            <div id="expectedMarksResult" class="result-box" style="display:none; margin-top: 1.5rem;">
+                <!-- Table will be injected here -->
             </div>
         </div>
     </div>
+    </div>
+
+    <!-- Academic Reference Section -->
+
 
     <!-- Grading Schema Reference -->
     <div class="container" style="margin-top: 4rem;">
@@ -374,11 +367,14 @@
     <footer>
         <p>&copy; Copyright GradeMate 2026. All rights reserved.</p>
         <div class="footer-links">
-            <a href="#">Terms and Conditions</a>
+            <a href="disclaimer.html">Disclaimer</a>
             <span class="footer-separator">•</span>
-            <a href="#">Credits</a>
+            <a href="terms.html">Terms and Conditions</a>
             <span class="footer-separator">•</span>
-            <a href="https://github.com" target="_blank">GitHub</a>
+            <a href="credits.html">Credits</a>
+            <span class="footer-separator">•</span>
+            <a href="https://github.com/PrudhviRaavi/GradeMate" target="_blank" title="GitHub"><i
+                    class="fa-brands fa-github" style="font-size: 1.2rem;"></i></a>
         </div>
     </footer>
 
