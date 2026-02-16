@@ -37,17 +37,79 @@
     <div class="container">
         <!-- Tabs -->
         <div class="tabs-container">
-            <button class="tab-btn active" onclick="switchTab('gradePredictor')">Grade Predictor</button>
-            <button class="tab-btn" onclick="switchTab('cgpaPercent')">CGPA to %</button>
-            <button class="tab-btn" onclick="switchTab('sgpaCalc')">SGPA Calculator</button>
+            <button class="tab-btn active" onclick="switchTab('sgpaCalc')">SGPA Calculator</button>
             <button class="tab-btn" onclick="switchTab('cgpaCalc')">CGPA Calculator</button>
-            <button class="tab-btn" onclick="switchTab('reqSgpa')">Required SGPA</button>
+            <button class="tab-btn" onclick="switchTab('gradePredictor')">Grade Predictor</button>
             <button class="tab-btn" onclick="switchTab('expectedMarks')">Expected Marks</button>
+            <button class="tab-btn" onclick="switchTab('reqSgpa')">Required SGPA</button>
+            <button class="tab-btn" onclick="switchTab('cgpaPercent')">CGPA to %</button>
+        </div>
 
+        <!-- SGPA Calculator Section -->
+        <div id="sgpaCalc" class="calculator-section active">
+            <div class="calc-card">
+                <h2><i class="fa-solid fa-calculator"></i> SGPA Calculator</h2>
+                <div id="sgpaRows">
+                    <!-- Rows will be added dynamically -->
+                    <div class="form-group row-container" style="display:flex; gap:1rem; align-items:center;">
+                        <input type="text" class="form-control" value="Subject 1" placeholder="Subject Name">
+                        <input type="number" class="form-control credit-input" placeholder="Credits"
+                            style="width:100px;">
+                        <select class="form-control grade-input" style="width:120px;">
+                            <option value="10">S</option>
+                            <option value="9">A+</option>
+                            <option value="8">A</option>
+                            <option value="7">B+</option>
+                            <option value="6">B</option>
+                            <option value="5">C</option>
+                            <option value="4">P</option>
+                            <option value="0">F</option>
+                        </select>
+                        <button class="btn-delete" onclick="this.parentElement.remove(); updateSgpaRowNumbers()"
+                            title="Delete Row">
+                            <i class="fa-solid fa-trash"></i>
+                        </button>
+                    </div>
+                </div>
+                <button class="btn btn-secondary" onclick="addSgpaRow()">+ Add Subject</button>
+                <button class="btn btn-primary" onclick="calculateSgpa()">Calculate SGPA</button>
+                <div id="sgpaCalcResult" class="result-box"></div>
+                <button class="btn btn-secondary btn-sm" style="margin-top: 1rem; width: 100%; display: none;"
+                    id="exportSgpa" onclick="exportResults('sgpaCalc')">
+                    <i class="fa-solid fa-file-export"></i> Export Report
+                </button>
+            </div>
+        </div>
+
+        <!-- CGPA Calculator Section -->
+        <div id="cgpaCalc" class="calculator-section">
+            <div class="calc-card">
+                <h2><i class="fa-solid fa-layer-group"></i> CGPA Calculator</h2>
+                <p>Calculate your Cumulative GPA from previous semesters.</p>
+                <div id="cgpaRows">
+                    <div class="form-group row-container" style="display:flex; gap:1rem; align-items:center;">
+                        <label style="flex:1">Semester 1 SGPA: <input type="number" class="form-control sgpa-val"
+                                placeholder="SGPA"></label>
+                        <label style="flex:1">Credits: <input type="number" class="form-control sem-credit"
+                                placeholder="Credits"></label>
+                        <button class="btn-delete" onclick="this.parentElement.remove()" title="Delete Row"
+                            style="margin-top: 1.5rem;">
+                            <i class="fa-solid fa-trash"></i>
+                        </button>
+                    </div>
+                </div>
+                <button class="btn btn-secondary" onclick="addCgpaRow()">+ Add Semester</button>
+                <button class="btn btn-primary" onclick="calculateCgpa()">Calculate CGPA</button>
+                <div id="cgpaCalcResult" class="result-box"></div>
+                <button class="btn btn-secondary btn-sm" style="margin-top: 1rem; width: 100%; display: none;"
+                    id="exportCgpaCalc" onclick="exportResults('cgpaCalc')">
+                    <i class="fa-solid fa-file-export"></i> Export Report
+                </button>
+            </div>
         </div>
 
         <!-- Grade Predictor Section -->
-        <div id="gradePredictor" class="calculator-section active">
+        <div id="gradePredictor" class="calculator-section">
             <div class="calc-card">
                 <h2><i class="fa-solid fa-chart-pie"></i> Grade Predictor</h2>
                 <p>Estimate your grade based on Internals and End Sem marks.</p>
@@ -105,157 +167,93 @@
                     id="exportGrade" onclick="exportResults('gradePredictor')">
                     <i class="fa-solid fa-file-export"></i> Export Report
                 </button>
-                <!-- Result will show here -->
             </div>
         </div>
-    </div>
 
-    <!-- CGPA to Percentage Section -->
-    <div id="cgpaPercent" class="calculator-section">
-        <div class="calc-card">
-            <h2><i class="fa-solid fa-percent"></i> CGPA to Percentage</h2>
-            <div class="form-group">
-                <label>Enter CGPA <span class="required">*</span></label>
-                <input type="number" id="cgpaInput" class="form-control" step="0.01" placeholder="e.g. 8.5" min="0"
-                    max="10">
-            </div>
-            <button class="btn btn-primary" onclick="convertCgpa()">Convert</button>
-            <div id="cgpaPercentResult" class="result-box"></div>
-            <button class="btn btn-secondary btn-sm" style="margin-top: 1rem; width: 100%; display: none;"
-                id="exportCgpa" onclick="exportResults('cgpaPercent')">
-                <i class="fa-solid fa-file-export"></i> Export Report
-            </button>
-        </div>
-    </div>
+        <!-- Expected Marks Section -->
+        <div id="expectedMarks" class="calculator-section">
+            <div class="calc-card">
+                <h2><i class="fa-solid fa-graduation-cap"></i> Expected Marks</h2>
+                <p>Know exactly what you need to score in End Semesters to get your desired grade.</p>
 
-    <!-- SGPA Calculator Section (Placeholder) -->
-    <div id="sgpaCalc" class="calculator-section">
-        <div class="calc-card">
-            <h2><i class="fa-solid fa-calculator"></i> SGPA Calculator</h2>
-            <div id="sgpaRows">
-                <!-- Rows will be added dynamically -->
-                <div class="form-group row-container" style="display:flex; gap:1rem; align-items:center;">
-                    <input type="text" class="form-control" value="Subject 1" placeholder="Subject Name">
-                    <input type="number" class="form-control credit-input" placeholder="Credits" style="width:100px;">
-                    <select class="form-control grade-input" style="width:120px;">
-                        <option value="10">S</option>
-                        <option value="9">A+</option>
-                        <option value="8">A</option>
-                        <option value="7">B+</option>
-                        <option value="6">B</option>
-                        <option value="5">C</option>
-                        <option value="4">P</option>
-                        <option value="0">F</option>
-                    </select>
-                    <button class="btn-delete" onclick="this.parentElement.remove(); updateSgpaRowNumbers()"
-                        title="Delete Row">
-                        <i class="fa-solid fa-trash"></i>
-                    </button>
+                <div class="form-group">
+                    <label>Internal Marks (Max 50) <span class="required">*</span></label>
+                    <input type="number" id="expInternalMarks" class="form-control" placeholder="Enter marks out of 50"
+                        min="0" max="50">
+                    <p style="font-size: 0.85rem; color: var(--text-light); margin-top: 0.5rem;" id="expErrorMsg">
+                        <i class="fa-solid fa-circle-exclamation"></i> Please enter a valid number between 0 and 50.
+                        Negative values and characters are not allowed.
+                    </p>
+                </div>
+
+                <button class="btn btn-primary" onclick="calculateExpectedMarks()">Calculate Expected Marks</button>
+
+                <div id="expectedMarksResult" class="result-box" style="display:none; margin-top: 1.5rem;">
+                    <!-- Table will be injected here -->
                 </div>
             </div>
-            <button class="btn btn-secondary" onclick="addSgpaRow()">+ Add Subject</button>
-            <button class="btn btn-primary" onclick="calculateSgpa()">Calculate SGPA</button>
-            <div id="sgpaCalcResult" class="result-box"></div>
-            <button class="btn btn-secondary btn-sm" style="margin-top: 1rem; width: 100%; display: none;"
-                id="exportSgpa" onclick="exportResults('sgpaCalc')">
-                <i class="fa-solid fa-file-export"></i> Export Report
-            </button>
         </div>
-    </div>
 
-    <!-- CGPA Calculator Section -->
-    <div id="cgpaCalc" class="calculator-section">
-        <div class="calc-card">
-            <h2><i class="fa-solid fa-layer-group"></i> CGPA Calculator</h2>
-            <p>Calculate your Cumulative GPA from previous semesters.</p>
-            <div id="cgpaRows">
-                <div class="form-group row-container" style="display:flex; gap:1rem; align-items:center;">
-                    <label style="flex:1">Semester 1 SGPA: <input type="number" class="form-control sgpa-val"
-                            placeholder="SGPA"></label>
-                    <label style="flex:1">Credits: <input type="number" class="form-control sem-credit"
-                            placeholder="Credits"></label>
-                    <button class="btn-delete" onclick="this.parentElement.remove()" title="Delete Row"
-                        style="margin-top: 1.5rem;">
-                        <i class="fa-solid fa-trash"></i>
-                    </button>
+        <!-- Required SGPA Section -->
+        <div id="reqSgpa" class="calculator-section">
+            <div class="calc-card">
+                <h2><i class="fa-solid fa-bullseye"></i> Required SGPA</h2>
+                <p>Calculate what SGPA you need in the next semester to reach your target CGPA.</p>
+                <div class="form-group">
+                    <label>Current CGPA <span class="required">*</span></label>
+                    <input type="number" id="curCgpa" class="form-control" step="0.01" placeholder="e.g. 7.5" min="0"
+                        max="10">
+                </div>
+                <div class="form-group">
+                    <label>Total Credits Earned <span class="required">*</span></label>
+                    <input type="number" id="curTotalCredits" class="form-control" placeholder="e.g. 80" min="0">
+                </div>
+                <div class="form-group">
+                    <label>Target CGPA <span class="required">*</span></label>
+                    <input type="number" id="targetCgpa" class="form-control" step="0.01" placeholder="e.g. 8.0" min="0"
+                        max="10">
+                </div>
+                <div class="form-group">
+                    <label>Next Semester Credits <span class="required">*</span></label>
+                    <input type="number" id="nextSemCredits" class="form-control" placeholder="e.g. 20" min="1">
+                </div>
+                <button class="btn btn-primary" onclick="calculateRequiredSGPA()">Calculate Target SGPA</button>
+                <div id="reqSgpaResult" class="result-box"></div>
+                <button class="btn btn-secondary btn-sm" style="margin-top: 1rem; width: 100%; display: none;"
+                    id="exportReq" onclick="exportResults('reqSgpa')">
+                    <i class="fa-solid fa-file-export"></i> Export Report
+                </button>
+
+                <div class="info-note"
+                    style="margin-top: 1.5rem; font-size: 0.85rem; color: var(--text-light); line-height: 1.4;">
+                    <p><strong><i class="fa-solid fa-info-circle"></i> How it works:</strong></p>
+                    <p>1. <strong>Current CGPA:</strong> Your cumulative GPA as shown on your latest grade sheet.</p>
+                    <p>2. <strong>Total Credits Earned:</strong> Sum of credits for all courses you have completed so
+                        far.</p>
+                    <p>3. <strong>Target CGPA:</strong> The CGPA you want to have after the next semester.</p>
+                    <p>4. <strong>Next Sem Credits:</strong> Total credits of the subjects you are taking in the
+                        upcoming semester.</p>
                 </div>
             </div>
-            <button class="btn btn-secondary" onclick="addCgpaRow()">+ Add Semester</button>
-            <button class="btn btn-primary" onclick="calculateCgpa()">Calculate CGPA</button>
-            <div id="cgpaCalcResult" class="result-box"></div>
-            <button class="btn btn-secondary btn-sm" style="margin-top: 1rem; width: 100%; display: none;"
-                id="exportCgpaCalc" onclick="exportResults('cgpaCalc')">
-                <i class="fa-solid fa-file-export"></i> Export Report
-            </button>
         </div>
-    </div>
 
-    <!-- Required SGPA Section -->
-    <div id="reqSgpa" class="calculator-section">
-        <div class="calc-card">
-            <h2><i class="fa-solid fa-bullseye"></i> Required SGPA</h2>
-            <p>Calculate what SGPA you need in the next semester to reach your target CGPA.</p>
-            <div class="form-group">
-                <label>Current CGPA <span class="required">*</span></label>
-                <input type="number" id="curCgpa" class="form-control" step="0.01" placeholder="e.g. 7.5" min="0"
-                    max="10">
-            </div>
-            <div class="form-group">
-                <label>Total Credits Earned <span class="required">*</span></label>
-                <input type="number" id="curTotalCredits" class="form-control" placeholder="e.g. 80" min="0">
-            </div>
-            <div class="form-group">
-                <label>Target CGPA <span class="required">*</span></label>
-                <input type="number" id="targetCgpa" class="form-control" step="0.01" placeholder="e.g. 8.0" min="0"
-                    max="10">
-            </div>
-            <div class="form-group">
-                <label>Next Semester Credits <span class="required">*</span></label>
-                <input type="number" id="nextSemCredits" class="form-control" placeholder="e.g. 20" min="1">
-            </div>
-            <button class="btn btn-primary" onclick="calculateRequiredSGPA()">Calculate Target SGPA</button>
-            <div id="reqSgpaResult" class="result-box"></div>
-            <button class="btn btn-secondary btn-sm" style="margin-top: 1rem; width: 100%; display: none;"
-                id="exportReq" onclick="exportResults('reqSgpa')">
-                <i class="fa-solid fa-file-export"></i> Export Report
-            </button>
-
-            <div class="info-note"
-                style="margin-top: 1.5rem; font-size: 0.85rem; color: var(--text-light); line-height: 1.4;">
-                <p><strong><i class="fa-solid fa-info-circle"></i> How it works:</strong></p>
-                <p>1. <strong>Current CGPA:</strong> Your cumulative GPA as shown on your latest grade sheet.</p>
-                <p>2. <strong>Total Credits Earned:</strong> Sum of credits for all courses you have completed so
-                    far.</p>
-                <p>3. <strong>Target CGPA:</strong> The CGPA you want to have after the next semester.</p>
-                <p>4. <strong>Next Sem Credits:</strong> Total credits of the subjects you are taking in the
-                    upcoming semester.</p>
+        <!-- CGPA to Percentage Section -->
+        <div id="cgpaPercent" class="calculator-section">
+            <div class="calc-card">
+                <h2><i class="fa-solid fa-percent"></i> CGPA to Percentage</h2>
+                <div class="form-group">
+                    <label>Enter CGPA <span class="required">*</span></label>
+                    <input type="number" id="cgpaInput" class="form-control" step="0.01" placeholder="e.g. 8.5" min="0"
+                        max="10">
+                </div>
+                <button class="btn btn-primary" onclick="convertCgpa()">Convert</button>
+                <div id="cgpaPercentResult" class="result-box"></div>
+                <button class="btn btn-secondary btn-sm" style="margin-top: 1rem; width: 100%; display: none;"
+                    id="exportCgpa" onclick="exportResults('cgpaPercent')">
+                    <i class="fa-solid fa-file-export"></i> Export Report
+                </button>
             </div>
         </div>
-    </div>
-
-    <!-- Expected Marks Section -->
-    <div id="expectedMarks" class="calculator-section">
-        <div class="calc-card">
-            <h2><i class="fa-solid fa-graduation-cap"></i> Expected Marks</h2>
-            <p>Know exactly what you need to score in End Semesters to get your desired grade.</p>
-
-            <div class="form-group">
-                <label>Internal Marks (Max 50) <span class="required">*</span></label>
-                <input type="number" id="expInternalMarks" class="form-control" placeholder="Enter marks out of 50"
-                    min="0" max="50">
-                <p style="font-size: 0.85rem; color: var(--text-light); margin-top: 0.5rem;" id="expErrorMsg">
-                    <i class="fa-solid fa-circle-exclamation"></i> Please enter a valid number between 0 and 50.
-                    Negative values and characters are not allowed.
-                </p>
-            </div>
-
-            <button class="btn btn-primary" onclick="calculateExpectedMarks()">Calculate Expected Marks</button>
-
-            <div id="expectedMarksResult" class="result-box" style="display:none; margin-top: 1.5rem;">
-                <!-- Table will be injected here -->
-            </div>
-        </div>
-    </div>
     </div>
 
     <!-- Academic Reference Section -->
@@ -366,6 +364,9 @@
 
     <footer>
         <p>&copy; Copyright GradeMate 2026. All rights reserved.</p>
+        <p style="margin-top: 0.5rem; font-weight: 500;">Developed By <a
+                href="https://www.linkedin.com/in/prudhvi-krishna-raavi-64484a315" target="_blank"
+                style="color: var(--primary-color); text-decoration: none;">Prudhvi Raavi</a></p>
         <div class="footer-links">
             <a href="disclaimer.html">Disclaimer</a>
             <span class="footer-separator">•</span>
