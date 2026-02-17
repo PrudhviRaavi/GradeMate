@@ -7,7 +7,7 @@ function switchTab(tabId) {
     if (activeSec) activeSec.classList.add('active');
 
     const buttons = document.querySelectorAll('.tab-btn');
-    const sections = ['gradePredictor', 'cgpaPercent', 'sgpaCalc', 'cgpaCalc', 'reqSgpa', 'expectedMarks'];
+    const sections = ['sgpaCalc', 'cgpaCalc', 'gradePredictor', 'expectedMarks', 'reqSgpa', 'cgpaPercent', 'gradingSystem'];
     const index = sections.indexOf(tabId);
     if (index >= 0 && buttons[index]) buttons[index].classList.add('active');
 }
@@ -57,8 +57,82 @@ document.addEventListener('DOMContentLoaded', function () {
 });
 
 
+// ==========================================
+// GRADING SCHEME LOGIC
+// ==========================================
+const DEFAULT_SCHEME = {
+    "S": 10, "A+": 9, "A": 8, "B+": 7, "B": 6, "C": 5, "P": 4, "F": 0
+};
+let currentScheme = { ...DEFAULT_SCHEME };
+
+function loadGradingScheme() {
+    const saved = localStorage.getItem('grademate_scheme');
+    if (saved) {
+        currentScheme = JSON.parse(saved);
+    }
+    renderSchemeTable();
+}
+
+function renderSchemeTable() {
+    const tbody = document.querySelector('#gradingSchemeTable tbody');
+    if (!tbody) return;
+    tbody.innerHTML = '';
+
+    Object.keys(DEFAULT_SCHEME).forEach(grade => {
+        const row = document.createElement('tr');
+        row.innerHTML = `
+            <td><strong>${grade}</strong></td>
+            <td><input type="number" class="form-control scheme-input" data-grade="${grade}" value="${currentScheme[grade]}" step="1" min="0" max="100"></td>
+        `;
+        tbody.appendChild(row);
+    });
+}
+
+function saveGradingScheme() {
+    const inputs = document.querySelectorAll('.scheme-input');
+    inputs.forEach(input => {
+        const grade = input.getAttribute('data-grade');
+        currentScheme[grade] = parseFloat(input.value) || 0;
+    });
+    localStorage.setItem('grademate_scheme', JSON.stringify(currentScheme));
+
+    // Update existing select options in SGPA calculator if they exist
+    updateAllGradeOptionsByScheme();
+
+    const status = document.getElementById('gradingSchemeStatus');
+    status.style.display = 'block';
+    setTimeout(() => { status.style.display = 'none'; }, 3000);
+}
+
+function resetGradingScheme() {
+    if (confirm("Reset grading points to default values?")) {
+        currentScheme = { ...DEFAULT_SCHEME };
+        localStorage.removeItem('grademate_scheme');
+        renderSchemeTable();
+        updateAllGradeOptionsByScheme();
+    }
+}
+
+function updateAllGradeOptionsByScheme() {
+    // This will update the internal mapping and we'll ensure selects use labels as values
+}
+
 function exportResults(calcId) {
-    window.print();
+    const element = document.getElementById(calcId);
+    if (!element) return;
+
+    // Use html2canvas for a better report
+    html2canvas(element, {
+        scale: 2,
+        backgroundColor: '#f8fafc',
+        logging: false,
+        useCORS: true
+    }).then(canvas => {
+        const link = document.createElement('a');
+        link.download = `GradeMate_${calcId}_Report.png`;
+        link.href = canvas.toDataURL('image/png');
+        link.click();
+    });
 }
 
 // ==========================================
@@ -231,25 +305,22 @@ function calculateGrade() {
 }
 
 function getGrade(score, type) {
-    // Rounding? Usually standard round or ceil. adhere to logic provided "90-100"
-    // Let's use Math.round for safety comparison or just strict ranges.
-    // Generally standard ranges match strict floating points or rounded.
-    // Let's assume standard rounding.
     score = Math.round(score);
 
-    if (score >= 90) return { grade: 'S', points: 10 };
-    if (score >= 80) return { grade: 'A+', points: 9 };
-    if (score >= 70) return { grade: 'A', points: 8 };
-    if (score >= 60) return { grade: 'B+', points: 7 };
-    if (score >= 55) return { grade: 'B', points: 6 };
-    if (score >= 50) return { grade: 'C', points: 5 };
+    // Dynamic Grade Detection based on currentScheme
+    if (score >= 90) return { grade: 'S', points: currentScheme['S'] };
+    if (score >= 80) return { grade: 'A+', points: currentScheme['A+'] };
+    if (score >= 70) return { grade: 'A', points: currentScheme['A'] };
+    if (score >= 60) return { grade: 'B+', points: currentScheme['B+'] };
+    if (score >= 55) return { grade: 'B', points: currentScheme['B'] };
+    if (score >= 50) return { grade: 'C', points: currentScheme['C'] };
 
     // P Grade Check
     if (type !== 'practical') {
-        if (score >= 45) return { grade: 'P', points: 4 };
+        if (score >= 45) return { grade: 'P', points: currentScheme['P'] };
     }
 
-    return { grade: 'F', points: 0 };
+    return { grade: 'F', points: currentScheme['F'] };
 }
 
 function showResult(title, msg, type) {
@@ -322,36 +393,41 @@ function addSgpaRow() {
     row.className = 'form-group row-container';
     row.style = 'display:flex; gap:1rem; align-items:center; animation:fadeInUp 0.3s;';
 
-    // Create inner HTML
+    // Create selection options based on scheme
+    let options = '';
+    Object.keys(DEFAULT_SCHEME).forEach(grade => {
+        options += `<option value="${grade}">${grade}</option>`;
+    });
+
     row.innerHTML = `
         <input type="text" class="form-control" placeholder="Subject Name">
         <input type="number" class="form-control credit-input" placeholder="Credits" style="width:100px;">
         <select class="form-control grade-input" style="width:120px;">
-            <option value="10">S</option>
-            <option value="9">A+</option>
-            <option value="8">A</option>
-            <option value="7">B+</option>
-            <option value="6">B</option>
-            <option value="5">C</option>
-            <option value="4">P</option>
-            <option value="0">F</option>
+            ${options}
         </select>
         <button class="btn-delete" title="Delete Row">
             <i class="fa-solid fa-trash"></i>
         </button>
     `;
 
+    // Real-time update listeners
+    const inputs = row.querySelectorAll('input, select');
+    inputs.forEach(input => {
+        input.addEventListener('input', () => calculateSgpa(true));
+    });
+
     // Add delete functionality with renumbering
     row.querySelector('.btn-delete').onclick = function () {
         row.remove();
         updateSgpaRowNumbers();
+        calculateSgpa(true);
     };
 
     document.getElementById('sgpaRows').appendChild(row);
-    updateSgpaRowNumbers(); // Renumber immediately to set the new row's name
+    updateSgpaRowNumbers();
 }
 
-function calculateSgpa() {
+function calculateSgpa(isSilent = false) {
     let totalCredits = 0;
     let totalPoints = 0;
     let hasValidRow = false;
@@ -361,11 +437,12 @@ function calculateSgpa() {
 
     for (let i = 0; i < credits.length; i++) {
         const c = parseFloat(credits[i].value);
-        const g = parseFloat(grades[i].value);
+        const gName = grades[i].value;
+        const g = currentScheme[gName] !== undefined ? currentScheme[gName] : 0;
 
-        if (!isNaN(c)) {
-            if (c <= 0 || c > 30) {
-                alert(`Credits in Row ${i + 1} must be between 1 and 30.`);
+        if (!isNaN(c) && c > 0) {
+            if (c > 30) {
+                if (!isSilent) alert(`Credits in Row ${i + 1} must be between 1 and 30.`);
                 return;
             }
             totalCredits += c;
@@ -375,7 +452,7 @@ function calculateSgpa() {
     }
 
     if (!hasValidRow) {
-        alert("Please enter credits for at least one subject.");
+        if (!isSilent) alert("Please enter credits for at least one subject.");
         return;
     }
 
@@ -384,6 +461,19 @@ function calculateSgpa() {
     const box = document.getElementById('sgpaCalcResult');
     box.classList.add('show');
     box.innerHTML = `<h3>SGPA: ${sgpa.toFixed(2)}</h3>`;
+
+    // Flash effect for real-time updates
+    if (isSilent) {
+        box.style.transition = 'none';
+        box.style.transform = 'scale(1.02)';
+        box.style.borderColor = 'var(--primary-color)';
+        setTimeout(() => {
+            box.style.transition = 'transform 0.2s, border-color 0.2s';
+            box.style.transform = 'scale(1)';
+            box.style.borderColor = '#bee3f8';
+        }, 100);
+    }
+
     saveInputs();
 
     // Show export button
@@ -405,10 +495,23 @@ function addCgpaRow() {
             <i class="fa-solid fa-trash"></i>
         </button>
     `;
+
+    // Real-time update listeners
+    const inputs = row.querySelectorAll('input');
+    inputs.forEach(input => {
+        input.addEventListener('input', () => calculateCgpa(true));
+    });
+
+    // Add delete functionality
+    row.querySelector('.btn-delete').onclick = function () {
+        row.remove();
+        calculateCgpa(true);
+    };
+
     document.getElementById('cgpaRows').appendChild(row);
 }
 
-function calculateCgpa() {
+function calculateCgpa(isSilent = false) {
     let totalCredits = 0;
     let totalPoints = 0;
     let hasValidRow = false;
@@ -422,7 +525,7 @@ function calculateCgpa() {
 
         if (!isNaN(s) && !isNaN(c) && c > 0) {
             if (s > 10 || s < 0) {
-                alert(`SGPA in Row ${i + 1} must be between 0 and 10.`);
+                if (!isSilent) alert(`SGPA in Row ${i + 1} must be between 0 and 10.`);
                 return;
             }
             totalCredits += c;
@@ -432,7 +535,7 @@ function calculateCgpa() {
     }
 
     if (!hasValidRow) {
-        alert("Please enter SGPA and credits for at least one semester.");
+        if (!isSilent) alert("Please enter SGPA and credits for at least one semester.");
         return;
     }
 
@@ -441,6 +544,75 @@ function calculateCgpa() {
     const box = document.getElementById('cgpaCalcResult');
     box.classList.add('show');
     box.innerHTML = `<h3>CGPA: ${cgpa.toFixed(2)}</h3>`;
+
+    // Flash effect for real-time updates
+    if (isSilent) {
+        box.style.transition = 'none';
+        box.style.transform = 'scale(1.02)';
+        box.style.borderColor = 'var(--primary-color)';
+        setTimeout(() => {
+            box.style.transition = 'transform 0.2s, border-color 0.2s';
+            box.style.transform = 'scale(1)';
+            box.style.borderColor = '#bee3f8';
+        }, 100);
+    }
+
+    // GPA Growth Chart Logic
+    const chartContainer = document.getElementById('chartContainer');
+    if (chartContainer) {
+        chartContainer.style.display = 'block';
+
+        const labels = Array.from(sgpas).map((_, i) => `Sem ${i + 1}`);
+        const data = Array.from(sgpas).map(s => parseFloat(s.value) || 0);
+
+        const ctx = document.getElementById('gpaChart').getContext('2d');
+
+        // Destroy existing chart if it exists
+        if (window.gpaChartInstance) {
+            window.gpaChartInstance.destroy();
+        }
+
+        window.gpaChartInstance = new Chart(ctx, {
+            type: 'line',
+            data: {
+                labels: labels,
+                datasets: [{
+                    label: 'Semester SGPA',
+                    data: data,
+                    borderColor: '#0ea5e9',
+                    backgroundColor: 'rgba(14, 165, 233, 0.1)',
+                    borderWidth: 3,
+                    tension: 0.4,
+                    fill: true,
+                    pointBackgroundColor: '#0ea5e9',
+                    pointBorderColor: '#fff',
+                    pointBorderWidth: 2,
+                    pointRadius: 5,
+                    pointHoverRadius: 7
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: {
+                        display: false
+                    }
+                },
+                scales: {
+                    y: {
+                        beginAtZero: false,
+                        min: 0,
+                        max: 10,
+                        ticks: {
+                            stepSize: 1
+                        }
+                    }
+                }
+            }
+        });
+    }
+
     saveInputs();
 
     // Show export button
@@ -616,4 +788,25 @@ function loadInputs() {
 // Auto-load on startup
 window.onload = () => {
     loadInputs();
+    loadGradingScheme();
+
+    // Apply real-time listeners for existing rows in SGPA
+    document.querySelectorAll('.credit-input, .grade-input').forEach(input => {
+        input.addEventListener('input', () => calculateSgpa(true));
+    });
+
+    // Apply real-time listeners for existing rows in CGPA
+    document.querySelectorAll('.sgpa-val, .sem-credit').forEach(input => {
+        input.addEventListener('input', () => calculateCgpa(true));
+    });
+
+    // Handle redirection from homepage/links
+    const urlParams = new URLSearchParams(window.location.search);
+    const activeTab = urlParams.get('tab') || localStorage.getItem('activeTab');
+
+    if (activeTab) {
+        switchTab(activeTab);
+        // Clear it after use if it's from localStorage to avoid sticking
+        localStorage.removeItem('activeTab');
+    }
 };

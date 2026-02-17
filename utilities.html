@@ -10,6 +10,8 @@
         rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="styles.css">
+    <!-- Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 
 <body>
@@ -43,6 +45,8 @@
             <button class="tab-btn" onclick="switchTab('expectedMarks')">Expected Marks</button>
             <button class="tab-btn" onclick="switchTab('reqSgpa')">Required SGPA</button>
             <button class="tab-btn" onclick="switchTab('cgpaPercent')">CGPA to %</button>
+            <button class="tab-btn" onclick="switchTab('gradingSystem')"><i class="fa-solid fa-gear"></i> Grading
+                System</button>
         </div>
 
         <!-- SGPA Calculator Section -->
@@ -101,6 +105,17 @@
                 <button class="btn btn-secondary" onclick="addCgpaRow()">+ Add Semester</button>
                 <button class="btn btn-primary" onclick="calculateCgpa()">Calculate CGPA</button>
                 <div id="cgpaCalcResult" class="result-box"></div>
+
+                <!-- GPA Growth Chart -->
+                <div id="chartContainer" style="margin-top: 2rem; display: none;">
+                    <h3 style="text-align: center; margin-bottom: 1rem;"><i class="fa-solid fa-chart-line"></i> GPA
+                        Growth Trend</h3>
+                    <div
+                        style="background: white; padding: 1.5rem; border-radius: 12px; border: 1px solid #e2e8f0; height: 300px;">
+                        <canvas id="gpaChart"></canvas>
+                    </div>
+                </div>
+
                 <button class="btn btn-secondary btn-sm" style="margin-top: 1rem; width: 100%; display: none;"
                     id="exportCgpaCalc" onclick="exportResults('cgpaCalc')">
                     <i class="fa-solid fa-file-export"></i> Export Report
@@ -254,6 +269,38 @@
                 </button>
             </div>
         </div>
+
+        <!-- Grading System Section -->
+        <div id="gradingSystem" class="calculator-section">
+            <div class="calc-card">
+                <h2><i class="fa-solid fa-gear"></i> Custom Grading System</h2>
+                <p>Customize the grade points to match your institution's system.</p>
+
+                <div class="grade-table-wrapper" style="margin-top: 1.5rem;">
+                    <table class="grade-table" id="gradingSchemeTable">
+                        <thead>
+                            <tr>
+                                <th>Grade</th>
+                                <th>Grade Points</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <!-- Values will be populated by JS -->
+                        </tbody>
+                    </table>
+                </div>
+
+                <div style="margin-top: 1.5rem; display: flex; gap: 1rem;">
+                    <button class="btn btn-primary" onclick="saveGradingScheme()">Save Changes</button>
+                    <button class="btn btn-secondary" onclick="resetGradingScheme()">Reset to Default</button>
+                </div>
+                <div id="gradingSchemeStatus"
+                    style="margin-top: 1rem; font-size: 0.9rem; color: #2f855a; display: none;">
+                    <i class="fa-solid fa-check-circle"></i> Settings saved successfully!
+                </div>
+            </div>
+        </div>
+    </div>
     </div>
 
     <!-- Academic Reference Section -->
@@ -379,6 +426,8 @@
         </div>
     </footer>
 
+    <!-- html2canvas for reports -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
     <script src="script.js"></script>
 </body>
 
