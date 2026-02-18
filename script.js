@@ -100,8 +100,10 @@ function saveGradingScheme() {
     updateAllGradeOptionsByScheme();
 
     const status = document.getElementById('gradingSchemeStatus');
-    status.style.display = 'block';
-    setTimeout(() => { status.style.display = 'none'; }, 3000);
+    if (status) {
+        status.style.display = 'block';
+        setTimeout(() => { status.style.display = 'none'; }, 3000);
+    }
 }
 
 function resetGradingScheme() {
@@ -763,25 +765,32 @@ function calculateExpectedMarks() {
 
 function saveInputs() {
     const data = {
-        internalMarks: document.getElementById('internalMarks').value,
-        cgpaInput: document.getElementById('cgpaInput').value,
-        curCgpa: document.getElementById('curCgpa').value,
-        curTotalCredits: document.getElementById('curTotalCredits').value,
-        targetCgpa: document.getElementById('targetCgpa').value,
-        nextSemCredits: document.getElementById('nextSemCredits').value
+        internalMarks: document.getElementById('internalMarks')?.value || '',
+        cgpaInput: document.getElementById('cgpaInput')?.value || '',
+        curCgpa: document.getElementById('curCgpa')?.value || '',
+        curTotalCredits: document.getElementById('curTotalCredits')?.value || '',
+        targetCgpa: document.getElementById('targetCgpa')?.value || '',
+        nextSemCredits: document.getElementById('nextSemCredits')?.value || ''
     };
     localStorage.setItem('grademate_data', JSON.stringify(data));
 }
 
 function loadInputs() {
-    const data = JSON.parse(localStorage.getItem('grademate_data'));
+    const dataString = localStorage.getItem('grademate_data');
+    if (!dataString) return;
+
+    const data = JSON.parse(dataString);
     if (data) {
-        document.getElementById('internalMarks').value = data.internalMarks || '';
-        document.getElementById('cgpaInput').value = data.cgpaInput || '';
-        document.getElementById('curCgpa').value = data.curCgpa || '';
-        document.getElementById('curTotalCredits').value = data.curTotalCredits || '';
-        document.getElementById('targetCgpa').value = data.targetCgpa || '';
-        document.getElementById('nextSemCredits').value = data.nextSemCredits || '';
+        const setVal = (id, val) => {
+            const el = document.getElementById(id);
+            if (el) el.value = val || '';
+        };
+        setVal('internalMarks', data.internalMarks);
+        setVal('cgpaInput', data.cgpaInput);
+        setVal('curCgpa', data.curCgpa);
+        setVal('curTotalCredits', data.curTotalCredits);
+        setVal('targetCgpa', data.targetCgpa);
+        setVal('nextSemCredits', data.nextSemCredits);
     }
 }
 
