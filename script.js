@@ -432,55 +432,74 @@ function addSgpaRow() {
 function calculateSgpa(isSilent = false) {
     let totalCredits = 0;
     let totalPoints = 0;
-    let hasValidRow = false;
+    let hasError = false;
+    let emptyFields = false;
 
     const credits = document.querySelectorAll('.credit-input');
     const grades = document.querySelectorAll('.grade-input');
 
-    for (let i = 0; i < credits.length; i++) {
-        const c = parseFloat(credits[i].value);
-        const gName = grades[i].value;
-        const g = currentScheme[gName] !== undefined ? currentScheme[gName] : 0;
+    // Reset styles
+    credits.forEach(c => c.classList.remove('input-error'));
 
-        if (!isNaN(c) && c > 0) {
-            if (c > 30) {
-                if (!isSilent) alert(`Credits in Row ${i + 1} must be between 1 and 30.`);
-                return;
-            }
-            totalCredits += c;
-            totalPoints += (c * g);
-            hasValidRow = true;
+    for (let i = 0; i < credits.length; i++) {
+        const cVal = credits[i].value.trim();
+        const gName = grades[i].value;
+
+        if (cVal === "") {
+            emptyFields = true;
+            continue;
         }
+
+        const c = parseFloat(cVal);
+
+        // Validation: Must be a number and between 1-30
+        if (isNaN(c) || c <= 0 || c > 30) {
+            if (!isSilent) {
+                credits[i].classList.add('input-error');
+                credits[i].parentElement.classList.add('shake');
+                setTimeout(() => credits[i].parentElement.classList.remove('shake'), 500);
+            }
+            hasError = true;
+            continue;
+        }
+
+        // Logic to handle both numeric values and grade names (for robustness)
+        let g = 0;
+        if (currentScheme[gName] !== undefined) {
+            g = currentScheme[gName];
+        } else if (!isNaN(parseFloat(gName))) {
+            g = parseFloat(gName);
+        }
+
+        totalCredits += c;
+        totalPoints += (c * g);
     }
 
-    if (!hasValidRow) {
-        if (!isSilent) alert("Please enter credits for at least one subject.");
+    if (hasError) {
+        if (!isSilent) alert("Please fix the highlighted errors. Credits must be between 1 and 30.");
         return;
     }
 
-    const sgpa = totalCredits === 0 ? 0 : (totalPoints / totalCredits);
+    if (totalCredits === 0) {
+        if (!isSilent && emptyFields) alert("Please enter credits for your subjects.");
+        return;
+    }
+
+    const sgpa = totalPoints / totalCredits;
 
     const box = document.getElementById('sgpaCalcResult');
-    box.classList.add('show');
-    box.innerHTML = `<h3>SGPA: ${sgpa.toFixed(2)}</h3>`;
+    if (box) {
+        box.classList.add('show');
+        box.innerHTML = `<h3>SGPA: ${sgpa.toFixed(2)}</h3>`;
 
-    // Flash effect for real-time updates
-    if (isSilent) {
-        box.style.transition = 'none';
-        box.style.transform = 'scale(1.02)';
-        box.style.borderColor = 'var(--primary-color)';
-        setTimeout(() => {
-            box.style.transition = 'transform 0.2s, border-color 0.2s';
-            box.style.transform = 'scale(1)';
-            box.style.borderColor = '#bee3f8';
-        }, 100);
+        // Flash effect for real-time updates
+        if (isSilent) {
+            box.style.transform = 'scale(1.02)';
+            setTimeout(() => box.style.transform = 'scale(1)', 100);
+        }
     }
 
     saveInputs();
-
-    // Show export button
-    const exportBtn = document.getElementById('exportSgpa');
-    if (exportBtn) exportBtn.style.display = 'inline-flex';
 }
 
 // Minimal implementation for CGPA

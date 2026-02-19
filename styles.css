@@ -1130,6 +1130,26 @@ footer {
     color: #fbbf24;
 }
 
+/* Validation Styles */
+@keyframes shake {
+    0%, 100% { transform: translateX(0); }
+    25% { transform: translateX(-5px); }
+    75% { transform: translateX(5px); }
+}
+
+.shake {
+    animation: shake 0.3s ease-in-out;
+}
+
+.input-error {
+    border-color: #e53e3e !important;
+    background-color: #fff5f5 !important;
+}
+
+.input-error:focus {
+    box-shadow: 0 0 0 3px rgba(229, 62, 62, 0.2) !important;
+}
+
 .review-card p {
     margin: 0;
     font-size: 0.95rem;
