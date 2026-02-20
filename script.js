@@ -123,17 +123,53 @@ function exportResults(calcId) {
     const element = document.getElementById(calcId);
     if (!element) return;
 
-    // Use html2canvas for a better report
+    // 1. Prepare for export: Sync values and replace tricky elements
+    const inputs = element.querySelectorAll('input, select');
+    const tempReplacements = [];
+
+    inputs.forEach(input => {
+        if (input.tagName === 'SELECT') {
+            // Replace Select with a high-contrast span for the report
+            const span = document.createElement('span');
+            span.className = 'export-grade-badge';
+            span.textContent = input.options[input.selectedIndex].text;
+            input.parentElement.insertBefore(span, input);
+            input.setAttribute('data-original-display', input.style.display);
+            input.style.display = 'none';
+            tempReplacements.push({ el: input, span: span });
+        } else {
+            // Force value into attribute so html2canvas sees it
+            input.setAttribute('value', input.value);
+        }
+    });
+
+    // 2. Add temporary high-quality rendering class
+    element.classList.add('exporting');
+
+    // 3. Use html2canvas for an ultra-HD report
     html2canvas(element, {
-        scale: 2,
-        backgroundColor: '#f8fafc',
+        scale: 3,
+        backgroundColor: '#ffffff',
         logging: false,
-        useCORS: true
+        useCORS: true,
+        allowTaint: true,
+        scrollX: 0,
+        scrollY: -window.scrollY
     }).then(canvas => {
+        const timestamp = new Date().getTime();
         const link = document.createElement('a');
-        link.download = `GradeMate_${calcId}_Report.png`;
-        link.href = canvas.toDataURL('image/png');
+        link.download = `GradeMate_Report_${calcId}_${timestamp}.png`;
+        link.href = canvas.toDataURL('image/png', 1.0);
         link.click();
+
+        // 4. Cleanup: Restore original state
+        element.classList.remove('exporting');
+        inputs.forEach(input => input.removeAttribute('value'));
+        tempReplacements.forEach(item => {
+            item.span.remove();
+            item.el.style.display = item.el.getAttribute('data-original-display') || '';
+            item.el.removeAttribute('data-original-display');
+        });
     });
 }
 
@@ -500,6 +536,10 @@ function calculateSgpa(isSilent = false) {
     }
 
     saveInputs();
+
+    // Show export button
+    const exportBtn = document.getElementById('exportSgpa');
+    if (exportBtn) exportBtn.style.display = 'inline-flex';
 }
 
 // Minimal implementation for CGPA
@@ -780,6 +820,10 @@ function calculateExpectedMarks() {
         </table>
     `;
     resultBox.style.display = 'block';
+
+    // Show export button
+    const exportBtn = document.getElementById('exportExpected');
+    if (exportBtn) exportBtn.style.display = 'inline-flex';
 }
 
 function saveInputs() {
