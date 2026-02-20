@@ -1150,6 +1150,20 @@ footer {
     box-shadow: 0 0 0 3px rgba(229, 62, 62, 0.2) !important;
 }
 
+/* FAQ Interactions */
+.faq-category-section {
+    animation: fadeInUp 0.6s ease-out;
+}
+
+.faq-card-header:hover span {
+    color: var(--primary-color);
+}
+
+.faq-card-body p {
+    margin: 0;
+    padding-bottom: 0.5rem;
+}
+
 .review-card p {
     margin: 0;
     font-size: 0.95rem;

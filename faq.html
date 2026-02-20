@@ -4,18 +4,211 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>GradeMate | FAQ</title>
+    <title>GradeMate | FAQ Hub</title>
     <link
-        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Outfit:wght@500;700;800&display=swap"
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Outfit:wght@500;700;800&family=Pacifico&display=swap"
         rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="styles.css">
+    <style>
+        /* FAQ Specific Premium Styles */
+        .faq-hero {
+            padding: 6rem 5% 4rem;
+            text-align: center;
+            background: linear-gradient(180deg, rgba(235, 248, 255, 0.5) 0%, rgba(255, 255, 255, 0) 100%);
+            margin-bottom: 2rem;
+        }
+
+        .search-container {
+            max-width: 600px;
+            margin: 2rem auto 0;
+            position: relative;
+        }
+
+        .search-input {
+            width: 100%;
+            padding: 1.2rem 1.5rem 1.2rem 3.5rem;
+            border-radius: 20px;
+            border: 2px solid var(--glass-border);
+            background: var(--glass-bg);
+            backdrop-filter: blur(10px);
+            font-size: 1.1rem;
+            box-shadow: var(--shadow-lg);
+            transition: var(--transition);
+        }
+
+        .search-input:focus {
+            outline: none;
+            border-color: var(--primary-color);
+            transform: translateY(-2px);
+        }
+
+        .search-icon {
+            position: absolute;
+            left: 1.5rem;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--text-light);
+            font-size: 1.2rem;
+        }
+
+        .faq-layout {
+            display: grid;
+            grid-template-columns: 280px 1fr;
+            gap: 3rem;
+            align-items: start;
+        }
+
+        .faq-sidebar {
+            position: sticky;
+            top: 100px;
+            background: var(--glass-bg);
+            padding: 1.5rem;
+            border-radius: 20px;
+            border: 1px solid var(--glass-border);
+            backdrop-filter: blur(10px);
+        }
+
+        .category-list {
+            list-style: none;
+        }
+
+        .category-item {
+            padding: 1rem 1.2rem;
+            border-radius: 12px;
+            margin-bottom: 0.5rem;
+            cursor: pointer;
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            font-weight: 600;
+            color: var(--text-light);
+        }
+
+        .category-item i {
+            width: 20px;
+            text-align: center;
+        }
+
+        .category-item:hover, .category-item.active {
+            background: rgba(26, 86, 219, 0.1);
+            color: var(--primary-color);
+        }
+
+        .faq-content {
+            display: flex;
+            flex-direction: column;
+            gap: 3rem;
+        }
+
+        .faq-section-title {
+            margin-bottom: 1.5rem;
+            font-size: 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+        }
+
+        .faq-card-grid {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .faq-card {
+            background: white;
+            border-radius: 16px;
+            border: 1px solid #e2e8f0;
+            overflow: hidden;
+            transition: var(--transition);
+        }
+
+        .faq-card:hover {
+            box-shadow: var(--shadow-md);
+            border-color: var(--accent-color);
+        }
+
+        .faq-card-header {
+            padding: 1.5rem;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 1rem;
+            font-weight: 600;
+            color: var(--text-dark);
+        }
+
+        .faq-card-header i {
+            transition: transform 0.3s ease;
+            color: var(--primary-color);
+        }
+
+        .faq-card.active .faq-card-header i {
+            transform: rotate(180deg);
+        }
+
+        .faq-card-body {
+            padding: 0 1.5rem;
+            max-height: 0;
+            overflow: hidden;
+            transition: all 0.3s ease-in-out;
+            color: var(--text-light);
+            line-height: 1.6;
+        }
+
+        .faq-card.active .faq-card-body {
+            padding: 0 1.5rem 1.5rem;
+            max-height: 500px;
+        }
+
+        .empty-search {
+            text-align: center;
+            padding: 4rem;
+            display: none;
+        }
+
+        .empty-search i {
+            font-size: 3rem;
+            color: var(--text-light);
+            margin-bottom: 1rem;
+        }
+
+        .faq-footer {
+            margin-top: 5rem;
+            text-align: center;
+            padding: 4rem;
+            background: var(--glass-bg);
+            border-radius: 30px;
+            border: 1px solid var(--glass-border);
+        }
+
+        @media (max-width: 992px) {
+            .faq-layout {
+                grid-template-columns: 1fr;
+            }
+            .faq-sidebar {
+                position: static;
+                margin-bottom: 2rem;
+                overflow-x: auto;
+            }
+            .category-list {
+                display: flex;
+                gap: 1rem;
+            }
+            .category-item {
+                margin-bottom: 0;
+                white-space: nowrap;
+            }
+        }
+    </style>
 </head>
 
 <body>
 
     <nav class="navbar">
-        <div class="logo">
+        <div class="logo" onclick="location.href='index.html'" style="cursor:pointer">
             Grade<span>Mate</span>
         </div>
         <button class="mobile-menu-btn" id="mobileMenuBtn"><i class="fa-solid fa-bars"></i></button>
@@ -31,99 +224,199 @@
         </ul>
     </nav>
 
-    <div class="container page-header">
-        <h1>Frequently Asked Questions</h1>
-        <p>Everything you need to know about GradeMate and how it works.</p>
+    <div class="faq-hero">
+        <div class="container">
+            <span class="hero-badge">Knowledge Hub</span>
+            <h1 style="font-size: 3.5rem; margin-bottom: 1rem;">How can we help you?</h1>
+            <p>Search for answers or browse categories below to master your academic tracking.</p>
+            
+            <div class="search-container">
+                <i class="fa-solid fa-magnifying-glass search-icon"></i>
+                <input type="text" id="faqSearch" class="search-input" placeholder="Search questions (e.g. 'Arrears', 'Credits', 'Privacy')...">
+            </div>
+        </div>
     </div>
 
     <div class="container">
-        <div class="calc-card">
-            <div class="faq-grid">
-                <!-- Q1 -->
-                <div class="faq-item">
-                    <div class="faq-question" onclick="toggleFaq(this)">
-                        <span>How does the 'Weighted Average' work?</span>
-                        <i class="fa-solid fa-chevron-down"></i>
+        <div class="faq-layout">
+            <!-- Sidebar Navigation -->
+            <aside class="faq-sidebar">
+                <ul class="category-list">
+                    <li class="category-item active" data-category="all">
+                        <i class="fa-solid fa-border-all"></i> All Questions
+                    </li>
+                    <li class="category-item" data-category="academic">
+                        <i class="fa-solid fa-book-open"></i> Academic Rules
+                    </li>
+                    <li class="category-item" data-category="logic">
+                        <i class="fa-solid fa-calculator"></i> Calculator Logic
+                    </li>
+                    <li class="category-item" data-category="features">
+                        <i class="fa-solid fa-rocket"></i> Features & Tools
+                    </li>
+                    <li class="category-item" data-category="privacy">
+                        <i class="fa-solid fa-shield-halved"></i> Privacy & Trust
+                    </li>
+                </ul>
+            </aside>
+
+            <!-- Main FAQ Content -->
+            <main class="faq-content" id="faqAccordion">
+                
+                <!-- Category: Academic Rules -->
+                <section class="faq-category-section" data-section="academic">
+                    <h2 class="faq-section-title"><i class="fa-solid fa-book-open"></i> Academic Rules</h2>
+                    <div class="faq-card-grid">
+                        <div class="faq-card" data-tags="arrears back paper fail f grade">
+                            <div class="faq-card-header">
+                                <span>How are Arrears (Back papers) handled?</span>
+                                <i class="fa-solid fa-chevron-down"></i>
+                            </div>
+                            <div class="faq-card-body">
+                                <p>If you fail a subject (Grade F), it is assigned 0 grade points and significantly lowers your SGPA. Once you clear the arrear in a subsequent attempt, your SGPA for that original semester remains the same, but your **CGPA** is updated using the new passing grade points. GradeMate allows you to update your semester inputs anytime to see your current standing.</p>
+                            </div>
+                        </div>
+
+                        <div class="faq-card" data-tags="regulation r2017 r2021 differences">
+                            <div class="faq-card-header">
+                                <span>What's the difference between R2017 and R2021?</span>
+                                <i class="fa-solid fa-chevron-down"></i>
+                            </div>
+                            <div class="faq-card-body">
+                                <p>Different regulations have different credit patterns and occasionally different grade-to-point mappings. GradeMate defaults to the modern 10-point system used by R2021, but you can fully customize the points in our **Grading System** settings to match R2017 or any other regulation.</p>
+                            </div>
+                        </div>
+
+                        <div class="faq-card" data-tags="elective choice subjects">
+                            <div class="faq-card-header">
+                                <span>How do I handle Elective courses?</span>
+                                <i class="fa-solid fa-chevron-down"></i>
+                            </div>
+                            <div class="faq-card-body">
+                                <p>Elective courses should be treated exactly like core subjects. Simply add a new row in the SGPA calculator, enter the specific credits for that elective (usually 3 or 4), and select your grade. The weighted average logic handles the rest automatically.</p>
+                            </div>
+                        </div>
                     </div>
-                    <div class="faq-answer">
-                        <p>Unlike a simple average, GradeMate multiplies your grade points by the "credits" of the subject.
-                            This means a 4-credit subject affects your GPA twice as much as a 2-credit subject.</p>
+                </section>
+
+                <!-- Category: Calculator Logic -->
+                <section class="faq-category-section" data-section="logic">
+                    <h2 class="faq-section-title"><i class="fa-solid fa-calculator"></i> Calculator Logic</h2>
+                    <div class="faq-card-grid">
+                        <div class="faq-card" data-tags="predictor accuracy marks internals">
+                            <div class="faq-card-header">
+                                <span>How accurate is the Grade Predictor?</span>
+                                <i class="fa-solid fa-chevron-down"></i>
+                            </div>
+                            <div class="faq-card-body">
+                                <p>The Grade Predictor is highly accurate as it uses the exact mathematical formulas from university regulations. It calculates the minimum required marks out of 100 in the End Sem exam to reach specific grade thresholds (S, A+, etc.) based on your internal CIA marks.</p>
+                            </div>
+                        </div>
+
+                        <div class="faq-card" data-tags="difference official result wrong calculation">
+                            <div class="faq-card-header">
+                                <span>Why does my SGPA differ from the official result?</span>
+                                <i class="fa-solid fa-chevron-down"></i>
+                            </div>
+                            <div class="faq-card-body">
+                                <p>A difference usually occurs due to: 1) Incorrectly entered credits for a subject, 2) Misunderstanding the grading scale of your specific regulation, or 3) Including non-credit courses. Double-check your grade sheet and ensure the "Grading System" tab in GradeMate matches your college rules.</p>
+                            </div>
+                        </div>
+
+                        <div class="faq-card" data-tags="ra ab ri meaning status">
+                            <div class="faq-card-header">
+                                <span>What do RA, AB, and RI actually mean?</span>
+                                <i class="fa-solid fa-chevron-down"></i>
+                            </div>
+                            <div class="faq-card-body">
+                                <p>These are special statuses: <br>
+                                **RA**: Re-Appearance (due to lack of attendance). <br>
+                                **AB**: Absent from the End Semester Exam. <br>
+                                **RI**: Re-Appearance in Internal (Absent for CIA exams). <br>
+                                All of these are treated as 0 grade points in GPA calculations until the course is cleared.</p>
+                            </div>
+                        </div>
                     </div>
+                </section>
+
+                <!-- Category: Features & Tools -->
+                <section class="faq-category-section" data-section="features">
+                    <h2 class="faq-section-title"><i class="fa-solid fa-rocket"></i> Features & Tools</h2>
+                    <div class="faq-card-grid">
+                        <div class="faq-card" data-tags="export pdf image save report">
+                            <div class="faq-card-header">
+                                <span>How do I save my results as a PDF or Image?</span>
+                                <i class="fa-solid fa-chevron-down"></i>
+                            </div>
+                            <div class="faq-card-body">
+                                <p>After calculating your GPA, click the **'Export Report'** button. GradeMate will generate a professional, high-resolution snapshot of your results which you can save directly to your gallery or print as a PDF for your records.</p>
+                            </div>
+                        </div>
+
+                        <div class="faq-card" data-tags="offline localstorage cache">
+                            <div class="faq-card-header">
+                                <span>Can I use GradeMate offline?</span>
+                                <i class="fa-solid fa-chevron-down"></i>
+                            </div>
+                            <div class="faq-card-body">
+                                <p>Yes! Once you have visited GradeMate, your browser caches the essential files. More importantly, your data is stored in **LocalStorage**, meaning your inputs remain saved even if you close the tab or lose internet connection.</p>
+                            </div>
+                        </div>
+
+                        <div class="faq-card" data-tags="bug suggestion feedback new feature">
+                            <div class="faq-card-header">
+                                <span>How do I suggest a new feature or report a bug?</span>
+                                <i class="fa-solid fa-chevron-down"></i>
+                            </div>
+                            <div class="faq-card-body">
+                                <p>We love hearing from our users! Head over to the **'Feedback'** link in the navigation menu to fill out a quick form. Our developers review all suggestions every week to keep GradeMate evolving.</p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Category: Privacy & Trust -->
+                <section class="faq-category-section" data-section="privacy">
+                    <h2 class="faq-section-title"><i class="fa-solid fa-shield-halved"></i> Privacy & Trust</h2>
+                    <div class="faq-card-grid">
+                        <div class="faq-card" data-tags="share college security privacy safe">
+                            <div class="faq-card-header">
+                                <span>Is my data shared with my college?</span>
+                                <i class="fa-solid fa-chevron-down"></i>
+                            </div>
+                            <div class="faq-card-body">
+                                <p>Absolutely not. GradeMate is an independent tool. We don't have a database; all your marks and calculations live and stay **exclusively on your device**. Neither the developer nor your college can see your data.</p>
+                            </div>
+                        </div>
+
+                        <div class="faq-card" data-tags="official university authority">
+                            <div class="faq-card-header">
+                                <span>Is GradeMate an official application?</span>
+                                <i class="fa-solid fa-chevron-down"></i>
+                            </div>
+                            <div class="faq-card-body">
+                                <p>GradeMate is a student-developed companion app. While we strive for 100% accuracy, results should be used for planning and tracking purposes only. Always refer to your official university portal for your legal academic record.</p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <div id="emptySearch" class="empty-search">
+                    <i class="fa-solid fa-face-frown"></i>
+                    <h3>No results found</h3>
+                    <p>Try searching for different keywords or browse the categories.</p>
                 </div>
 
-                <!-- Q2 -->
-                <div class="faq-item">
-                    <div class="faq-question" onclick="toggleFaq(this)">
-                        <span>How is 'Required SGPA' calculated?</span>
-                        <i class="fa-solid fa-chevron-down"></i>
-                    </div>
-                    <div class="faq-answer">
-                        <p>This tool calculates the exact points gap between your current standing and your goal,
-                            then divides it by your upcoming credits to show you the minimum effort needed.</p>
-                    </div>
+                <!-- Help CTA -->
+                <div class="faq-footer">
+                    <h2>Can't find the answer you're looking for?</h2>
+                    <p style="margin-bottom: 2rem;">Our mission is to make academic tracking simple and transparent. If you have more questions, we're here to help.</p>
+                    <a href="https://forms.gle/csWWxGzdpwwfShxr9" target="_blank" class="btn btn-primary">
+                        <i class="fa-solid fa-paper-plane"></i> Contact Support / Bug Portal
+                    </a>
                 </div>
 
-                <!-- Q3 -->
-                <div class="faq-item">
-                    <div class="faq-question" onclick="toggleFaq(this)">
-                        <span>Do I need to sign up?</span>
-                        <i class="fa-solid fa-chevron-down"></i>
-                    </div>
-                    <div class="faq-answer">
-                        <p>No, GradeMate is completely free and open for everyone. No login is required to use any
-                            of the tools.</p>
-                    </div>
-                </div>
-
-                <!-- Q4 -->
-                <div class="faq-item">
-                    <div class="faq-question" onclick="toggleFaq(this)">
-                        <span>Can I calculate GPA for older regulations?</span>
-                        <i class="fa-solid fa-chevron-down"></i>
-                    </div>
-                    <div class="faq-answer">
-                        <p>This calculator follows the standard 10-point grading system (similar to R2021). Results
-                            might vary slightly for other regulations that use different grade points.</p>
-                    </div>
-                </div>
-
-                <!-- Q5 -->
-                <div class="faq-item">
-                    <div class="faq-question" onclick="toggleFaq(this)">
-                        <span>What happens if I refresh my browser?</span>
-                        <i class="fa-solid fa-chevron-down"></i>
-                    </div>
-                    <div class="faq-answer">
-                        <p>Since we value your privacy and don't store data on any server, all your entered marks
-                            are stored locally in your browser (LocalStorage). Your data should survive a normal refresh as long as you aren't in private/incognito mode.</p>
-                    </div>
-                </div>
-
-                <!-- Q6 -->
-                <div class="faq-item">
-                    <div class="faq-question" onclick="toggleFaq(this)">
-                        <span>Is this an official university application?</span>
-                        <i class="fa-solid fa-chevron-down"></i>
-                    </div>
-                    <div class="faq-answer">
-                        <p>No, this is a student-developed tool designed to help peers track their academic
-                            progress. Always verify with official university results.</p>
-                    </div>
-                </div>
-
-                <!-- Q7 -->
-                <div class="faq-item">
-                    <div class="faq-question" onclick="toggleFaq(this)">
-                        <span>Why do I see 'NA' in Expected Marks?</span>
-                        <i class="fa-solid fa-chevron-down"></i>
-                    </div>
-                    <div class="faq-answer">
-                        <p>If you see 'NA', it means achieving that specific grade is mathematically impossible with
-                            your current internal marks (you would need to score more than 100 in the external
-                            exam).</p>
-                    </div>
-                </div>
-            </div>
+            </main>
         </div>
     </div>
 
@@ -147,6 +440,97 @@
     </footer>
 
     <script src="script.js"></script>
+    <script>
+        // FAQ Specific Interactivity Logic
+        document.addEventListener('DOMContentLoaded', function() {
+            const searchInput = document.getElementById('faqSearch');
+            const faqCards = document.querySelectorAll('.faq-card');
+            const sections = document.querySelectorAll('.faq-category-section');
+            const categories = document.querySelectorAll('.category-item');
+            const emptySearch = document.getElementById('emptySearch');
+
+            // 1. Accordion Toggle
+            faqCards.forEach(card => {
+                const header = card.querySelector('.faq-card-header');
+                header.addEventListener('click', () => {
+                    const isActive = card.classList.contains('active');
+                    // Close others
+                    faqCards.forEach(c => c.classList.remove('active'));
+                    // Open this one
+                    if (!isActive) card.classList.add('active');
+                });
+            });
+
+            // 2. Search Logic
+            searchInput.addEventListener('input', (e) => {
+                const term = e.target.value.toLowerCase();
+                let hasResults = false;
+
+                sections.forEach(section => {
+                    let sectionHasMatch = false;
+                    const cards = section.querySelectorAll('.faq-card');
+                    
+                    cards.forEach(card => {
+                        const question = card.querySelector('.faq-card-header span').innerText.toLowerCase();
+                        const tags = card.dataset.tags.toLowerCase();
+                        const match = question.includes(term) || tags.includes(term);
+                        
+                        card.style.display = match ? 'block' : 'none';
+                        if (match) {
+                            sectionHasMatch = true;
+                            hasResults = true;
+                        }
+                    });
+
+                    section.style.display = sectionHasMatch ? 'block' : 'none';
+                });
+
+                emptySearch.style.display = hasResults ? 'none' : 'block';
+                
+                // Reset category highlighting during search if term is long
+                if (term.length > 0) {
+                    categories.forEach(c => c.classList.remove('active'));
+                } else {
+                    categories[0].classList.add('active');
+                }
+            });
+
+            // 3. Category Filter
+            categories.forEach(category => {
+                category.addEventListener('click', () => {
+                    const cat = category.dataset.category;
+                    
+                    // Update active state
+                    categories.forEach(c => c.classList.remove('active'));
+                    category.classList.add('active');
+
+                    // Clear search
+                    searchInput.value = '';
+
+                    // Filter sections
+                    sections.forEach(section => {
+                        if (cat === 'all') {
+                            section.style.display = 'block';
+                            section.querySelectorAll('.faq-card').forEach(c => c.style.display = 'block');
+                        } else {
+                            const isMatch = section.dataset.section === cat;
+                            section.style.display = isMatch ? 'block' : 'none';
+                            if (isMatch) {
+                                section.querySelectorAll('.faq-card').forEach(c => c.style.display = 'block');
+                            }
+                        }
+                    });
+
+                    emptySearch.style.display = 'none';
+
+                    // Smooth scroll to top of content on mobile
+                    if (window.innerWidth < 992) {
+                        document.querySelector('.faq-content').scrollIntoView({ behavior: 'smooth' });
+                    }
+                });
+            });
+        });
+    </script>
 </body>
 
 </html>
