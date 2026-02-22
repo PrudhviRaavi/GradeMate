@@ -4,7 +4,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>GradeMate | How to Use</title>
+    <title>GradeMate | How to Use - Mastering SGPA & CGPA</title>
+    <meta name="description"
+        content="Learn how to use GradeMate to calculate your SGPA, CGPA, and predict your grades. Understand the 10-point grading scale and educational credits logic.">
+    <meta name="keywords"
+        content="GPA Guide, SGPA Calculation, CGPA Calculation, Grading System, Academic Credits, GradeMate Help">
+    <meta name="author" content="Prudhvi Raavi">
     <link
         href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Outfit:wght@500;700;800&display=swap"
         rel="stylesheet">
@@ -107,51 +112,120 @@
             </div>
         </div>
 
-        <!-- Section 2: GPA Fundamentals -->
+        <!-- Section 2: GPA Fundamentals Deep Dive -->
         <div class="calc-card" style="margin-bottom: 3rem;">
-            <h2><i class="fa-solid fa-graduation-cap"></i> GPA Fundamentals</h2>
-            <p>Learn the logic behind the numbers and why tracking them matters.</p>
+            <div class="card-header-main">
+                <h2><i class="fa-solid fa-graduation-cap"></i> GPA Education Center</h2>
+                <p>Everything you need to know about the numbers that define your academic journey.</p>
+            </div>
 
-            <div class="reference-section">
-                <h3><i class="fa-solid fa-calculator"></i> The Math Explained</h3>
-                <div class="logic-grid">
-                    <div class="logic-card">
-                        <h4>SGPA Formula</h4>
-                        <p>Weighted average of grade points earned in a semester.</p>
-                        <div class="formula-box" style="margin: 1rem 0;">
-                            SGPA = Σ(Credits × Grade Points) / Σ(Total Credits)
+            <!-- The Big Three Cards -->
+            <div class="education-grid">
+                <div class="edu-card reveal-on-scroll">
+                    <div class="edu-icon"><i class="fa-solid fa-star"></i></div>
+                    <h4>Academic Credits</h4>
+                    <p>Credits represent the <strong>weightage</strong> of a subject. A 4-credit course affects your GPA
+                        twice as much as a 2-credit course.</p>
+                </div>
+                <div class="edu-card reveal-on-scroll">
+                    <div class="edu-icon"><i class="fa-solid fa-calendar-day"></i></div>
+                    <h4>SGPA</h4>
+                    <p><strong>Semester</strong> Grade Point Average. It measures your performance in a single
+                        semester/term.</p>
+                </div>
+                <div class="edu-card reveal-on-scroll">
+                    <div class="edu-icon"><i class="fa-solid fa-infinity"></i></div>
+                    <h4>CGPA</h4>
+                    <p><strong>Cumulative</strong> Grade Point Average. The average of all your SGPAs across all
+                        semesters.</p>
+                </div>
+            </div>
+
+            <div class="reference-section" style="margin-top: 3rem;">
+                <h3><i class="fa-solid fa-code-compare"></i> SGPA vs CGPA: The Difference</h3>
+                <div class="comparison-container">
+                    <div class="comparison-item">
+                        <div class="comp-label">Scope</div>
+                        <div class="comp-content">
+                            <span><strong>SGPA:</strong> One Semester</span>
+                            <span><strong>CGPA:</strong> Entire Degree</span>
                         </div>
                     </div>
-                    <div class="logic-card">
-                        <h4>CGPA Formula</h4>
-                        <p>Weighted average of SGPA over all completed semesters.</p>
-                        <div class="formula-box" style="margin: 1rem 0;">
-                            CGPA = Σ(SGPA × Sem Credits) / Σ(Total Credits)
+                    <div class="comparison-item">
+                        <div class="comp-label">Sensitivity</div>
+                        <div class="comp-content">
+                            <span><strong>SGPA:</strong> Highly volatile (one bad grade ruins it)</span>
+                            <span><strong>CGPA:</strong> Stabilizes over time (harder to change)</span>
                         </div>
                     </div>
                 </div>
             </div>
 
-            <div class="reference-section" style="margin-top: 2rem;">
-                <h3><i class="fa-solid fa-circle-info"></i> Why It Matters</h3>
-                <div style="display: grid; gap: 1rem;">
-                    <div
-                        style="display: flex; gap: 1rem; padding: 1rem; background: #f8fafc; border-radius: 12px; border-left: 4px solid #0ea5e9;">
-                        <div style="font-size: 1.5rem; color: #0ea5e9;"><i class="fa-solid fa-briefcase"></i></div>
-                        <div>
-                            <h4 style="margin: 0 0 0.5rem 0; color: var(--primary-color);">Placements</h4>
-                            <p style="margin: 0; color: var(--text-light); font-size: 0.95rem;">Most companies have
-                                minimum CGPA cutoffs (e.g., 7.0, 7.5) for recruitment.</p>
+            <div class="reference-section" style="margin-top: 3rem;">
+                <h3><i class="fa-solid fa-square-root-variable"></i> Technical Reference: The Math</h3>
+                <div class="logic-grid"
+                    style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 1.5rem;">
+                    <div class="edu-card reveal-on-scroll" style="text-align: left; padding: 1.5rem;">
+                        <h4 style="margin-bottom: 0.8rem;"><i class="fa-solid fa-calculator"
+                                style="margin-right: 0.5rem;"></i> SGPA Formula</h4>
+                        <p style="font-size: 0.85rem; margin-bottom: 1rem;">Σ(Credits × Grade Points) / Σ(Total Credits)
+                        </p>
+                        <div
+                            style="font-size: 0.8rem; color: var(--text-light); background: white; padding: 0.8rem; border-radius: 8px;">
+                            Every subject is multiplied by its weight (credits) and then averaged.
                         </div>
                     </div>
-                    <div
-                        style="display: flex; gap: 1rem; padding: 1rem; background: #f8fafc; border-radius: 12px; border-left: 4px solid #8b5cf6;">
-                        <div style="font-size: 1.5rem; color: #8b5cf6;"><i class="fa-solid fa-building-columns"></i>
+                    <div class="edu-card reveal-on-scroll" style="text-align: left; padding: 1.5rem;">
+                        <h4 style="margin-bottom: 0.8rem;"><i class="fa-solid fa-layer-group"
+                                style="margin-right: 0.5rem;"></i> CGPA Formula</h4>
+                        <p style="font-size: 0.85rem; margin-bottom: 1rem;">Σ(SGPA × Sem Credits) / Σ(Total Credits)</p>
+                        <div
+                            style="font-size: 0.8rem; color: var(--text-light); background: white; padding: 0.8rem; border-radius: 8px;">
+                            A weighted average of all your SGPAs based on total credits per semester.
                         </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="reference-section" style="margin-top: 3rem;">
+                <h3><i class="fa-solid fa-bolt"></i> Quick Interactive Tools</h3>
+                <div class="mini-tools-grid">
+                    <div class="mini-tool-card">
+                        <h4>CGPA to Percentage</h4>
+                        <p class="tool-desc">Standard 10-point scale conversion</p>
+                        <div class="mini-input-group">
+                            <input type="number" id="quickCgpa" placeholder="Enter CGPA" step="0.01" min="0" max="10">
+                            <div class="result-display" id="percResult">-- %</div>
+                        </div>
+                    </div>
+                    <div class="mini-tool-card">
+                        <h4>Credit Weightage Logic</h4>
+                        <p class="tool-desc">Why credits matter</p>
+                        <div class="weightage-visual">
+                            <div class="weight-box high">4 Credits (Heavy)</div>
+                            <div class="weight-box low">2 Credits (Light)</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="reference-section" style="margin-top: 3rem;">
+                <h3><i class="fa-solid fa-circle-info"></i> Why Tracking Matters</h3>
+                <div class="impact-grid">
+                    <div class="impact-item">
+                        <i class="fa-solid fa-briefcase"></i>
                         <div>
-                            <h4 style="margin: 0 0 0.5rem 0; color: var(--primary-color);">Higher Studies</h4>
-                            <p style="margin: 0; color: var(--text-light); font-size: 0.95rem;">Universities require a
-                                strong CGPA for masters admissions and scholarships.</p>
+                            <h4>Placement Eligibility</h4>
+                            <p>Most Top companies (TCS, Google, etc.) require a minimum CGPA of 7.0 or 7.5 to even
+                                apply.</p>
+                        </div>
+                    </div>
+                    <div class="impact-item">
+                        <i class="fa-solid fa-building-columns"></i>
+                        <div>
+                            <h4>Higher Studies</h4>
+                            <p>Global universities prioritize CGPA for MS/MBA admissions and fully-funded scholarships.
+                            </p>
                         </div>
                     </div>
                 </div>
@@ -159,76 +233,89 @@
         </div>
 
         <!-- Section 3: The Grading System -->
-        <div class="calc-card" style="margin-bottom: 3rem;">
-            <h2><i class="fa-solid fa-award"></i> The Official Grading Scale</h2>
-            <p style="margin-bottom: 2rem;">GradeMate uses the 10-point scale compatible with most modern regulations.
-            </p>
-
-            <div class="grade-table-wrapper">
-                <table class="grade-table">
-                    <thead>
-                        <tr>
-                            <th>Range of Marks</th>
-                            <th>Letter Grade</th>
-                            <th>Grade Points</th>
-                            <th>Assessment</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td>90 - 100</td>
-                            <td><span class="grade-badge">S</span></td>
-                            <td>10</td>
-                            <td>Outstanding</td>
-                        </tr>
-                        <tr>
-                            <td>80 - 89</td>
-                            <td><span class="grade-badge">A+</span></td>
-                            <td>09</td>
-                            <td>Excellent</td>
-                        </tr>
-                        <tr>
-                            <td>70 - 79</td>
-                            <td><span class="grade-badge">A</span></td>
-                            <td>08</td>
-                            <td>Very Good</td>
-                        </tr>
-                        <tr>
-                            <td>60 - 69</td>
-                            <td><span class="grade-badge">B+</span></td>
-                            <td>07</td>
-                            <td>Good</td>
-                        </tr>
-                        <tr>
-                            <td>55 - 59</td>
-                            <td><span class="grade-badge">B</span></td>
-                            <td>06</td>
-                            <td>Above Average</td>
-                        </tr>
-                        <tr>
-                            <td>50 - 54</td>
-                            <td><span class="grade-badge">C</span></td>
-                            <td>05</td>
-                            <td>Average</td>
-                        </tr>
-                        <tr>
-                            <td>45 - 49</td>
-                            <td><span class="grade-badge">P</span></td>
-                            <td>04</td>
-                            <td>Pass</td>
-                        </tr>
-                        <tr>
-                            <td>
-                                < 45</td>
-                            <td><span class="grade-badge" style="background:#e53e3e;">F</span></td>
-                            <td>00</td>
-                            <td>Fail / Reappear</td>
-                        </tr>
-                    </tbody>
-                </table>
+        <div class="calc-card reveal-on-scroll" style="margin-bottom: 3rem;">
+            <div class="card-header-main">
+                <h2><i class="fa-solid fa-award"></i> Grading Reference Matrix</h2>
+                <p>GradeMate uses the modern 10-point scale. Here is how your marks translate to grades.</p>
             </div>
-            <p style="margin-top: 1.5rem; font-size: 0.9rem; color: var(--text-light);">
-                <strong>Formula:</strong> Percentage = 10 × CGPA
+
+            <div class="grade-ref-grid">
+                <!-- S Grade -->
+                <div class="grade-card s-grade">
+                    <div class="grade-letter">S</div>
+                    <div class="grade-info">
+                        <span class="range">90 - 100 Marks</span>
+                        <span class="points">10 Points</span>
+                        <span class="desc">Outstanding</span>
+                    </div>
+                </div>
+                <!-- A+ Grade -->
+                <div class="grade-card a-plus-grade">
+                    <div class="grade-letter">A+</div>
+                    <div class="grade-info">
+                        <span class="range">80 - 89 Marks</span>
+                        <span class="points">9 Points</span>
+                        <span class="desc">Excellent</span>
+                    </div>
+                </div>
+                <!-- A Grade -->
+                <div class="grade-card a-grade">
+                    <div class="grade-letter">A</div>
+                    <div class="grade-info">
+                        <span class="range">70 - 79 Marks</span>
+                        <span class="points">8 Points</span>
+                        <span class="desc">Very Good</span>
+                    </div>
+                </div>
+                <!-- B+ Grade -->
+                <div class="grade-card b-plus-grade">
+                    <div class="grade-letter">B+</div>
+                    <div class="grade-info">
+                        <span class="range">60 - 69 Marks</span>
+                        <span class="points">7 Points</span>
+                        <span class="desc">Good</span>
+                    </div>
+                </div>
+                <!-- B Grade -->
+                <div class="grade-card b-grade">
+                    <div class="grade-letter">B</div>
+                    <div class="grade-info">
+                        <span class="range">55 - 59 Marks</span>
+                        <span class="points">6 Points</span>
+                        <span class="desc">Above Average</span>
+                    </div>
+                </div>
+                <!-- C Grade -->
+                <div class="grade-card c-grade">
+                    <div class="grade-letter">C</div>
+                    <div class="grade-info">
+                        <span class="range">50 - 54 Marks</span>
+                        <span class="points">5 Points</span>
+                        <span class="desc">Average</span>
+                    </div>
+                </div>
+                <!-- P Grade -->
+                <div class="grade-card p-grade">
+                    <div class="grade-letter">P</div>
+                    <div class="grade-info">
+                        <span class="range">45 - 49 Marks</span>
+                        <span class="points">4 Points</span>
+                        <span class="desc">Pass</span>
+                    </div>
+                </div>
+                <!-- F Grade -->
+                <div class="grade-card f-grade">
+                    <div class="grade-letter">F</div>
+                    <div class="grade-info">
+                        <span class="range">Below 45 Marks</span>
+                        <span class="points">0 Points</span>
+                        <span class="desc">Fail / Reappear</span>
+                    </div>
+                </div>
+            </div>
+
+            <p style="margin-top: 2rem; text-align: center; color: var(--text-light); font-size: 0.9rem;">
+                <strong>Standard Formula:</strong> Percentage (%) = 10 × CGPA
             </p>
         </div>
 
@@ -271,6 +358,10 @@
         </div>
 
     </div>
+
+    <button id="backToTop" class="back-to-top" title="Go to top">
+        <i class="fa-solid fa-arrow-up"></i>
+    </button>
 
     <footer>
         <p>&copy; Copyright GradeMate 2026. All rights reserved.</p>

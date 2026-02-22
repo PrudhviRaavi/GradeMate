@@ -15,7 +15,6 @@
         .faq-hero {
             padding: 6rem 5% 4rem;
             text-align: center;
-            background: linear-gradient(180deg, rgba(235, 248, 255, 0.5) 0%, rgba(255, 255, 255, 0) 100%);
             margin-bottom: 2rem;
         }
 
@@ -91,7 +90,8 @@
             text-align: center;
         }
 
-        .category-item:hover, .category-item.active {
+        .category-item:hover,
+        .category-item.active {
             background: rgba(26, 86, 219, 0.1);
             color: var(--primary-color);
         }
@@ -188,15 +188,18 @@
             .faq-layout {
                 grid-template-columns: 1fr;
             }
+
             .faq-sidebar {
                 position: static;
                 margin-bottom: 2rem;
                 overflow-x: auto;
             }
+
             .category-list {
                 display: flex;
                 gap: 1rem;
             }
+
             .category-item {
                 margin-bottom: 0;
                 white-space: nowrap;
@@ -224,15 +227,22 @@
         </ul>
     </nav>
 
+    <div class="back-home-container">
+        <a href="index.html" class="back-home-btn">
+            <i class="fa-solid fa-arrow-left"></i> Back Home
+        </a>
+    </div>
+
     <div class="faq-hero">
         <div class="container">
             <span class="hero-badge">Knowledge Hub</span>
             <h1 style="font-size: 3.5rem; margin-bottom: 1rem;">How can we help you?</h1>
             <p>Search for answers or browse categories below to master your academic tracking.</p>
-            
+
             <div class="search-container">
                 <i class="fa-solid fa-magnifying-glass search-icon"></i>
-                <input type="text" id="faqSearch" class="search-input" placeholder="Search questions (e.g. 'Arrears', 'Credits', 'Privacy')...">
+                <input type="text" id="faqSearch" class="search-input"
+                    placeholder="Search questions (e.g. 'Arrears', 'Credits', 'Privacy')...">
             </div>
         </div>
     </div>
@@ -262,7 +272,7 @@
 
             <!-- Main FAQ Content -->
             <main class="faq-content" id="faqAccordion">
-                
+
                 <!-- Category: Academic Rules -->
                 <section class="faq-category-section" data-section="academic">
                     <h2 class="faq-section-title"><i class="fa-solid fa-book-open"></i> Academic Rules</h2>
@@ -273,7 +283,11 @@
                                 <i class="fa-solid fa-chevron-down"></i>
                             </div>
                             <div class="faq-card-body">
-                                <p>If you fail a subject (Grade F), it is assigned 0 grade points and significantly lowers your SGPA. Once you clear the arrear in a subsequent attempt, your SGPA for that original semester remains the same, but your **CGPA** is updated using the new passing grade points. GradeMate allows you to update your semester inputs anytime to see your current standing.</p>
+                                <p>If you fail a subject (Grade F), it is assigned 0 grade points and significantly
+                                    lowers your SGPA. Once you clear the arrear in a subsequent attempt, your SGPA for
+                                    that original semester remains the same, but your **CGPA** is updated using the new
+                                    passing grade points. GradeMate allows you to update your semester inputs anytime to
+                                    see your current standing.</p>
                             </div>
                         </div>
 
@@ -283,7 +297,10 @@
                                 <i class="fa-solid fa-chevron-down"></i>
                             </div>
                             <div class="faq-card-body">
-                                <p>Different regulations have different credit patterns and occasionally different grade-to-point mappings. GradeMate defaults to the modern 10-point system used by R2021, but you can fully customize the points in our **Grading System** settings to match R2017 or any other regulation.</p>
+                                <p>Different regulations have different credit patterns and occasionally different
+                                    grade-to-point mappings. GradeMate defaults to the modern 10-point system used by
+                                    R2021, but you can fully customize the points in our **Grading System** settings to
+                                    match R2017 or any other regulation.</p>
                             </div>
                         </div>
 
@@ -293,7 +310,10 @@
                                 <i class="fa-solid fa-chevron-down"></i>
                             </div>
                             <div class="faq-card-body">
-                                <p>Elective courses should be treated exactly like core subjects. Simply add a new row in the SGPA calculator, enter the specific credits for that elective (usually 3 or 4), and select your grade. The weighted average logic handles the rest automatically.</p>
+                                <p>Elective courses should be treated exactly like core subjects. Simply add a new row
+                                    in the SGPA calculator, enter the specific credits for that elective (usually 3 or
+                                    4), and select your grade. The weighted average logic handles the rest
+                                    automatically.</p>
                             </div>
                         </div>
                     </div>
@@ -309,7 +329,10 @@
                                 <i class="fa-solid fa-chevron-down"></i>
                             </div>
                             <div class="faq-card-body">
-                                <p>The Grade Predictor is highly accurate as it uses the exact mathematical formulas from university regulations. It calculates the minimum required marks out of 100 in the End Sem exam to reach specific grade thresholds (S, A+, etc.) based on your internal CIA marks.</p>
+                                <p>The Grade Predictor is highly accurate as it uses the exact mathematical formulas
+                                    from university regulations. It calculates the minimum required marks out of 100 in
+                                    the End Sem exam to reach specific grade thresholds (S, A+, etc.) based on your
+                                    internal CIA marks.</p>
                             </div>
                         </div>
 
@@ -319,7 +342,10 @@
                                 <i class="fa-solid fa-chevron-down"></i>
                             </div>
                             <div class="faq-card-body">
-                                <p>A difference usually occurs due to: 1) Incorrectly entered credits for a subject, 2) Misunderstanding the grading scale of your specific regulation, or 3) Including non-credit courses. Double-check your grade sheet and ensure the "Grading System" tab in GradeMate matches your college rules.</p>
+                                <p>A difference usually occurs due to: 1) Incorrectly entered credits for a subject, 2)
+                                    Misunderstanding the grading scale of your specific regulation, or 3) Including
+                                    non-credit courses. Double-check your grade sheet and ensure the "Grading System"
+                                    tab in GradeMate matches your college rules.</p>
                             </div>
                         </div>
 
@@ -330,10 +356,11 @@
                             </div>
                             <div class="faq-card-body">
                                 <p>These are special statuses: <br>
-                                **RA**: Re-Appearance (due to lack of attendance). <br>
-                                **AB**: Absent from the End Semester Exam. <br>
-                                **RI**: Re-Appearance in Internal (Absent for CIA exams). <br>
-                                All of these are treated as 0 grade points in GPA calculations until the course is cleared.</p>
+                                    **RA**: Re-Appearance (due to lack of attendance). <br>
+                                    **AB**: Absent from the End Semester Exam. <br>
+                                    **RI**: Re-Appearance in Internal (Absent for CIA exams). <br>
+                                    All of these are treated as 0 grade points in GPA calculations until the course is
+                                    cleared.</p>
                             </div>
                         </div>
                     </div>
@@ -349,7 +376,9 @@
                                 <i class="fa-solid fa-chevron-down"></i>
                             </div>
                             <div class="faq-card-body">
-                                <p>After calculating your GPA, click the **'Export Report'** button. GradeMate will generate a professional, high-resolution snapshot of your results which you can save directly to your gallery or print as a PDF for your records.</p>
+                                <p>After calculating your GPA, click the **'Export Report'** button. GradeMate will
+                                    generate a professional, high-resolution snapshot of your results which you can save
+                                    directly to your gallery or print as a PDF for your records.</p>
                             </div>
                         </div>
 
@@ -359,7 +388,9 @@
                                 <i class="fa-solid fa-chevron-down"></i>
                             </div>
                             <div class="faq-card-body">
-                                <p>Yes! Once you have visited GradeMate, your browser caches the essential files. More importantly, your data is stored in **LocalStorage**, meaning your inputs remain saved even if you close the tab or lose internet connection.</p>
+                                <p>Yes! Once you have visited GradeMate, your browser caches the essential files. More
+                                    importantly, your data is stored in **LocalStorage**, meaning your inputs remain
+                                    saved even if you close the tab or lose internet connection.</p>
                             </div>
                         </div>
 
@@ -369,7 +400,9 @@
                                 <i class="fa-solid fa-chevron-down"></i>
                             </div>
                             <div class="faq-card-body">
-                                <p>We love hearing from our users! Head over to the **'Feedback'** link in the navigation menu to fill out a quick form. Our developers review all suggestions every week to keep GradeMate evolving.</p>
+                                <p>We love hearing from our users! Head over to the **'Feedback'** link in the
+                                    navigation menu to fill out a quick form. Our developers review all suggestions
+                                    every week to keep GradeMate evolving.</p>
                             </div>
                         </div>
                     </div>
@@ -385,7 +418,9 @@
                                 <i class="fa-solid fa-chevron-down"></i>
                             </div>
                             <div class="faq-card-body">
-                                <p>Absolutely not. GradeMate is an independent tool. We don't have a database; all your marks and calculations live and stay **exclusively on your device**. Neither the developer nor your college can see your data.</p>
+                                <p>Absolutely not. GradeMate is an independent tool. We don't have a database; all your
+                                    marks and calculations live and stay **exclusively on your device**. Neither the
+                                    developer nor your college can see your data.</p>
                             </div>
                         </div>
 
@@ -395,7 +430,9 @@
                                 <i class="fa-solid fa-chevron-down"></i>
                             </div>
                             <div class="faq-card-body">
-                                <p>GradeMate is a student-developed companion app. While we strive for 100% accuracy, results should be used for planning and tracking purposes only. Always refer to your official university portal for your legal academic record.</p>
+                                <p>GradeMate is a student-developed companion app. While we strive for 100% accuracy,
+                                    results should be used for planning and tracking purposes only. Always refer to your
+                                    official university portal for your legal academic record.</p>
                             </div>
                         </div>
                     </div>
@@ -410,7 +447,8 @@
                 <!-- Help CTA -->
                 <div class="faq-footer">
                     <h2>Can't find the answer you're looking for?</h2>
-                    <p style="margin-bottom: 2rem;">Our mission is to make academic tracking simple and transparent. If you have more questions, we're here to help.</p>
+                    <p style="margin-bottom: 2rem;">Our mission is to make academic tracking simple and transparent. If
+                        you have more questions, we're here to help.</p>
                     <a href="https://forms.gle/csWWxGzdpwwfShxr9" target="_blank" class="btn btn-primary">
                         <i class="fa-solid fa-paper-plane"></i> Contact Support / Bug Portal
                     </a>
@@ -442,7 +480,7 @@
     <script src="script.js"></script>
     <script>
         // FAQ Specific Interactivity Logic
-        document.addEventListener('DOMContentLoaded', function() {
+        document.addEventListener('DOMContentLoaded', function () {
             const searchInput = document.getElementById('faqSearch');
             const faqCards = document.querySelectorAll('.faq-card');
             const sections = document.querySelectorAll('.faq-category-section');
@@ -469,12 +507,12 @@
                 sections.forEach(section => {
                     let sectionHasMatch = false;
                     const cards = section.querySelectorAll('.faq-card');
-                    
+
                     cards.forEach(card => {
                         const question = card.querySelector('.faq-card-header span').innerText.toLowerCase();
                         const tags = card.dataset.tags.toLowerCase();
                         const match = question.includes(term) || tags.includes(term);
-                        
+
                         card.style.display = match ? 'block' : 'none';
                         if (match) {
                             sectionHasMatch = true;
@@ -486,7 +524,7 @@
                 });
 
                 emptySearch.style.display = hasResults ? 'none' : 'block';
-                
+
                 // Reset category highlighting during search if term is long
                 if (term.length > 0) {
                     categories.forEach(c => c.classList.remove('active'));
@@ -499,7 +537,7 @@
             categories.forEach(category => {
                 category.addEventListener('click', () => {
                     const cat = category.dataset.category;
-                    
+
                     // Update active state
                     categories.forEach(c => c.classList.remove('active'));
                     category.classList.add('active');

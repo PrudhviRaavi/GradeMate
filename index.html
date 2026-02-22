@@ -4,7 +4,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>GradeMate | Dashboard</title>
+    <title>GradeMate | Academic Grade Calculator & Student Portal</title>
+    <meta name="description"
+        content="GradeMate is the ultimate all-in-one student tool. Calculate SGPA, CGPA, predict grades, and find required marks for your desired GPA easily.">
+    <meta name="keywords"
+        content="SGPA Calculator, CGPA Calculator, Grade Predictor, Expected Marks, GPA Tracker, Student Portal, GradeMate">
+    <meta name="author" content="Prudhvi Raavi">
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -40,23 +45,39 @@
 
     <section class="hero">
         <div class="hero-content">
-
+            <span class="hero-badge"><i class="fa-solid fa-graduation-cap"></i> Your Academic Companion</span>
             <h1>Everything you need, <br> All in one place.</h1>
             <p>The ultimate student companion. Calculate grades,
-                access portals, and stay updated.</p>
+                access portals, and stay updated with ease.</p>
             <div class="cta-group">
-                <a href="utilities.html" class="btn btn-primary">
+                <a href="utilities.html" class="btn btn-primary shimmer-btn">
                     <i class="fa-solid fa-calculator"></i> Open Utilities
                 </a>
                 <a href="useful_links.html" class="btn btn-secondary">
                     <i class="fa-solid fa-link"></i> Useful Links
                 </a>
             </div>
+
+            <!-- Trust Bar -->
+            <div class="trust-bar">
+                <div class="trust-item">
+                    <i class="fa-solid fa-shield-halved"></i>
+                    <span>Privacy First</span>
+                </div>
+                <div class="trust-item">
+                    <i class="fa-solid fa-user-slash"></i>
+                    <span>Zero Accounts Needed</span>
+                </div>
+                <div class="trust-item">
+                    <i class="fa-solid fa-certificate"></i>
+                    <span>Always Free</span>
+                </div>
+            </div>
         </div>
     </section>
 
     <section class="features container">
-        <div class="feature-card">
+        <div class="feature-card reveal-on-scroll">
             <div class="icon-box">
                 <i class="fa-solid fa-calculator"></i>
             </div>
@@ -67,7 +88,7 @@
                     class="fa-solid fa-arrow-right"></i></a>
         </div>
 
-        <div class="feature-card">
+        <div class="feature-card reveal-on-scroll">
             <div class="icon-box">
                 <i class="fa-solid fa-layer-group"></i>
             </div>
@@ -78,7 +99,7 @@
                     class="fa-solid fa-arrow-right"></i></a>
         </div>
 
-        <div class="feature-card">
+        <div class="feature-card reveal-on-scroll">
             <div class="icon-box">
                 <i class="fa-solid fa-chart-line"></i>
             </div>
@@ -89,7 +110,7 @@
                     class="fa-solid fa-arrow-right"></i></a>
         </div>
 
-        <div class="feature-card">
+        <div class="feature-card reveal-on-scroll">
             <div class="icon-box">
                 <i class="fa-solid fa-graduation-cap"></i>
             </div>
@@ -100,7 +121,7 @@
                     class="fa-solid fa-arrow-right"></i></a>
         </div>
 
-        <div class="feature-card">
+        <div class="feature-card reveal-on-scroll">
             <div class="icon-box">
                 <i class="fa-solid fa-bullseye"></i>
             </div>
@@ -111,7 +132,7 @@
                     class="fa-solid fa-arrow-right"></i></a>
         </div>
 
-        <div class="feature-card">
+        <div class="feature-card reveal-on-scroll">
             <div class="icon-box">
                 <i class="fa-solid fa-percent"></i>
             </div>
@@ -139,7 +160,8 @@
             <p style="text-align: center; color: var(--text-light); margin-bottom: 3rem;">Have questions? We're here to
                 help you track your academic progress.</p>
 
-            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 3rem; align-items: start;">
+            <div
+                style="display: grid; grid-template-columns: 0.8fr 1.2fr; gap: 5rem; align-items: center; max-width: 1000px; margin: 0 auto;">
                 <!-- Left: Contact Info -->
                 <div>
                     <h3 style="margin-bottom: 2rem; color: var(--primary-color);">Contact Information</h3>
@@ -150,10 +172,10 @@
                             style="width: 50px; height: 50px; background: linear-gradient(135deg, #0ea5e9, #06b6d4); border-radius: 12px; display: flex; align-items: center; justify-content: center; flex-shrink: 0;">
                             <i class="fa-solid fa-envelope" style="color: white; font-size: 1.2rem;"></i>
                         </div>
-                        <div>
+                        <div style="margin-bottom: 2.5rem;">
                             <h4 style="margin: 0 0 0.5rem 0; color: var(--primary-color);">Email Us</h4>
                             <a href="mailto:raaviprudhvi1@gmail.com"
-                                style="color: #0ea5e9; text-decoration: underline; font-weight: 500;">
+                                style="color: #0ea5e9; text-decoration: underline; font-weight: 500; display: inline-flex; align-items: center; gap: 0.5rem; white-space: nowrap;">
                                 raaviprudhvi1@gmail.com <i class="fa-solid fa-arrow-up-right-from-square"
                                     style="font-size: 0.8rem;"></i>
                             </a>
@@ -166,10 +188,10 @@
                             style="width: 50px; height: 50px; background: linear-gradient(135deg, #8b5cf6, #a78bfa); border-radius: 12px; display: flex; align-items: center; justify-content: center; flex-shrink: 0;">
                             <i class="fa-solid fa-comment-dots" style="color: white; font-size: 1.2rem;"></i>
                         </div>
-                        <div>
+                        <div style="margin-bottom: 2.5rem;">
                             <h4 style="margin: 0 0 0.5rem 0; color: var(--primary-color);">Feedback Form</h4>
                             <a href="https://forms.gle/csWWxGzdpwwfShxr9" target="_blank"
-                                style="color: #0ea5e9; text-decoration: underline; font-weight: 500;">
+                                style="color: #0ea5e9; text-decoration: underline; font-weight: 500; display: inline-flex; align-items: center; gap: 0.5rem; white-space: nowrap;">
                                 Share your experience <i class="fa-solid fa-arrow-up-right-from-square"
                                     style="font-size: 0.8rem;"></i>
                             </a>
@@ -203,7 +225,7 @@
                 </div>
 
                 <!-- Right: Contact Form -->
-                <div style="background: #f8fafc; padding: 3rem; border-radius: 24px; border: 1px solid #e2e8f0; box-shadow: var(--shadow-lg); transition: var(--transition);"
+                <div style="background: #f8fafc; padding: 2.5rem; border-radius: 24px; border: 1px solid #e2e8f0; box-shadow: var(--shadow-lg); transition: var(--transition);"
                     onmouseover="this.style.borderColor='var(--accent-color)'"
                     onmouseout="this.style.borderColor='#e2e8f0'">
                     <p class="contact-subtext"
@@ -307,7 +329,7 @@
                     </div>
 
                     <!-- Review 3 -->
-                    <div class="review-card">
+                    <div class="review-card reveal-on-scroll">
                         <div class="user-profile">
                             <div class="user-img" style="background: #0cebeb;"><i class="fa-solid fa-user"></i></div>
                             <div>
@@ -325,7 +347,7 @@
                     </div>
 
                     <!-- Review 4 -->
-                    <div class="review-card">
+                    <div class="review-card reveal-on-scroll">
                         <div class="user-profile">
                             <div class="user-img" style="background: #f0932b;"><i class="fa-solid fa-user"></i></div>
                             <div>
@@ -424,13 +446,15 @@
         <p>&copy; Copyright GradeMate 2026. All rights reserved.</p>
         <p style="margin-top: 0.5rem; font-weight: 500;">Developed By <a
                 href="https://www.linkedin.com/in/prudhvi-krishna-raavi-64484a315" target="_blank"
-                style="color: var(--primary-color); text-decoration: none;">Prudhvi Raavi</a></p>
+                class="dev-link">Prudhvi Raavi</a></p>
         <div class="footer-links">
             <a href="disclaimer.html">Disclaimer</a>
             <span class="footer-separator">•</span>
             <a href="terms.html">Terms and Conditions</a>
             <span class="footer-separator">•</span>
             <a href="credits.html">Credits</a>
+            <span class="footer-separator">•</span>
+            <a href="faq.html">FAQ</a>
             <span class="footer-separator">•</span>
             <a href="https://github.com/PrudhviRaavi/GradeMate.git" target="_blank" title="GitHub"><i
                     class="fa-brands fa-github" style="font-size: 1.2rem;"></i></a>

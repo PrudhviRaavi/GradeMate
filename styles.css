@@ -237,14 +237,18 @@ a {
 }
 
 .hero-badge {
-    background: rgba(13, 71, 161, 0.1);
+    background: rgba(26, 86, 219, 0.1);
+    backdrop-filter: blur(8px);
     color: var(--primary-color);
-    padding: 0.5rem 1rem;
+    padding: 0.6rem 1.2rem;
     border-radius: 50px;
-    font-size: 0.9rem;
-    font-weight: 600;
-    margin-bottom: 1.5rem;
+    font-size: 0.85rem;
+    font-weight: 700;
+    margin-bottom: 2rem;
     display: inline-block;
+    border: 1px solid rgba(26, 86, 219, 0.2);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+    animation: fadeIn 1s ease-out;
 }
 
 .hero h1 {
@@ -308,6 +312,71 @@ a {
     color: var(--primary-color);
 }
 
+/* Shimmer Effect for Buttons */
+.shimmer-btn {
+    position: relative;
+    overflow: hidden;
+}
+
+.shimmer-btn::after {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -60%;
+    width: 20%;
+    height: 200%;
+    background: rgba(255, 255, 255, 0.3);
+    transform: rotate(30deg);
+    transition: none;
+    animation: shimmer 3s infinite;
+}
+
+@keyframes shimmer {
+    0% {
+        left: -60%;
+    }
+
+    20% {
+        left: 120%;
+    }
+
+    100% {
+        left: 120%;
+    }
+}
+
+/* Trust Bar */
+.trust-bar {
+    display: flex;
+    justify-content: center;
+    gap: 3rem;
+    margin-top: 4rem;
+    animation: fadeInUp 1s ease-out 0.5s both;
+}
+
+.trust-item {
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;
+    color: var(--text-light);
+    font-size: 1rem;
+    font-weight: 500;
+}
+
+.trust-item i {
+    color: var(--accent-color);
+    font-size: 1.1rem;
+}
+
+/* Section Waves */
+.section-wave {
+    width: 100%;
+    height: 100px;
+    margin-top: -50px;
+    margin-bottom: -1px;
+    background: transparent;
+}
+
 /* Feature Cards */
 .features {
     padding: 5rem 10%;
@@ -327,22 +396,31 @@ a {
 }
 
 .feature-card:hover {
-    transform: translateY(-10px);
-    box-shadow: var(--shadow-lg);
-    border-color: rgba(66, 153, 225, 0.3);
+    transform: translateY(-12px);
+    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.15);
+    border-color: var(--accent-color);
 }
 
 .icon-box {
-    width: 60px;
-    height: 60px;
-    background: linear-gradient(135deg, #e3f2fd 0%, #bbdefb 100%);
-    border-radius: 15px;
+    width: 70px;
+    height: 70px;
+    background: linear-gradient(135deg, #f0f9ff 0%, #e0f2fe 100%);
+    border-radius: 18px;
     display: flex;
     align-items: center;
     justify-content: center;
     margin-bottom: 1.5rem;
     color: var(--primary-color);
-    font-size: 1.5rem;
+    font-size: 1.8rem;
+    box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.05);
+    transition: var(--transition);
+}
+
+.feature-card:hover .icon-box {
+    background: var(--primary-color);
+    color: white;
+    transform: rotate(-5deg) scale(1.1);
+    box-shadow: 0 10px 20px rgba(26, 86, 219, 0.3);
 }
 
 .feature-card h3 {
@@ -1172,6 +1250,388 @@ footer {
 .faq-card-body p {
     margin: 0;
     padding-bottom: 0.5rem;
+}
+
+/* Final Polish Styles */
+.reveal-on-scroll {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: all 0.8s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+.reveal-on-scroll.visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.back-to-top {
+    position: fixed;
+    bottom: 30px;
+    right: 30px;
+    width: 50px;
+    height: 50px;
+    background: var(--glass-bg);
+    backdrop-filter: blur(10px);
+    border: 1px solid var(--glass-border);
+    border-radius: 50%;
+    color: var(--primary-color);
+    font-size: 1.2rem;
+    cursor: pointer;
+    box-shadow: var(--shadow-lg);
+    display: none;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+    transition: var(--transition);
+}
+
+.back-to-top:hover {
+    transform: translateY(-5px);
+    background: var(--primary-color);
+    color: white;
+}
+
+.back-to-top.show {
+    display: flex;
+    animation: fadeIn 0.3s ease-out;
+}
+
+/* Grading Reference Matrix Overhaul */
+.grade-ref-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 1.5rem;
+    margin-top: 2rem;
+}
+
+.grade-card {
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+    padding: 1.5rem;
+    background: white;
+    border-radius: 20px;
+    border: 1px solid #e2e8f0;
+    transition: var(--transition);
+}
+
+.grade-card:hover {
+    transform: scale(1.03);
+    box-shadow: var(--shadow-md);
+}
+
+.grade-letter {
+    width: 60px;
+    height: 60px;
+    background: #f1f5f9;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.5rem;
+    font-weight: 800;
+    color: var(--primary-color);
+    flex-shrink: 0;
+}
+
+.grade-info {
+    display: flex;
+    flex-direction: column;
+    gap: 0.2rem;
+}
+
+.grade-info .range {
+    font-size: 0.8rem;
+    color: var(--text-light);
+    font-weight: 600;
+}
+
+.grade-info .points {
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: var(--primary-color);
+}
+
+.grade-info .desc {
+    font-size: 0.85rem;
+    font-weight: 500;
+}
+
+/* Specific Grade Accent Colors */
+.s-grade {
+    border-left: 5px solid #10b981;
+}
+
+.a-plus-grade {
+    border-left: 5px solid #0ea5e9;
+}
+
+.a-grade {
+    border-left: 5px solid #1e88e5;
+}
+
+.b-plus-grade {
+    border-left: 5px solid #8b5cf6;
+}
+
+.b-grade {
+    border-left: 5px solid #a855f7;
+}
+
+.c-grade {
+    border-left: 5px solid #f59e0b;
+}
+
+.p-grade {
+    border-left: 5px solid #94a3b8;
+}
+
+.f-grade {
+    border-left: 5px solid #ef4444;
+}
+
+/* Footer Dev Link Polish */
+.dev-link {
+    background: linear-gradient(90deg, #1e88e5, #0ea5e9);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    font-weight: 700;
+    transition: var(--transition);
+}
+
+.dev-link:hover {
+    filter: brightness(1.2);
+    letter-spacing: 0.5px;
+}
+
+/* Back to Home Button */
+.back-home-container {
+    padding: 2rem 5% 0;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.back-home-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.6rem;
+    padding: 0.8rem 1.5rem;
+    background: var(--glass-bg);
+    backdrop-filter: blur(10px);
+    border: 1px solid var(--glass-border);
+    border-radius: 12px;
+    color: var(--primary-color);
+    font-weight: 600;
+    text-decoration: none;
+    transition: var(--transition);
+    box-shadow: var(--shadow-sm);
+}
+
+.back-home-btn:hover {
+    background: var(--primary-color);
+    color: white;
+    transform: translateX(-5px);
+    box-shadow: var(--shadow-md);
+}
+
+.back-home-btn i {
+    font-size: 1rem;
+}
+
+/* how-to-use.html Specific Enhancements */
+.card-header-main {
+    text-align: center;
+    margin-bottom: 3rem;
+}
+
+.education-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 2rem;
+    margin-bottom: 3rem;
+}
+
+.edu-card {
+    background: #f8fafc;
+    padding: 2rem;
+    border-radius: 20px;
+    border: 1px solid #e2e8f0;
+    text-align: center;
+    transition: all 0.3s ease;
+}
+
+.edu-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 15px 30px rgba(14, 165, 233, 0.1);
+    border-color: var(--accent-color);
+}
+
+.edu-icon {
+    width: 60px;
+    height: 60px;
+    background: white;
+    border-radius: 15px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 1.5rem;
+    font-size: 1.5rem;
+    color: var(--accent-color);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+}
+
+.comparison-container {
+    display: grid;
+    gap: 1rem;
+    margin-top: 1.5rem;
+}
+
+.comparison-item {
+    display: grid;
+    grid-template-columns: 120px 1fr;
+    align-items: center;
+    background: #f8fafc;
+    padding: 1.2rem;
+    border-radius: 12px;
+}
+
+.comp-label {
+    font-weight: 700;
+    color: var(--primary-color);
+    font-size: 0.9rem;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.comp-content {
+    display: flex;
+    justify-content: space-around;
+    gap: 1rem;
+}
+
+.comp-content span {
+    flex: 1;
+    font-size: 0.95rem;
+}
+
+.mini-tools-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 2rem;
+    margin-top: 1.5rem;
+}
+
+.mini-tool-card {
+    background: white;
+    padding: 1.5rem;
+    border-radius: 16px;
+    border: 1px solid #e2e8f0;
+}
+
+.tool-desc {
+    font-size: 0.85rem;
+    color: var(--text-light);
+    margin-bottom: 1.2rem;
+}
+
+.mini-input-group {
+    display: flex;
+    gap: 1rem;
+    align-items: center;
+}
+
+.mini-input-group input {
+    flex: 1;
+    padding: 0.8rem;
+    border: 2px solid #e2e8f0;
+    border-radius: 10px;
+    font-family: 'Outfit', sans-serif;
+    font-size: 1.1rem;
+    font-weight: 600;
+}
+
+.result-display {
+    padding: 0.8rem 1.5rem;
+    background: var(--primary-color);
+    color: white;
+    border-radius: 10px;
+    font-weight: 700;
+    min-width: 100px;
+    text-align: center;
+}
+
+.weightage-visual {
+    display: flex;
+    gap: 0.5rem;
+    height: 40px;
+}
+
+.weight-box {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 8px;
+    color: white;
+    font-size: 0.8rem;
+    font-weight: 600;
+}
+
+.weight-box.high {
+    flex: 2;
+    background: var(--accent-color);
+}
+
+.weight-box.low {
+    flex: 1;
+    background: #94a3b8;
+}
+
+.impact-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2rem;
+    margin-top: 1.5rem;
+}
+
+.impact-item {
+    display: flex;
+    gap: 1.5rem;
+    padding: 1.5rem;
+    background: #f8fafc;
+    border-radius: 16px;
+}
+
+.impact-item i {
+    font-size: 2rem;
+    color: var(--accent-color);
+}
+
+.impact-item h4 {
+    margin-bottom: 0.5rem;
+    color: var(--primary-color);
+}
+
+.impact-item p {
+    margin: 0;
+    font-size: 0.9rem;
+    color: var(--text-light);
+}
+
+@media (max-width: 768px) {
+    .comp-content {
+        flex-direction: column;
+        gap: 0.5rem;
+    }
+
+    .comparison-item {
+        grid-template-columns: 1fr;
+        gap: 0.5rem;
+    }
+
+    .impact-grid {
+        grid-template-columns: 1fr;
+    }
 }
 
 .review-card p {

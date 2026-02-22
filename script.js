@@ -916,3 +916,62 @@ window.onload = () => {
         });
     }
 };
+
+// Quick CGPA to Percentage Converter (How to Use page)
+document.addEventListener('DOMContentLoaded', () => {
+    const quickCgpaInput = document.getElementById('quickCgpa');
+    const percResult = document.getElementById('percResult');
+
+    if (quickCgpaInput && percResult) {
+        quickCgpaInput.addEventListener('input', (e) => {
+            const val = parseFloat(e.target.value);
+            if (!isNaN(val) && val >= 0 && val <= 10) {
+                const percentage = (val * 10).toFixed(2);
+                percResult.textContent = `${percentage} %`;
+                percResult.style.background = 'var(--accent-color)';
+            } else {
+                percResult.textContent = '-- %';
+                percResult.style.background = 'var(--primary-color)';
+            }
+        });
+    }
+});
+// Final Polish Logic: Scroll Animations & Navigation
+document.addEventListener('DOMContentLoaded', () => {
+    // 1. Scroll Reveal Observer
+    const revealObserver = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('visible');
+            }
+        });
+    }, { threshold: 0.1 });
+
+    document.querySelectorAll('.reveal-on-scroll').forEach(el => revealObserver.observe(el));
+
+    // 2. Back to Top Logic
+    const backToTop = document.getElementById('backToTop');
+    if (backToTop) {
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 400) {
+                backToTop.classList.add('show');
+            } else {
+                backToTop.classList.remove('show');
+            }
+        });
+
+        backToTop.addEventListener('click', () => {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        });
+    }
+
+    // 3. Hash-based Tab Navigation (Utilities page)
+    const hash = window.location.hash.substring(1);
+    if (hash && typeof switchTab === 'function') {
+        const validTabs = ['sgpaCalc', 'cgpaCalc', 'gradePredictor', 'expectedMarks', 'reqSgpa', 'cgpaPercent', 'gradingSystem'];
+        if (validTabs.includes(hash)) {
+            // Wait a bit for other initialization
+            setTimeout(() => switchTab(hash), 100);
+        }
+    }
+});
