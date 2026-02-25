@@ -196,13 +196,28 @@
                 <p>Know exactly what you need to score in End Semesters to get your desired grade.</p>
 
                 <div class="form-group">
+                    <label>Course Type</label>
+                    <select id="expCourseType" class="form-control" onchange="toggleExpPrac()">
+                        <option value="theory">Theory Only</option>
+                        <option value="integrated">Theory + Practical Course</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
                     <label>Internal Marks (Max 50) <span class="required">*</span></label>
                     <input type="number" id="expInternalMarks" class="form-control" placeholder="Enter marks out of 50"
                         min="0" max="50">
-                    <p style="font-size: 0.85rem; color: var(--text-light); margin-top: 0.5rem;" id="expErrorMsg">
-                        <i class="fa-solid fa-circle-exclamation"></i> Please enter a valid number between 0 and 50.
-                        Negative values and characters are not allowed.
-                    </p>
+                </div>
+
+                <div class="form-group" id="expExtPracGroup" style="display:none;">
+                    <label>External Practical Marks (Max 100) <span class="required">*</span></label>
+                    <input type="number" id="expExtPracMarks" class="form-control" placeholder="Enter marks out of 100"
+                        min="0" max="100">
+                </div>
+
+                <div id="expErrorMsg"
+                    style="visibility: hidden; color: #e53e3e; font-size: 0.85rem; margin-bottom: 1rem;">
+                    <i class="fa-solid fa-circle-exclamation"></i> Error message here.
                 </div>
 
                 <button class="btn btn-primary" onclick="calculateExpectedMarks()">Calculate Expected Marks</button>

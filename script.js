@@ -259,7 +259,23 @@ function calculateGrade() {
         return;
     }
 
-    // 4. If End Sem marks are provided -> Calculate Final Grade
+    // 4. Passing Minimum Checks (Theory & Integrated)
+    if (courseType === 'theory' || courseType === 'integrated') {
+        if (internalMarks < 25) {
+            showResult("Grade: RI", "Internal marks are below the passing minimum (25/50).", "fail");
+            return;
+        }
+        if (courseType === 'integrated' && extPracMarks < 50) {
+            showResult("Grade: U", "External Practical marks are below the passing minimum (50/100).", "fail");
+            return;
+        }
+        if (!isNaN(endSemMarks) && endSemMarks < 50) {
+            showResult("Grade: U", "End Semester marks are below the passing minimum (50/100).", "fail");
+            return;
+        }
+    }
+
+    // 5. If End Sem marks are provided -> Calculate Final Grade
     if (!isNaN(endSemMarks)) {
         let finalScore = currentTotal + (endSemMarks * endSemWeight);
         let grade = getGrade(finalScore, courseType);
@@ -277,8 +293,7 @@ function calculateGrade() {
     else {
         let tableHtml = `
             <h3><i class="fa-solid fa-list-ol"></i> Target Grades</h3>
-            <p>Based on your current marks (${currentTotal.toFixed(2)}), here is what you need in End Sem (out of 100):</p>
-            <div class="grade-table-wrapper">
+            <div class="grade-table-wrapper animate-pop-in">
                 <table class="grade-table">
                     <tr>
                         <th>Target Grade</th>
@@ -314,8 +329,11 @@ function calculateGrade() {
             // For S (90), you need 40 more. 40 / 0.5 = 80.
 
             if (requiredEndSem <= 100) {
-                let displayReq = Math.ceil(requiredEndSem);
-                if (displayReq < 0) displayReq = 0; // Just need to attend/pass min criteria usually
+                // Determine mandatory passing minimum for End Sem
+                const passMin = (courseType === 'theory' || courseType === 'integrated') ? 50 : 45;
+                let displayReq = Math.max(passMin, Math.ceil(requiredEndSem));
+
+                if (displayReq > 100) return; // Not possible with passing minimum constraint
 
                 // Formatting
                 tableHtml += `
@@ -363,16 +381,24 @@ function getGrade(score, type) {
 
 function showResult(title, msg, type) {
     const box = document.getElementById('gradeResult');
-    const color = type === 'fail' ? '#c53030' : '#2f855a'; // Red or Green
-    const bg = type === 'fail' ? '#fff5f5' : '#f0fff4';
+    const isFail = type === 'fail';
+    const icon = isFail ? 'fa-circle-xmark' : 'fa-circle-check';
+    const accentColor = isFail ? '#ef4444' : '#10b981';
 
-    box.style.backgroundColor = bg;
-    box.style.borderColor = color;
-    box.style.color = color;
+    // Reset and apply animation
+    box.className = 'animate-pop-in';
+    box.style.display = 'block';
 
     box.innerHTML = `
-        <h2 style="color:${color}">${title}</h2>
-        <p>${msg}</p>
+        <div class="premium-result-card" style="border-top: 4px solid ${accentColor}">
+            <div class="result-header">
+                <i class="fa-solid ${icon}" style="font-size: 1.5rem; color: ${accentColor}"></i>
+                <h3 style="margin: 0; color: ${accentColor}; font-size: 1.25rem;">${title}</h3>
+            </div>
+            <div class="result-body" style="text-align: center;">
+                <p style="margin: 0; font-size: 1.1rem; color: #4a5568;">${msg}</p>
+            </div>
+        </div>
     `;
 }
 
@@ -397,10 +423,17 @@ function convertCgpa() {
     const percent = cgpa * 10;
 
     const box = document.getElementById('cgpaPercentResult');
-    box.classList.add('show');
+    box.className = 'animate-pop-in';
+    box.style.display = 'block';
     box.innerHTML = `
-        <h3>${percent.toFixed(2)}%</h3>
-        <p>Calculated for CGPA ${cgpa.toFixed(2)} using multiplier (10)</p>
+        <div class="premium-result-card" style="border-top: 4px solid #8b5cf6">
+            <div class="result-header" style="justify-content: center;">
+                <h3 style="margin:0; color:#8b5cf6;">${percent.toFixed(2)}%</h3>
+            </div>
+            <div class="result-body" style="text-align: center;">
+                <p style="color: #64748b; margin: 0;">Equivalent Percentage for CGPA ${cgpa.toFixed(2)}</p>
+            </div>
+        </div>
     `;
     saveInputs();
 
@@ -525,14 +558,20 @@ function calculateSgpa(isSilent = false) {
 
     const box = document.getElementById('sgpaCalcResult');
     if (box) {
-        box.classList.add('show');
-        box.innerHTML = `<h3>SGPA: ${sgpa.toFixed(2)}</h3>`;
-
-        // Flash effect for real-time updates
-        if (isSilent) {
-            box.style.transform = 'scale(1.02)';
-            setTimeout(() => box.style.transform = 'scale(1)', 100);
-        }
+        box.className = 'animate-pop-in';
+        box.style.display = 'block';
+        box.innerHTML = `
+            <div class="premium-result-card" style="border-top: 4px solid #3b82f6">
+                <div class="result-header">
+                    <i class="fa-solid fa-graduation-cap" style="color: #3b82f6"></i>
+                    <h3 style="margin:0; color:#3b82f6;">SGPA Result</h3>
+                </div>
+                <div class="result-body" style="text-align: center;">
+                    <div style="font-size: 3rem; font-weight: 800; color: #1e293b;">${sgpa.toFixed(2)}</div>
+                    <p style="color: #64748b; margin: 0;">Calculated for your current semester</p>
+                </div>
+            </div>
+        `;
     }
 
     saveInputs();
@@ -603,20 +642,20 @@ function calculateCgpa(isSilent = false) {
     const cgpa = totalCredits === 0 ? 0 : (totalPoints / totalCredits);
 
     const box = document.getElementById('cgpaCalcResult');
-    box.classList.add('show');
-    box.innerHTML = `<h3>CGPA: ${cgpa.toFixed(2)}</h3>`;
-
-    // Flash effect for real-time updates
-    if (isSilent) {
-        box.style.transition = 'none';
-        box.style.transform = 'scale(1.02)';
-        box.style.borderColor = 'var(--primary-color)';
-        setTimeout(() => {
-            box.style.transition = 'transform 0.2s, border-color 0.2s';
-            box.style.transform = 'scale(1)';
-            box.style.borderColor = '#bee3f8';
-        }, 100);
-    }
+    box.className = 'animate-pop-in';
+    box.style.display = 'block';
+    box.innerHTML = `
+        <div class="premium-result-card" style="border-top: 4px solid #0ea5e9">
+            <div class="result-header">
+                <i class="fa-solid fa-chart-line" style="color: #0ea5e9"></i>
+                <h3 style="margin:0; color:#0ea5e9;">Overall CGPA</h3>
+            </div>
+            <div class="result-body" style="text-align: center;">
+                <div style="font-size: 3rem; font-weight: 800; color: #1e293b;">${cgpa.toFixed(2)}</div>
+                <p style="color: #64748b; margin: 0;">Cumulative Average across all semesters</p>
+            </div>
+        </div>
+    `;
 
     // GPA Growth Chart Logic
     const chartContainer = document.getElementById('chartContainer');
@@ -712,28 +751,42 @@ function calculateRequiredSGPA() {
     }
 
     const box = document.getElementById('reqSgpaResult');
-    box.classList.add('show');
+    box.className = 'animate-pop-in';
+    box.style.display = 'block';
 
     const curPoints = curCgpa * curCredits;
     const reqPoints = targetCgpa * (curCredits + nextCredits) - curPoints;
     const reqSgpa = reqPoints / nextCredits;
 
-    let resultHtml = `<h3>Required SGPA: ${reqSgpa.toFixed(2)}</h3>`;
+    let status = 'Achievable';
+    let statusIcon = 'fa-bullseye';
+    let accentColor = '#3b82f6';
+    let subtext = `To reach ${targetCgpa.toFixed(2)} CGPA, you need an SGPA of <strong>${reqSgpa.toFixed(2)}</strong> in your next ${nextCredits} credits.`;
 
     if (reqSgpa > 10) {
-        resultHtml = `<h3 style="color:#e53e3e;">Required SGPA: ${reqSgpa.toFixed(2)}</h3>
-                     <p><strong>Status: <i class="fa-solid fa-circle-xmark"></i> Impossible</strong></p>
-                     <p>Even with an S grade (10.0) in all subjects next sem, you can't reach this target in one go.</p>`;
+        status = 'Impossible';
+        statusIcon = 'fa-circle-xmark';
+        accentColor = '#ef4444';
+        subtext = `Even with an S grade (10.0) in all subjects next sem, you can't reach this target in one go.`;
     } else if (reqSgpa < 0) {
-        resultHtml = `<h3 style="color:#2f855a;">Goal Reached!</h3>
-                     <p><strong>Status: <i class="fa-solid fa-circle-check"></i> Already Safe</strong></p>
-                     <p>You have already surpassed your target! You just need to pass your subjects.</p>`;
-    } else {
-        resultHtml += `<p><strong>Status: <i class="fa-solid fa-bullseye"></i> Achievable</strong></p>
-                       <p>To reach ${targetCgpa.toFixed(2)} CGPA, you need an SGPA of <strong>${reqSgpa.toFixed(2)}</strong> in your next ${nextCredits} credits.</p>`;
+        status = 'Goal Reached!';
+        statusIcon = 'fa-circle-check';
+        accentColor = '#10b981';
+        subtext = `You have already surpassed your target! You just need to pass your subjects.`;
     }
 
-    box.innerHTML = resultHtml;
+    box.innerHTML = `
+        <div class="premium-result-card" style="border-top: 4px solid ${accentColor}">
+            <div class="result-header">
+                <i class="fa-solid ${statusIcon}" style="color: ${accentColor}"></i>
+                <h3 style="margin:0; color:${accentColor};">${status}</h3>
+            </div>
+            <div class="result-body" style="text-align: center;">
+                <div style="font-size: 2.5rem; font-weight: 800; color: #1e293b; margin-bottom: 0.5rem;">${reqSgpa.toFixed(2)}</div>
+                <p style="color: #64748b; margin: 0;">${subtext}</p>
+            </div>
+        </div>
+    `;
     saveInputs();
 
     // Show export button
@@ -746,8 +799,16 @@ function calculateRequiredSGPA() {
 // ==========================================
 
 // ... EXPECTED MARKS CALCULATOR ...
+function toggleExpPrac() {
+    const type = document.getElementById('expCourseType').value;
+    const group = document.getElementById('expExtPracGroup');
+    group.style.display = type === 'integrated' ? 'block' : 'none';
+}
+
 function calculateExpectedMarks() {
+    const courseType = document.getElementById('expCourseType').value;
     const internals = parseFloat(document.getElementById('expInternalMarks').value);
+    const extPracMarks = parseFloat(document.getElementById('expExtPracMarks').value) || 0;
     const resultBox = document.getElementById('expectedMarksResult');
     const errorMsg = document.getElementById('expErrorMsg');
 
@@ -755,69 +816,133 @@ function calculateExpectedMarks() {
     resultBox.style.display = 'none';
     if (errorMsg) {
         errorMsg.style.visibility = 'hidden';
-        errorMsg.style.color = 'var(--text-light)'; // Reset color
-        errorMsg.innerHTML = '<i class="fa-solid fa-circle-exclamation"></i> Please enter a valid number between 0 and 50. Negative values and characters are not allowed.';
     }
 
     // Validation
     if (isNaN(internals) || internals < 0 || internals > 50) {
         if (errorMsg) {
             errorMsg.style.visibility = 'visible';
-            errorMsg.style.color = '#e53e3e'; // Red color for error
-            if (isNaN(internals)) errorMsg.innerHTML = '<i class="fa-solid fa-circle-exclamation"></i> Please enter a valid number.';
-            else if (internals < 0) errorMsg.innerHTML = '<i class="fa-solid fa-circle-exclamation"></i> Negative marks are not allowed.';
-            else if (internals > 50) errorMsg.innerHTML = '<i class="fa-solid fa-circle-exclamation"></i> Internal marks cannot exceed 50.';
+            errorMsg.innerHTML = '<i class="fa-solid fa-circle-exclamation"></i> Please enter valid internal marks (0-50).';
         }
         return;
     }
 
+    if (courseType === 'integrated') {
+        const rawExtPrac = document.getElementById('expExtPracMarks').value;
+        if (rawExtPrac === "" || isNaN(extPracMarks) || extPracMarks < 0 || extPracMarks > 100) {
+            if (errorMsg) {
+                errorMsg.style.visibility = 'visible';
+                errorMsg.innerHTML = '<i class="fa-solid fa-circle-exclamation"></i> Please enter valid external practical marks (0-100).';
+            }
+            return;
+        }
+    }
+
+    // Internal Passing Minimum (25/50 - for both Theory & Integrated)
+    if ((courseType === 'theory' || courseType === 'integrated') && internals < 25) {
+        resultBox.innerHTML = `
+            <div style="background: #fff5f5; padding: 20px; border-radius: 12px; border: 1px solid #feb2b2; text-align: center; color: #c53030;">
+                <i class="fa-solid fa-circle-xmark" style="font-size: 2rem; margin-bottom: 10px;"></i>
+                <h3 style="margin: 0;">Status: FAIL</h3>
+                <p style="margin: 10px 0 0;">Internal marks are below the passing minimum (25/50). You cannot pass this course even with full marks in other components.</p>
+            </div>
+        `;
+        resultBox.style.display = 'block';
+        return;
+    }
+
+    if (courseType === 'integrated') {
+        // External Practical Passing Minimum (50/100)
+        if (extPracMarks < 50) {
+            resultBox.innerHTML = `
+                <div style="background: #fff5f5; padding: 20px; border-radius: 12px; border: 1px solid #feb2b2; text-align: center; color: #c53030;">
+                    <i class="fa-solid fa-circle-xmark" style="font-size: 2rem; margin-bottom: 10px;"></i>
+                    <h3 style="margin: 0;">Status: FAIL</h3>
+                    <p style="margin: 10px 0 0;">External Practical marks are below the passing minimum (50/100). You cannot pass after failing in practicals.</p>
+                </div>
+            `;
+            resultBox.style.display = 'block';
+            return;
+        }
+    }
+
+    // Calculate Current Total (Internals + External Practical Weightage)
+    let currentTotal = internals;
+    let endSemWeight = 0.5;
+    let passMinFloor = (courseType === 'theory' || courseType === 'integrated') ? 50 : 45;
+
+    if (courseType === 'integrated') {
+        // Integrated: Int(50) + ExtPrac(25) + EndSem(25)
+        currentTotal += (extPracMarks * 0.25);
+        endSemWeight = 0.25;
+    }
+
     // Thresholds
     const grades = [
-        { label: 'S', minTotal: 90 },
-        { label: 'A+', minTotal: 80 },
-        { label: 'A', minTotal: 70 },
-        { label: 'B+', minTotal: 60 },
-        { label: 'B', minTotal: 55 },
-        { label: 'C', minTotal: 50 },
-        { label: 'P', minTotal: 45 }
+        { label: 'S', min: 90 },
+        { label: 'A+', min: 80 },
+        { label: 'A', min: 70 },
+        { label: 'B+', min: 60 },
+        { label: 'B', min: 55 },
+        { label: 'C', min: 50 },
+        { label: 'P', min: 45 }
     ];
 
     let tableRows = '';
 
-    grades.forEach(grade => {
-        // Formula: Total = Internals + (Externals/2)
-        // Externals = (Total - Internals) * 2
-        let requiredExt = (grade.minTotal - internals) * 2;
-        let extDisplay = '';
+    grades.forEach(item => {
+        // Skip P grade for Practical courses if applicable
+        // ...
+        let requiredEndSem = (item.min - currentTotal) / endSemWeight;
+        let displayValue = '';
 
-        if (requiredExt > 100) {
-            extDisplay = '<span style="color: #ef4444; font-weight:600;">NA</span>'; // Not Possible
-        } else if (requiredExt <= 0) {
-            extDisplay = '<span style="color: #22c55e; font-weight:600;">0</span>'; // Already Achieved
+        if (requiredEndSem > 100) {
+            displayValue = '<span style="color: #ef4444; font-weight:600;">NA</span>';
         } else {
-            extDisplay = `<strong>${Math.ceil(requiredExt)}</strong>`;
+            // Passing Minimum Guard
+            let finalReq = Math.max(passMinFloor, Math.ceil(requiredEndSem));
+
+            if (finalReq > 100) {
+                displayValue = '<span style="color: #ef4444; font-weight:600;">NA</span>';
+            } else if (requiredEndSem <= 0 && currentTotal >= item.min) {
+                // If they already have enough marks, they still need to get the passing minimum
+                displayValue = `<span style="color: #1a56db; font-weight:700;">${passMinFloor}</span>`;
+            } else {
+                displayValue = `<span style="color: #1a56db; font-weight:700;">${finalReq}</span>`;
+            }
         }
 
+        // Progress Calculation for Visual Chart
+        let progress = Math.min(100, Math.max(0, (currentTotal / item.min) * 100));
+        let barColor = progress > 80 ? '#10b981' : (progress > 50 ? '#3b82f6' : '#94a3b8');
+
         tableRows += `
-            <tr>
-                <td style="padding: 12px; border-bottom: 1px solid #eee;">${grade.label}</td>
-                <td style="padding: 12px; border-bottom: 1px solid #eee;">${extDisplay}</td>
+            <tr style="border-bottom: 1px solid #edf2f7;">
+                <td style="padding: 1rem; color: #4a5568; font-weight: 500;">
+                    ${item.label}
+                    <div class="progress-bar-container">
+                        <div class="progress-bar-fill" style="width: ${progress}%; background: ${barColor}"></div>
+                    </div>
+                </td>
+                <td style="padding: 1rem;">${displayValue}</td>
             </tr>
         `;
     });
 
     resultBox.innerHTML = `
-        <table style="width:100%; border-collapse: collapse; text-align: center;">
-            <thead>
-                <tr style="background: #f8fafc;">
-                    <th style="padding: 12px; border-bottom: 2px solid #e2e8f0; color: var(--primary-color);">Grade</th>
-                    <th style="padding: 12px; border-bottom: 2px solid #e2e8f0; color: var(--primary-color);">Required External (100)</th>
-                </tr>
-            </thead>
-            <tbody>
-                ${tableRows}
-            </tbody>
-        </table>
+        <div class="animate-pop-in" style="background: white; border-radius: 12px; border: 1px solid #e2e8f0; overflow: hidden; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1);">
+            <table style="width: 100%; border-collapse: collapse; text-align: center;">
+                <thead style="background: #f8fafc;">
+                    <tr>
+                        <th style="padding: 1rem; color: #1a56db; font-weight: 700; text-transform: uppercase; font-size: 0.85rem;">Grade</th>
+                        <th style="padding: 1rem; color: #1a56db; font-weight: 700; text-transform: uppercase; font-size: 0.85rem;">Required End Sem (100)</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    ${tableRows}
+                </tbody>
+            </table>
+        </div>
     `;
     resultBox.style.display = 'block';
 
