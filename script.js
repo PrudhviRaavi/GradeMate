@@ -60,10 +60,17 @@ document.addEventListener('DOMContentLoaded', function () {
 // ==========================================
 // GRADING SCHEME LOGIC
 // ==========================================
-const DEFAULT_SCHEME = {
-    "S": 10, "A+": 9, "A": 8, "B+": 7, "B": 6, "C": 5, "P": 4, "F": 0
-};
-let currentScheme = { ...DEFAULT_SCHEME };
+const DEFAULT_SCHEME = [
+    { label: "S", points: 10, minScore: 90 },
+    { label: "A+", points: 9, minScore: 80 },
+    { label: "A", points: 8, minScore: 70 },
+    { label: "B+", points: 7, minScore: 60 },
+    { label: "B", points: 6, minScore: 55 },
+    { label: "C", points: 5, minScore: 50 },
+    { label: "P", points: 4, minScore: 45 },
+    { label: "F", points: 0, minScore: 0 }
+];
+let currentScheme = [...DEFAULT_SCHEME.map(item => ({ ...item }))];
 
 function loadGradingScheme() {
     const saved = localStorage.getItem('grademate_scheme');
@@ -78,25 +85,31 @@ function renderSchemeTable() {
     if (!tbody) return;
     tbody.innerHTML = '';
 
-    Object.keys(DEFAULT_SCHEME).forEach(grade => {
+    currentScheme.forEach((item, index) => {
         const row = document.createElement('tr');
         row.innerHTML = `
-            <td><strong>${grade}</strong></td>
-            <td><input type="number" class="form-control scheme-input" data-grade="${grade}" value="${currentScheme[grade]}" step="1" min="0" max="100"></td>
+            <td><input type="text" class="form-control scheme-label" data-index="${index}" value="${item.label}"></td>
+            <td><input type="number" class="form-control scheme-points" data-index="${index}" value="${item.points}" step="0.5" min="0" max="10"></td>
+            <td><input type="number" class="form-control scheme-min" data-index="${index}" value="${item.minScore}" step="1" min="0" max="100"></td>
         `;
         tbody.appendChild(row);
     });
 }
 
 function saveGradingScheme() {
-    const inputs = document.querySelectorAll('.scheme-input');
-    inputs.forEach(input => {
-        const grade = input.getAttribute('data-grade');
-        currentScheme[grade] = parseFloat(input.value) || 0;
+    const labels = document.querySelectorAll('.scheme-label');
+    const points = document.querySelectorAll('.scheme-points');
+    const mins = document.querySelectorAll('.scheme-min');
+
+    labels.forEach((input, i) => {
+        currentScheme[i].label = input.value || DEFAULT_SCHEME[i].label;
+        currentScheme[i].points = parseFloat(points[i].value) || 0;
+        currentScheme[i].minScore = parseFloat(mins[i].value) || 0;
     });
+
     localStorage.setItem('grademate_scheme', JSON.stringify(currentScheme));
 
-    // Update existing select options in SGPA calculator if they exist
+    // Update all calculators to reflect label changes
     updateAllGradeOptionsByScheme();
 
     const status = document.getElementById('gradingSchemeStatus');
@@ -107,8 +120,8 @@ function saveGradingScheme() {
 }
 
 function resetGradingScheme() {
-    if (confirm("Reset grading points to default values?")) {
-        currentScheme = { ...DEFAULT_SCHEME };
+    if (confirm("Reset grading system to default values?")) {
+        currentScheme = [...DEFAULT_SCHEME.map(item => ({ ...item }))];
         localStorage.removeItem('grademate_scheme');
         renderSchemeTable();
         updateAllGradeOptionsByScheme();
@@ -116,7 +129,26 @@ function resetGradingScheme() {
 }
 
 function updateAllGradeOptionsByScheme() {
-    // This will update the internal mapping and we'll ensure selects use labels as values
+    // Collect options HTML
+    let optionsHtml = '';
+    currentScheme.forEach(item => {
+        optionsHtml += `<option value="${item.label}">${item.label}</option>`;
+    });
+
+    // Update all existing selects
+    const selects = document.querySelectorAll('.grade-input');
+    selects.forEach(select => {
+        const currentVal = select.value;
+        select.innerHTML = optionsHtml;
+        // Try to restore previous selection if it still exists
+        if (Array.from(select.options).some(opt => opt.value === currentVal)) {
+            select.value = currentVal;
+        }
+    });
+
+    // Also update any reference tables or predictors that might be visible
+    if (typeof calculateGrade === 'function') calculateGrade();
+    if (typeof calculateExpectedMarks === 'function') calculateExpectedMarks();
 }
 
 function exportResults(calcId) {
@@ -314,19 +346,17 @@ function calculateGrade() {
 
         let possible = false;
 
-        grades.forEach(item => {
-            // Skip P grade for Practical course (min is 50)
-            if (courseType === 'practical' && item.g === 'P') return;
+        currentScheme.forEach(item => {
+            // Skip P-equivalent grade for Practical course (usually min 50 required)
+            // We'll assume the second to last item is 'Pass' and last is 'Fail'
+            // For robustness, let's just skip any that have points < 5 if practical
+            if (courseType === 'practical' && item.points < 5 && item.points > 0) return;
+            if (item.points === 0) return; // Skip F
 
             // Calculate required end sem score
             // Formula: Final = Curr + (Req * Weight)
             // Req = (Final - Curr) / Weight
-            let requiredEndSem = (item.min - currentTotal) / endSemWeight;
-
-            // If required is negative, it means they already have enough marks (assuming they pass end sem min reqs)
-            // But usually you need to appear. Let's say min 0.
-            // However, practically, if you have 50 internals, you have 50 total. 
-            // For S (90), you need 40 more. 40 / 0.5 = 80.
+            let requiredEndSem = (item.minScore - currentTotal) / endSemWeight;
 
             if (requiredEndSem <= 100) {
                 // Determine mandatory passing minimum for End Sem
@@ -338,8 +368,8 @@ function calculateGrade() {
                 // Formatting
                 tableHtml += `
                     <tr>
-                        <td><span class="grade-badge" style="font-size:0.9rem; padding:0.2rem 0.6rem;">${item.g}</span></td>
-                        <td>${item.min}</td>
+                        <td><span class="grade-badge" style="font-size:0.9rem; padding:0.2rem 0.6rem;">${item.label}</span></td>
+                        <td>${item.minScore}</td>
                         <td><strong>${displayReq}</strong> / 100</td>
                     </tr>
                 `;
@@ -364,19 +394,19 @@ function getGrade(score, type) {
     score = Math.round(score);
 
     // Dynamic Grade Detection based on currentScheme
-    if (score >= 90) return { grade: 'S', points: currentScheme['S'] };
-    if (score >= 80) return { grade: 'A+', points: currentScheme['A+'] };
-    if (score >= 70) return { grade: 'A', points: currentScheme['A'] };
-    if (score >= 60) return { grade: 'B+', points: currentScheme['B+'] };
-    if (score >= 55) return { grade: 'B', points: currentScheme['B'] };
-    if (score >= 50) return { grade: 'C', points: currentScheme['C'] };
-
-    // P Grade Check
-    if (type !== 'practical') {
-        if (score >= 45) return { grade: 'P', points: currentScheme['P'] };
+    for (let i = 0; i < currentScheme.length; i++) {
+        const item = currentScheme[i];
+        if (score >= item.minScore) {
+            // Practical course exception: if points < 5 and not F, skip if practical
+            // (assuming 5 is passing for practical)
+            if (type === 'practical' && item.points < 5 && item.points > 0) continue;
+            return { grade: item.label, points: item.points };
+        }
     }
 
-    return { grade: 'F', points: currentScheme['F'] };
+    // Fallback to F (last item)
+    const failGrade = currentScheme[currentScheme.length - 1];
+    return { grade: failGrade.label, points: failGrade.points };
 }
 
 function showResult(title, msg, type) {
@@ -466,8 +496,8 @@ function addSgpaRow() {
 
     // Create selection options based on scheme
     let options = '';
-    Object.keys(DEFAULT_SCHEME).forEach(grade => {
-        options += `<option value="${grade}">${grade}</option>`;
+    currentScheme.forEach(item => {
+        options += `<option value="${item.label}">${item.label}</option>`;
     });
 
     row.innerHTML = `
@@ -534,8 +564,9 @@ function calculateSgpa(isSilent = false) {
 
         // Logic to handle both numeric values and grade names (for robustness)
         let g = 0;
-        if (currentScheme[gName] !== undefined) {
-            g = currentScheme[gName];
+        const schemeItem = currentScheme.find(item => item.label === gName);
+        if (schemeItem) {
+            g = schemeItem.points;
         } else if (!isNaN(parseFloat(gName))) {
             g = parseFloat(gName);
         }

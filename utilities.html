@@ -303,8 +303,9 @@
                     <table class="grade-table" id="gradingSchemeTable">
                         <thead>
                             <tr>
-                                <th>Grade</th>
+                                <th>Grade Label</th>
                                 <th>Grade Points</th>
+                                <th>Min Marks (out of 100)</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -327,6 +328,14 @@
     </div>
 
     <!-- Academic Reference Section -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            if (typeof loadGradingScheme === 'function') {
+                loadGradingScheme();
+                updateAllGradeOptionsByScheme();
+            }
+        });
+    </script>
 
 
     <!-- Grading Schema Reference -->
