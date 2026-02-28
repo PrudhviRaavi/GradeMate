@@ -1859,3 +1859,16 @@ footer {
     margin: 0;
     padding-bottom: 0.5rem;
 }
+
+/* Contact Grid Equal Sizing */
+.contact-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2rem;
+}
+
+@media (max-width: 850px) {
+    .contact-grid {
+        grid-template-columns: 1fr;
+    }
+}
