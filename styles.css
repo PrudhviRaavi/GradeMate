@@ -1627,7 +1627,7 @@ footer {
 
 .mini-tools-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(min(240px, 100%), 1fr));
     gap: 2rem;
     margin-top: 1.5rem;
 }
@@ -1647,18 +1647,22 @@ footer {
 
 .mini-input-group {
     display: flex;
+    flex-wrap: wrap;
     gap: 1rem;
     align-items: center;
 }
 
 .mini-input-group input {
     flex: 1;
+    min-width: 0;
     padding: 0.8rem;
     border: 2px solid #e2e8f0;
     border-radius: 10px;
     font-family: 'Outfit', sans-serif;
     font-size: 1.1rem;
     font-weight: 600;
+    box-sizing: border-box;
+    width: 100%;
 }
 
 .result-display {
@@ -1667,8 +1671,10 @@ footer {
     color: white;
     border-radius: 10px;
     font-weight: 700;
-    min-width: 100px;
+    min-width: 0;
+    width: 100%;
     text-align: center;
+    box-sizing: border-box;
 }
 
 .weightage-visual {
@@ -1699,7 +1705,7 @@ footer {
 
 .impact-grid {
     display: grid;
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: repeat(auto-fit, minmax(min(240px, 100%), 1fr));
     gap: 2.5rem;
     margin-top: 1.5rem;
 }
