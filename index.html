@@ -186,11 +186,12 @@
     </section>
 
     <!-- Testimonials Section -->
-    <section class="testimonials-section" style="padding: 4rem 0;">
-        <div class="container">
+    <section class="testimonials-section" style="padding: 4rem 0; overflow: hidden; max-width: 100vw; background: linear-gradient(to bottom, transparent, rgba(14, 165, 233, 0.05));">
+        <div class="container" style="max-width: 100%; padding: 0;">
             <h2 style="text-align: center; margin-bottom: 3rem; font-size: 2rem;">What Students Say</h2>
-            <div class="testimonials-track">
-                <!-- Keep 4 unique reviews -->
+            <div class="testimonials-container" style="width: 100%; position: relative; overflow: hidden; padding: 1rem 0;">
+                <div class="testimonials-track">
+                    <!-- Original Set -->
                     <div class="review-card">
                         <div class="user-profile">
                             <div class="user-img" style="background: #FF6B6B;"><i class="fa-solid fa-user"></i></div>
@@ -219,7 +220,7 @@
                         <p>"Finally, a tool that accounts for strict attendance rules (RA). The UI is super clean and easy to use."</p>
                     </div>
 
-                    <div class="review-card reveal-on-scroll">
+                    <div class="review-card">
                         <div class="user-profile">
                             <div class="user-img" style="background: #0cebeb;"><i class="fa-solid fa-user"></i></div>
                             <div>
@@ -233,7 +234,7 @@
                         <p>"The 'Expected Marks' feature is exactly what I needed before finals. Helps me plan my study schedule perfectly."</p>
                     </div>
 
-                    <div class="review-card reveal-on-scroll">
+                    <div class="review-card">
                         <div class="user-profile">
                             <div class="user-img" style="background: #f0932b;"><i class="fa-solid fa-user"></i></div>
                             <div>
@@ -246,6 +247,120 @@
                         </div>
                         <p>"Better than our official portal! It's fast, private, and I don't have to login every single time."</p>
                     </div>
+
+                    <div class="review-card">
+                        <div class="user-profile">
+                            <div class="user-img" style="background: #10b981;"><i class="fa-solid fa-user"></i></div>
+                            <div>
+                                <h4>Thrinesh</h4>
+                                <p style="font-size: 0.75rem; color: #94a3b8; margin: 0;">ECE</p>
+                                <div class="stars">
+                                    <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
+                                </div>
+                            </div>
+                        </div>
+                        <p>"Saved my semester! The SGPA calculator is a lifesaver. I realized I needed just 2 more marks to jump a grade."</p>
+                    </div>
+
+                    <div class="review-card">
+                        <div class="user-profile">
+                            <div class="user-img" style="background: #ef4444;"><i class="fa-solid fa-user"></i></div>
+                            <div>
+                                <h4>Lokesh</h4>
+                                <p style="font-size: 0.75rem; color: #94a3b8; margin: 0;">Aeronautical</p>
+                                <div class="stars">
+                                    <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star-half-stroke"></i>
+                                </div>
+                            </div>
+                        </div>
+                        <p>"Finally, a tool that accounts for strict attendance rules (RA). The UI is super clean and easy to use."</p>
+                    </div>
+
+                    <!-- Duplicated Set for Infinite Scroll -->
+                    <div class="review-card">
+                        <div class="user-profile">
+                            <div class="user-img" style="background: #FF6B6B;"><i class="fa-solid fa-user"></i></div>
+                            <div>
+                                <h4>Tejesh Reddy</h4>
+                                <p style="font-size: 0.75rem; color: #94a3b8; margin: 0;">BBA</p>
+                                <div class="stars">
+                                    <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
+                                </div>
+                            </div>
+                        </div>
+                        <p>"Saved my semester! The SGPA calculator is a lifesaver. I realized I needed just 2 more marks to jump a grade."</p>
+                    </div>
+
+                    <div class="review-card">
+                        <div class="user-profile">
+                            <div class="user-img" style="background: #4834d4;"><i class="fa-solid fa-user"></i></div>
+                            <div>
+                                <h4>Alla Basha</h4>
+                                <p style="font-size: 0.75rem; color: #94a3b8; margin: 0;">CSE AI & DS</p>
+                                <div class="stars">
+                                    <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star-half-stroke"></i>
+                                </div>
+                            </div>
+                        </div>
+                        <p>"Finally, a tool that accounts for strict attendance rules (RA). The UI is super clean and easy to use."</p>
+                    </div>
+
+                    <div class="review-card">
+                        <div class="user-profile">
+                            <div class="user-img" style="background: #0cebeb;"><i class="fa-solid fa-user"></i></div>
+                            <div>
+                                <h4>Maruthi Ganesh</h4>
+                                <p style="font-size: 0.75rem; color: #94a3b8; margin: 0;">Mechatronics</p>
+                                <div class="stars">
+                                    <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
+                                </div>
+                            </div>
+                        </div>
+                        <p>"The 'Expected Marks' feature is exactly what I needed before finals. Helps me plan my study schedule perfectly."</p>
+                    </div>
+
+                    <div class="review-card">
+                        <div class="user-profile">
+                            <div class="user-img" style="background: #f0932b;"><i class="fa-solid fa-user"></i></div>
+                            <div>
+                                <h4>Venkata Sai Teja</h4>
+                                <p style="font-size: 0.75rem; color: #94a3b8; margin: 0;">CSE AI & ML</p>
+                                <div class="stars">
+                                    <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
+                                </div>
+                            </div>
+                        </div>
+                        <p>"Better than our official portal! It's fast, private, and I don't have to login every single time."</p>
+                    </div>
+
+                    <div class="review-card">
+                        <div class="user-profile">
+                            <div class="user-img" style="background: #10b981;"><i class="fa-solid fa-user"></i></div>
+                            <div>
+                                <h4>Thrinesh</h4>
+                                <p style="font-size: 0.75rem; color: #94a3b8; margin: 0;">ECE</p>
+                                <div class="stars">
+                                    <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
+                                </div>
+                            </div>
+                        </div>
+                        <p>"Saved my semester! The SGPA calculator is a lifesaver. I realized I needed just 2 more marks to jump a grade."</p>
+                    </div>
+
+                    <div class="review-card">
+                        <div class="user-profile">
+                            <div class="user-img" style="background: #ef4444;"><i class="fa-solid fa-user"></i></div>
+                            <div>
+                                <h4>Lokesh</h4>
+                                <p style="font-size: 0.75rem; color: #94a3b8; margin: 0;">Aeronautical</p>
+                                <div class="stars">
+                                    <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star-half-stroke"></i>
+                                </div>
+                            </div>
+                        </div>
+                        <p>"Finally, a tool that accounts for strict attendance rules (RA). The UI is super clean and easy to use."</p>
+                    </div>
+                </div>
             </div>
         </div>
     </section>

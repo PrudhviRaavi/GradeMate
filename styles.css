@@ -1163,11 +1163,25 @@ footer {
 }
 
 .testimonials-track {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    display: flex;
     gap: 2rem;
-    width: 100%;
+    width: max-content;
+    animation: scroll 40s linear infinite;
     padding: 1rem 0;
+}
+
+.testimonials-track:hover {
+    animation-play-state: paused;
+}
+
+@keyframes scroll {
+    0% {
+        transform: translateX(0);
+    }
+
+    100% {
+        transform: translateX(-50%);
+    }
 }
 
 .review-card {
@@ -1175,7 +1189,8 @@ footer {
     padding: 1.5rem;
     border-radius: 16px;
     border: 1px solid #e2e8f0;
-    width: 100%;
+    width: 320px;
+    flex-shrink: 0;
     box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
     transition: transform 0.3s ease;
 }
