@@ -29,11 +29,11 @@ html {
 }
 
 body {
-    font-family: var(--font-body);
-    background-color: var(--bg-light);
+    font-family: 'Inter', sans-serif;
     color: var(--text-dark);
     line-height: 1.6;
     overflow-x: hidden;
+    background: #fdfdfd;
     transition: background-color 0.3s ease, color 0.3s ease;
     position: relative;
     animation: fadeIn 0.4s ease-out;
@@ -387,7 +387,7 @@ a {
 
 .feature-card {
     background: var(--glass-bg);
-    padding: 2.5rem;
+    padding: 3rem;
     border-radius: 20px;
     border: 1px solid var(--glass-border);
     box-shadow: var(--shadow-md);
@@ -425,12 +425,13 @@ a {
 
 .feature-card h3 {
     font-size: 1.5rem;
-    margin-bottom: 1rem;
+    margin-bottom: 1.25rem;
 }
 
 .feature-card p {
     color: var(--text-light);
-    margin-bottom: 1.5rem;
+    margin-bottom: 1.8rem;
+    line-height: 1.7;
 }
 
 .link-arrow {
@@ -706,7 +707,7 @@ footer {
 .logic-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-    gap: 1.5rem;
+    gap: 2.2rem;
 }
 
 .logic-card {
@@ -993,17 +994,17 @@ footer {
 
     .nav-links {
         position: fixed;
-        top: 70px;
+        top: 0;
         left: -100%;
         width: 100%;
-        height: calc(100vh - 70px);
+        height: 100vh;
         background: white;
         flex-direction: column;
         justify-content: center;
-        gap: 2.5rem;
-        transition: 0.4s ease-in-out;
+        gap: 2rem;
+        transition: 0.4s cubic-bezier(0.4, 0, 0.2, 1);
         box-shadow: 0 10px 15px rgba(0, 0, 0, 0.1);
-        z-index: 1000;
+        z-index: 2000;
     }
 
     .nav-links.active {
@@ -1016,18 +1017,19 @@ footer {
 
     /* Hero Section Mobile */
     .hero h1 {
-        font-size: 2.5rem;
+        font-size: 2.2rem;
     }
 
     .hero p {
-        font-size: 1.1rem;
-        padding: 0 10px;
+        font-size: 1rem;
+        padding: 0 5%;
     }
 
     .cta-group {
         flex-direction: column;
         gap: 1rem;
         width: 100%;
+        padding: 0 5%;
     }
 
     .btn {
@@ -1035,23 +1037,65 @@ footer {
         justify-content: center;
     }
 
-    /* Feature Cards Mobile */
-    .features {
-        padding: 3rem 5%;
-        grid-template-columns: 1fr;
+    /* Layout & Grids Mobile */
+    .features,
+    .education-grid,
+    .logic-grid,
+    .mini-tools-grid,
+    .impact-grid,
+    .grade-ref-grid,
+    .guide-grid {
+        grid-template-columns: 1fr !important;
+        gap: 1.5rem !important;
+        padding: 2rem 5% !important;
     }
 
-    /* Calculator Mobile Fixes */
+    /* Comparison Card Mobile */
+    .comparison-item {
+        grid-template-columns: 1fr;
+        gap: 0.8rem;
+        text-align: center;
+    }
+
+    .comp-content {
+        flex-direction: column;
+        gap: 0.5rem;
+    }
+
+    /* Calculator & Tabs Mobile */
+    .tabs-container {
+        gap: 0.5rem;
+        overflow-x: auto;
+        justify-content: flex-start;
+        padding: 0.5rem 0 1rem;
+        -webkit-overflow-scrolling: touch;
+    }
+
+    .tab-btn {
+        white-space: nowrap;
+        padding: 0.6rem 1.2rem;
+        font-size: 0.9rem;
+    }
+
     .calc-card {
         padding: 1.5rem;
+        margin: 0 5%;
     }
 
+    /* Table Fix */
+    .grade-table-wrapper {
+        margin: 1rem -1rem;
+        padding: 0 1rem;
+        width: calc(100% + 2rem);
+    }
+
+    /* Row Container Fix for calculators */
     .row-container {
         flex-direction: column;
         gap: 0.8rem !important;
         align-items: stretch !important;
         margin-bottom: 2rem;
-        padding: 1rem;
+        padding: 1.2rem;
         background: rgba(14, 165, 233, 0.03);
         border-radius: 12px;
         border: 1px dashed var(--glass-border);
@@ -1061,59 +1105,32 @@ footer {
     .row-container select {
         width: 100% !important;
     }
+}
 
-    .btn-delete {
-        width: 100%;
+@media (max-width: 480px) {
+    .container {
         padding: 1rem;
     }
 
-    /* Tabs Mobile */
-    .tabs-container {
-        flex-direction: row;
-        overflow-x: auto;
-        justify-content: flex-start;
-        padding-bottom: 1rem;
-        -webkit-overflow-scrolling: touch;
-        gap: 0.5rem;
-    }
-
-    .tab-btn {
-        white-space: nowrap;
-        padding: 0.6rem 1.2rem;
-        font-size: 0.9rem;
-    }
-
-    /* Chart Mobile */
-    #chartContainer {
-        height: 300px;
-    }
-
-    /* General Layout */
-    .container {
-        padding: 1.5rem;
-    }
-
     .page-header h1 {
-        font-size: 2.2rem;
+        font-size: 2rem;
     }
 
-    .guide-grid {
-        grid-template-columns: 1fr;
+    .hero h1 {
+        font-size: 1.8rem;
     }
 
-    .feature-item {
-        flex-direction: column;
-        text-align: center;
+    .edu-card,
+    .feature-card,
+    .grade-card {
+        padding: 1.5rem !important;
     }
 
-    /* Contact Form Responsive */
-    #contactForm {
-        grid-template-columns: 1fr !important;
-    }
-
-    .contact-subtext {
-        white-space: normal !important;
-        text-align: center;
+    .icon-box,
+    .edu-icon {
+        width: 50px;
+        height: 50px;
+        font-size: 1.2rem;
     }
 }
 
@@ -1254,14 +1271,30 @@ footer {
 
 /* Premium UI Enhancements */
 @keyframes popIn {
-    0% { transform: scale(0.95); opacity: 0; }
-    70% { transform: scale(1.02); opacity: 1; }
-    100% { transform: scale(1); opacity: 1; }
+    0% {
+        transform: scale(0.95);
+        opacity: 0;
+    }
+
+    70% {
+        transform: scale(1.02);
+        opacity: 1;
+    }
+
+    100% {
+        transform: scale(1);
+        opacity: 1;
+    }
 }
 
 @keyframes fadeIn {
-    from { opacity: 0; }
-    to { opacity: 1; }
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
 }
 
 .animate-pop-in {
@@ -1277,7 +1310,7 @@ footer {
     border-radius: 12px;
     border: 1px solid #e2e8f0;
     overflow: hidden;
-    box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1);
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
     transition: all 0.3s ease;
 }
 
@@ -1357,15 +1390,15 @@ footer {
 .grade-ref-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-    gap: 1.5rem;
+    gap: 2rem;
     margin-top: 2rem;
 }
 
 .grade-card {
     display: flex;
     align-items: center;
-    gap: 1.5rem;
-    padding: 1.5rem;
+    gap: 1.8rem;
+    padding: 1.8rem;
     background: white;
     border-radius: 20px;
     border: 1px solid #e2e8f0;
@@ -1474,9 +1507,8 @@ footer {
     align-items: center;
     gap: 0.6rem;
     padding: 0.8rem 1.5rem;
-    background: var(--glass-bg);
-    backdrop-filter: blur(10px);
-    border: 1px solid var(--glass-border);
+    background: #ffffff;
+    border: 1px solid #e2e8f0;
     border-radius: 12px;
     color: var(--primary-color);
     font-weight: 600;
@@ -1489,7 +1521,8 @@ footer {
     background: var(--primary-color);
     color: white;
     transform: translateX(-5px);
-    box-shadow: var(--shadow-md);
+    box-shadow: 0 8px 25px rgba(26, 86, 219, 0.3);
+    border-color: var(--primary-color);
 }
 
 .back-home-btn i {
@@ -1505,17 +1538,27 @@ footer {
 .education-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-    gap: 2rem;
+    gap: 2.5rem;
     margin-bottom: 3rem;
 }
 
 .edu-card {
     background: #f8fafc;
-    padding: 2rem;
+    padding: 2.5rem;
     border-radius: 20px;
     border: 1px solid #e2e8f0;
     text-align: center;
     transition: all 0.3s ease;
+}
+
+.edu-card h4 {
+    margin-bottom: 1.2rem;
+    font-size: 1.25rem;
+}
+
+.edu-card p {
+    line-height: 1.7;
+    color: var(--text-light);
 }
 
 .edu-card:hover {
@@ -1581,7 +1624,7 @@ footer {
 
 .mini-tool-card {
     background: white;
-    padding: 1.5rem;
+    padding: 2.2rem;
     border-radius: 16px;
     border: 1px solid #e2e8f0;
 }
@@ -1647,14 +1690,14 @@ footer {
 .impact-grid {
     display: grid;
     grid-template-columns: 1fr 1fr;
-    gap: 2rem;
+    gap: 2.5rem;
     margin-top: 1.5rem;
 }
 
 .impact-item {
     display: flex;
     gap: 1.5rem;
-    padding: 1.5rem;
+    padding: 2rem;
     background: #f8fafc;
     border-radius: 16px;
 }
@@ -1665,7 +1708,7 @@ footer {
 }
 
 .impact-item h4 {
-    margin-bottom: 0.5rem;
+    margin-bottom: 0.8rem;
     color: var(--primary-color);
 }
 
@@ -1673,22 +1716,7 @@ footer {
     margin: 0;
     font-size: 0.9rem;
     color: var(--text-light);
-}
-
-@media (max-width: 768px) {
-    .comp-content {
-        flex-direction: column;
-        gap: 0.5rem;
-    }
-
-    .comparison-item {
-        grid-template-columns: 1fr;
-        gap: 0.5rem;
-    }
-
-    .impact-grid {
-        grid-template-columns: 1fr;
-    }
+    line-height: 1.7;
 }
 
 .review-card p {

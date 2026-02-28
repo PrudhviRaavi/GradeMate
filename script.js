@@ -147,8 +147,8 @@ function updateAllGradeOptionsByScheme() {
     });
 
     // Also update any reference tables or predictors that might be visible
-    if (typeof calculateGrade === 'function') calculateGrade();
-    if (typeof calculateExpectedMarks === 'function') calculateExpectedMarks();
+    if (typeof calculateGrade === 'function') calculateGrade(true);
+    if (typeof calculateExpectedMarks === 'function') calculateExpectedMarks(true);
 }
 
 function exportResults(calcId) {
@@ -220,7 +220,7 @@ function updatePredictorUI() {
     }
 }
 
-function calculateGrade() {
+function calculateGrade(isSilent = false) {
     // Inputs
     const courseType = document.getElementById('courseType').value;
     const internalInput = document.getElementById('internalMarks');
@@ -234,34 +234,34 @@ function calculateGrade() {
     const endSemMarks = parseFloat(endSemInput.value);
     const isAbsentEndSem = document.getElementById('absentEndSem').checked;
 
-    const isLowAttendance = document.getElementById('lowAttendance').checked;
+    const attendanceStatus = document.getElementById('attendanceStatus').value;
 
     const resultBox = document.getElementById('gradeResult');
     resultBox.innerHTML = '';
 
     // Validation
     if (isNaN(internalMarks) && !isAbsentInternals) {
-        alert("Please enter Internal Marks.");
+        if (!isSilent) alert("Please enter Internal Marks.");
         return;
     }
     if (internalMarks > 50 || internalMarks < 0) {
-        alert("Internal Marks must be between 0 and 50.");
+        if (!isSilent) alert("Internal Marks must be between 0 and 50.");
         return;
     }
     if (courseType === 'integrated' && (extPracMarks > 100 || extPracMarks < 0)) {
-        alert("External Practical Marks must be between 0 and 100.");
+        if (!isSilent) alert("External Practical Marks must be between 0 and 100.");
         return;
     }
     if (!isNaN(endSemMarks) && (endSemMarks > 100 || endSemMarks < 0)) {
-        alert("End Sem Marks must be between 0 and 100.");
+        if (!isSilent) alert("End Sem Marks must be between 0 and 100.");
         return;
     }
 
     resultBox.classList.add('show');
 
     // 1. Check Special Failure Conditions First
-    if (isLowAttendance) {
-        showResult("Grade: RA", "Repeat the course due to lack of minimum attendance.", "fail");
+    if (attendanceStatus === 'low') {
+        showResult("Grade: RA", "Repeat the course due to attendance below 60%.", "fail");
         return;
     }
 
@@ -313,6 +313,10 @@ function calculateGrade() {
         let grade = getGrade(finalScore, courseType);
 
         let msg = `Total Score: ${finalScore.toFixed(2)}`;
+        if (attendanceStatus === 'condonation') {
+            msg += `<br><span style="color: #ed8936; font-weight: 600; font-size: 0.9rem;"><i class="fa-solid fa-circle-exclamation"></i> Condonation Fee Required (61-75% Attendance)</span>`;
+        }
+
         if (grade.grade === 'F') {
             msg += ` (Failed)`;
             showResult(`Grade: ${grade.grade}`, msg, "fail");
@@ -836,7 +840,7 @@ function toggleExpPrac() {
     group.style.display = type === 'integrated' ? 'block' : 'none';
 }
 
-function calculateExpectedMarks() {
+function calculateExpectedMarks(isSilent = false) {
     const courseType = document.getElementById('expCourseType').value;
     const internals = parseFloat(document.getElementById('expInternalMarks').value);
     const extPracMarks = parseFloat(document.getElementById('expExtPracMarks').value) || 0;
@@ -851,7 +855,7 @@ function calculateExpectedMarks() {
 
     // Validation
     if (isNaN(internals) || internals < 0 || internals > 50) {
-        if (errorMsg) {
+        if (!isSilent && errorMsg) {
             errorMsg.style.visibility = 'visible';
             errorMsg.innerHTML = '<i class="fa-solid fa-circle-exclamation"></i> Please enter valid internal marks (0-50).';
         }
@@ -861,7 +865,7 @@ function calculateExpectedMarks() {
     if (courseType === 'integrated') {
         const rawExtPrac = document.getElementById('expExtPracMarks').value;
         if (rawExtPrac === "" || isNaN(extPracMarks) || extPracMarks < 0 || extPracMarks > 100) {
-            if (errorMsg) {
+            if (!isSilent && errorMsg) {
                 errorMsg.style.visibility = 'visible';
                 errorMsg.innerHTML = '<i class="fa-solid fa-circle-exclamation"></i> Please enter valid external practical marks (0-100).';
             }
@@ -1129,5 +1133,50 @@ document.addEventListener('DOMContentLoaded', () => {
             // Wait a bit for other initialization
             setTimeout(() => switchTab(hash), 100);
         }
+    }
+
+    // 4. Mobile Menu Toggle
+    const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+    const navLinks = document.getElementById('navLinks');
+    if (mobileMenuBtn && navLinks) {
+        mobileMenuBtn.addEventListener('click', () => {
+            navLinks.classList.toggle('active');
+            const icon = mobileMenuBtn.querySelector('i');
+            if (navLinks.classList.contains('active')) {
+                icon.classList.replace('fa-bars', 'fa-xmark');
+            } else {
+                icon.classList.replace('fa-xmark', 'fa-bars');
+            }
+        });
+
+        // Close menu when link is clicked
+        navLinks.querySelectorAll('a').forEach(link => {
+            link.addEventListener('click', () => {
+                navLinks.classList.remove('active');
+                mobileMenuBtn.querySelector('i').classList.replace('fa-xmark', 'fa-bars');
+            });
+        });
+    }
+
+    // 5. Quick CGPA to % Converter (How to Use page)
+    const quickCgpaInput = document.getElementById('quickCgpa');
+    const percResult = document.getElementById('percResult');
+    if (quickCgpaInput && percResult) {
+        quickCgpaInput.addEventListener('input', () => {
+            let cgpa = parseFloat(quickCgpaInput.value);
+            if (!isNaN(cgpa)) {
+                if (cgpa > 10) {
+                    cgpa = 10;
+                    quickCgpaInput.value = 10;
+                }
+                if (cgpa < 0) {
+                    cgpa = 0;
+                    quickCgpaInput.value = 0;
+                }
+                percResult.innerText = (cgpa * 10).toFixed(1) + ' %';
+            } else {
+                percResult.innerText = '-- %';
+            }
+        });
     }
 });
