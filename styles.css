@@ -32,7 +32,6 @@ body {
     font-family: 'Inter', sans-serif;
     color: var(--text-dark);
     line-height: 1.6;
-    overflow-x: hidden;
     background: #fdfdfd;
     transition: background-color 0.3s ease, color 0.3s ease;
     position: relative;
@@ -1157,13 +1156,10 @@ footer {
 }
 
 .testimonials-container {
-    width: 100vw;
+    width: 100%;
     position: relative;
-    left: 50%;
-    right: 50%;
-    margin-left: -50vw;
-    margin-right: -50vw;
     overflow: hidden;
+    padding: 1rem 0;
 }
 
 .testimonials-track {
