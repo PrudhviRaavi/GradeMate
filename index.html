@@ -153,146 +153,44 @@
         </div>
     </section>
 
-    <!-- Contact Us Section -->
+    <!-- Contact Form Section -->
     <section class="container" style="margin: 4rem auto;">
-        <div class="calc-card">
-            <h2 style="text-align: center; margin-bottom: 1rem;"><i class="fa-solid fa-envelope"></i> Get in Touch</h2>
-            <p style="text-align: center; color: var(--text-light); margin-bottom: 3rem;">Have questions? We're here to
-                help you track your academic progress.</p>
-
-            <div
-                style="display: grid; grid-template-columns: 0.8fr 1.2fr; gap: 5rem; align-items: center; max-width: 1000px; margin: 0 auto;">
-                <!-- Left: Contact Info -->
+        <div class="calc-card" style="max-width: 800px; margin: 0 auto; padding: 2.5rem; border-radius: 24px;">
+            <p class="contact-subtext" style="text-align: center; margin: 0 0 1rem 0; color: var(--text-light); font-size: 1.05rem; font-weight: 500;">
+                Have suggestions? Found a bug? We'd love to hear from you!
+            </p>
+            <h2 style="text-align: center; margin-bottom: 2rem; color: var(--primary-color);">
+                <i class="fa-solid fa-paper-plane"></i> Send us a message
+            </h2>
+            <form action="https://formsubmit.co/raaviprudhvi1@gmail.com" method="POST" style="display: flex; flex-direction: column; gap: 1.2rem;">
+                <input type="hidden" name="_subject" value="New GradeMate Contact Form Submission">
+                <input type="hidden" name="_captcha" value="false">
+                <input type="hidden" name="_template" value="table">
                 <div>
-                    <h3 style="margin-bottom: 2rem; color: var(--primary-color);">Contact Information</h3>
-
-                    <!-- Email -->
-                    <div style="display: flex; gap: 1rem; margin-bottom: 2rem;">
-                        <div
-                            style="width: 50px; height: 50px; background: linear-gradient(135deg, #0ea5e9, #06b6d4); border-radius: 12px; display: flex; align-items: center; justify-content: center; flex-shrink: 0;">
-                            <i class="fa-solid fa-envelope" style="color: white; font-size: 1.2rem;"></i>
-                        </div>
-                        <div style="margin-bottom: 2.5rem;">
-                            <h4 style="margin: 0 0 0.5rem 0; color: var(--primary-color);">Email Us</h4>
-                            <a href="mailto:raaviprudhvi1@gmail.com"
-                                style="color: #0ea5e9; text-decoration: underline; font-weight: 500; display: inline-flex; align-items: center; gap: 0.5rem; white-space: nowrap;">
-                                raaviprudhvi1@gmail.com <i class="fa-solid fa-arrow-up-right-from-square"
-                                    style="font-size: 0.8rem;"></i>
-                            </a>
-                        </div>
-                    </div>
-
-                    <!-- Feedback Form Link -->
-                    <div style="display: flex; gap: 1rem; margin-bottom: 2rem;">
-                        <div
-                            style="width: 50px; height: 50px; background: linear-gradient(135deg, #8b5cf6, #a78bfa); border-radius: 12px; display: flex; align-items: center; justify-content: center; flex-shrink: 0;">
-                            <i class="fa-solid fa-comment-dots" style="color: white; font-size: 1.2rem;"></i>
-                        </div>
-                        <div style="margin-bottom: 2.5rem;">
-                            <h4 style="margin: 0 0 0.5rem 0; color: var(--primary-color);">Feedback Form</h4>
-                            <a href="https://forms.gle/csWWxGzdpwwfShxr9" target="_blank"
-                                style="color: #0ea5e9; text-decoration: underline; font-weight: 500; display: inline-flex; align-items: center; gap: 0.5rem; white-space: nowrap;">
-                                Share your experience <i class="fa-solid fa-arrow-up-right-from-square"
-                                    style="font-size: 0.8rem;"></i>
-                            </a>
-                        </div>
-                    </div>
-
-                    <!-- Social Links -->
-                    <div style="display: flex; gap: 1rem; margin-bottom: 2rem;">
-                        <div
-                            style="width: 50px; height: 50px; background: linear-gradient(135deg, #10b981, #34d399); border-radius: 12px; display: flex; align-items: center; justify-content: center; flex-shrink: 0;">
-                            <i class="fa-solid fa-share-nodes" style="color: white; font-size: 1.2rem;"></i>
-                        </div>
-                        <div>
-                            <h4 style="margin: 0 0 0.5rem 0; color: var(--primary-color);">Connect</h4>
-                            <div style="display: flex; gap: 1rem;">
-                                <a href="https://www.linkedin.com/in/prudhvi-krishna-raavi-64484a315" target="_blank"
-                                    style="font-size: 1.3rem; color: #0077b5; transition: transform 0.2s;"
-                                    onmouseover="this.style.transform='scale(1.2)'"
-                                    onmouseout="this.style.transform='scale(1)'">
-                                    <i class="fa-brands fa-linkedin"></i>
-                                </a>
-                                <a href="https://github.com/PrudhviRaavi/GradeMate.git" target="_blank"
-                                    style="font-size: 1.3rem; color: var(--text-dark); transition: transform 0.2s;"
-                                    onmouseover="this.style.transform='scale(1.2)'"
-                                    onmouseout="this.style.transform='scale(1)'">
-                                    <i class="fa-brands fa-github"></i>
-                                </a>
-                            </div>
-                        </div>
-                    </div>
+                    <label style="display: block; margin-bottom: 0.5rem; color: var(--text-dark); font-weight: 500;">Name</label>
+                    <input type="text" name="name" placeholder="Your name" required style="width: 100%; padding: 0.75rem 1rem; border: 1px solid #cbd5e1; border-radius: 8px; font-size: 1rem; font-family: 'Inter', sans-serif; transition: border-color 0.2s;" onfocus="this.style.borderColor='var(--accent-color)'" onblur="this.style.borderColor='#cbd5e1'">
                 </div>
-
-                <!-- Right: Contact Form -->
-                <div style="background: #f8fafc; padding: 2.5rem; border-radius: 24px; border: 1px solid #e2e8f0; box-shadow: var(--shadow-lg); transition: var(--transition);"
-                    onmouseover="this.style.borderColor='var(--accent-color)'"
-                    onmouseout="this.style.borderColor='#e2e8f0'">
-                    <p class="contact-subtext"
-                        style="margin: 0 0 1rem 0; color: var(--text-light); font-size: 1.05rem; font-weight: 500;">
-                        Have suggestions? Found a bug? We'd love to hear from you!
-                    </p>
-                    <h3 style="margin: 0 0 2rem 0; color: var(--primary-color); font-size: 1.8rem;">Send us a message
-                    </h3>
-
-                    <form action="https://formsubmit.co/raaviprudhvi1@gmail.com" method="POST"
-                        style="display: flex; flex-direction: column; gap: 1.2rem;">
-
-                        <!-- FormSubmit Configuration -->
-                        <input type="hidden" name="_subject" value="New GradeMate Contact Form Submission">
-                        <input type="hidden" name="_captcha" value="false">
-                        <input type="hidden" name="_template" value="table">
-
-                        <!-- Name -->
-                        <div>
-                            <label
-                                style="display: block; margin-bottom: 0.5rem; color: var(--text-dark); font-weight: 500;">Name</label>
-                            <input type="text" name="name" placeholder="Your name" required
-                                style="width: 100%; padding: 0.75rem 1rem; border: 1px solid #cbd5e1; border-radius: 8px; font-size: 1rem; font-family: 'Inter', sans-serif; transition: border-color 0.2s;"
-                                onfocus="this.style.borderColor='var(--accent-color)'"
-                                onblur="this.style.borderColor='#cbd5e1'">
-                        </div>
-
-                        <!-- Email -->
-                        <div>
-                            <label
-                                style="display: block; margin-bottom: 0.5rem; color: var(--text-dark); font-weight: 500;">Email</label>
-                            <input type="email" name="email" placeholder="your@email.com" required
-                                style="width: 100%; padding: 0.75rem 1rem; border: 1px solid #cbd5e1; border-radius: 8px; font-size: 1rem; font-family: 'Inter', sans-serif; transition: border-color 0.2s;"
-                                onfocus="this.style.borderColor='var(--accent-color)'"
-                                onblur="this.style.borderColor='#cbd5e1'">
-                        </div>
-
-                        <!-- Message -->
-                        <div>
-                            <label
-                                style="display: block; margin-bottom: 0.5rem; color: var(--text-dark); font-weight: 500;">Message</label>
-                            <textarea name="message" placeholder="How can we help you?" rows="5" required
-                                style="width: 100%; padding: 0.75rem 1rem; border: 1px solid #cbd5e1; border-radius: 8px; font-size: 1rem; font-family: 'Inter', sans-serif; resize: vertical; transition: border-color 0.2s;"
-                                onfocus="this.style.borderColor='var(--accent-color)'"
-                                onblur="this.style.borderColor='#cbd5e1'"></textarea>
-                        </div>
-
-                        <!-- Submit Button -->
-                        <button type="submit" class="btn btn-primary"
-                            style="width: 100%; padding: 0.875rem; font-size: 1rem; display: flex; align-items: center; justify-content: center; gap: 0.5rem;">
-                            <i class="fa-solid fa-paper-plane"></i> Send Message
-                        </button>
-                    </form>
+                <div>
+                    <label style="display: block; margin-bottom: 0.5rem; color: var(--text-dark); font-weight: 500;">Email</label>
+                    <input type="email" name="email" placeholder="your@email.com" required style="width: 100%; padding: 0.75rem 1rem; border: 1px solid #cbd5e1; border-radius: 8px; font-size: 1rem; font-family: 'Inter', sans-serif; transition: border-color 0.2s;" onfocus="this.style.borderColor='var(--accent-color)'" onblur="this.style.borderColor='#cbd5e1'">
                 </div>
-            </div>
+                <div>
+                    <label style="display: block; margin-bottom: 0.5rem; color: var(--text-dark); font-weight: 500;">Message</label>
+                    <textarea name="message" placeholder="How can we help you?" rows="5" required style="width: 100%; padding: 0.75rem 1rem; border: 1px solid #cbd5e1; border-radius: 8px; font-size: 1rem; font-family: 'Inter', sans-serif; resize: vertical; transition: border-color 0.2s;" onfocus="this.style.borderColor='var(--accent-color)'" onblur="this.style.borderColor='#cbd5e1'"></textarea>
+                </div>
+                <button type="submit" class="btn btn-primary" style="width: 100%; padding: 0.875rem; font-size: 1rem; display: flex; align-items: center; justify-content: center; gap: 0.5rem;">
+                    <i class="fa-solid fa-paper-plane"></i> Send Message
+                </button>
+            </form>
         </div>
     </section>
 
-
     <!-- Testimonials Section -->
-    <section class="testimonials-section">
+    <section class="testimonials-section" style="padding: 4rem 0;">
         <div class="container">
             <h2 style="text-align: center; margin-bottom: 3rem; font-size: 2rem;">What Students Say</h2>
-
-            <div class="testimonials-container">
-                <div class="testimonials-track">
-                    <!-- Review 1 -->
+            <div class="testimonials-track">
+                <!-- Keep 4 unique reviews -->
                     <div class="review-card">
                         <div class="user-profile">
                             <div class="user-img" style="background: #FF6B6B;"><i class="fa-solid fa-user"></i></div>
@@ -300,17 +198,13 @@
                                 <h4>Tejesh Reddy</h4>
                                 <p style="font-size: 0.75rem; color: #94a3b8; margin: 0;">BBA</p>
                                 <div class="stars">
-                                    <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i
-                                        class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i
-                                        class="fa-solid fa-star"></i>
+                                    <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
                                 </div>
                             </div>
                         </div>
-                        <p>"Saved my semester! The SGPA calculator is a lifesaver. I realized I needed just 2 more marks
-                            to jump a grade."</p>
+                        <p>"Saved my semester! The SGPA calculator is a lifesaver. I realized I needed just 2 more marks to jump a grade."</p>
                     </div>
 
-                    <!-- Review 2 -->
                     <div class="review-card">
                         <div class="user-profile">
                             <div class="user-img" style="background: #4834d4;"><i class="fa-solid fa-user"></i></div>
@@ -318,17 +212,13 @@
                                 <h4>Alla Basha</h4>
                                 <p style="font-size: 0.75rem; color: #94a3b8; margin: 0;">CSE AI & DS</p>
                                 <div class="stars">
-                                    <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i
-                                        class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i
-                                        class="fa-solid fa-star-half-stroke"></i>
+                                    <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star-half-stroke"></i>
                                 </div>
                             </div>
                         </div>
-                        <p>"Finally, a tool that accounts for strict attendance rules (RA). The UI is super clean and
-                            easy to use."</p>
+                        <p>"Finally, a tool that accounts for strict attendance rules (RA). The UI is super clean and easy to use."</p>
                     </div>
 
-                    <!-- Review 3 -->
                     <div class="review-card reveal-on-scroll">
                         <div class="user-profile">
                             <div class="user-img" style="background: #0cebeb;"><i class="fa-solid fa-user"></i></div>
@@ -336,17 +226,13 @@
                                 <h4>Maruthi Ganesh</h4>
                                 <p style="font-size: 0.75rem; color: #94a3b8; margin: 0;">Mechatronics</p>
                                 <div class="stars">
-                                    <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i
-                                        class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i
-                                        class="fa-solid fa-star"></i>
+                                    <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
                                 </div>
                             </div>
                         </div>
-                        <p>"The 'Expected Marks' feature is exactly what I needed before finals. Helps me plan my study
-                            schedule perfectly."</p>
+                        <p>"The 'Expected Marks' feature is exactly what I needed before finals. Helps me plan my study schedule perfectly."</p>
                     </div>
 
-                    <!-- Review 4 -->
                     <div class="review-card reveal-on-scroll">
                         <div class="user-profile">
                             <div class="user-img" style="background: #f0932b;"><i class="fa-solid fa-user"></i></div>
@@ -354,89 +240,51 @@
                                 <h4>Venkata Sai Teja</h4>
                                 <p style="font-size: 0.75rem; color: #94a3b8; margin: 0;">CSE AI & ML</p>
                                 <div class="stars">
-                                    <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i
-                                        class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i
-                                        class="fa-solid fa-star"></i>
+                                    <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
                                 </div>
                             </div>
                         </div>
-                        <p>"Better than our official portal! It's fast, private, and I don't have to login every single
-                            time."</p>
+                        <p>"Better than our official portal! It's fast, private, and I don't have to login every single time."</p>
                     </div>
+            </div>
+        </div>
+    </section>
 
-                    <!-- DUPLICATE REVIEWS FOR INFINITE LOOP -->
-                    <!-- Review 1 Copy -->
-                    <div class="review-card">
-                        <div class="user-profile">
-                            <div class="user-img" style="background: #FF6B6B;"><i class="fa-solid fa-user"></i></div>
-                            <div>
-                                <h4>Thrinesh</h4>
-                                <p style="font-size: 0.75rem; color: #94a3b8; margin: 0;">ECE</p>
-                                <div class="stars">
-                                    <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i
-                                        class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i
-                                        class="fa-solid fa-star"></i>
-                                </div>
-                            </div>
-                        </div>
-                        <p>"Saved my semester! The SGPA calculator is a lifesaver. I realized I needed just 2 more marks
-                            to jump a grade."</p>
-                    </div>
+    <!-- Contact Info Section -->
+    <section class="container" style="margin: 0 auto 6rem auto; max-width: 900px;">
+        <h2 style="text-align: center; margin-bottom: 3rem;"><i class="fa-solid fa-address-card"></i> Get in Touch</h2>
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 2rem;">
+            <!-- Email -->
+            <div class="calc-card" style="display: flex; flex-direction: column; align-items: center; text-align: center; padding: 2.5rem 2rem;">
+                <div style="width: 60px; height: 60px; background: linear-gradient(135deg, #0ea5e9, #06b6d4); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin-bottom: 1.5rem;">
+                    <i class="fa-solid fa-envelope" style="color: white; font-size: 1.5rem;"></i>
+                </div>
+                <h3 style="margin: 0 0 0.5rem 0; color: var(--primary-color);">Email Us</h3>
+                <a href="mailto:raaviprudhvi1@gmail.com" style="color: var(--text-dark); font-weight: 500; font-size: 1rem; text-decoration: none;">raaviprudhvi1@gmail.com</a>
+            </div>
 
-                    <!-- Review 2 Copy -->
-                    <div class="review-card">
-                        <div class="user-profile">
-                            <div class="user-img" style="background: #4834d4;"><i class="fa-solid fa-user"></i></div>
-                            <div>
-                                <h4>Lokesh</h4>
-                                <p style="font-size: 0.75rem; color: #94a3b8; margin: 0;">Aeronautical</p>
-                                <div class="stars">
-                                    <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i
-                                        class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i
-                                        class="fa-solid fa-star-half-stroke"></i>
-                                </div>
-                            </div>
-                        </div>
-                        <p>"Finally, a tool that accounts for strict attendance rules (RA). The UI is super clean and
-                            easy to use."</p>
-                    </div>
+            <!-- Feedback Form Link -->
+            <div class="calc-card" style="display: flex; flex-direction: column; align-items: center; text-align: center; padding: 2.5rem 2rem;">
+                <div style="width: 60px; height: 60px; background: linear-gradient(135deg, #8b5cf6, #a78bfa); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin-bottom: 1.5rem;">
+                    <i class="fa-solid fa-comment-dots" style="color: white; font-size: 1.5rem;"></i>
+                </div>
+                <h3 style="margin: 0 0 0.5rem 0; color: var(--primary-color);">Feedback Form</h3>
+                <a href="https://forms.gle/csWWxGzdpwwfShxr9" target="_blank" style="color: var(--text-dark); font-weight: 500; font-size: 1rem; text-decoration: none;">Share your experience <i class="fa-solid fa-arrow-up-right-from-square" style="font-size: 0.8rem; margin-left: 4px;"></i></a>
+            </div>
 
-                    <!-- Review 3 Copy -->
-                    <div class="review-card">
-                        <div class="user-profile">
-                            <div class="user-img" style="background: #0cebeb;"><i class="fa-solid fa-user"></i></div>
-                            <div>
-                                <h4>Tejesh Reddy</h4>
-                                <p style="font-size: 0.75rem; color: #94a3b8; margin: 0;">BBA</p>
-                                <div class="stars">
-                                    <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i
-                                        class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i
-                                        class="fa-solid fa-star"></i>
-                                </div>
-                            </div>
-                        </div>
-                        <p>"The 'Expected Marks' feature is exactly what I needed before finals. Helps me plan my study
-                            schedule perfectly."</p>
-                    </div>
-
-                    <!-- Review 4 Copy -->
-                    <div class="review-card">
-                        <div class="user-profile">
-                            <div class="user-img" style="background: #f0932b;"><i class="fa-solid fa-user"></i></div>
-                            <div>
-                                <h4>Alla Basha</h4>
-                                <p style="font-size: 0.75rem; color: #94a3b8; margin: 0;">CSE AI & DS</p>
-                                <div class="stars">
-                                    <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i
-                                        class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i
-                                        class="fa-solid fa-star"></i>
-                                </div>
-                            </div>
-                        </div>
-                        <p>"Better than our official portal! It's fast, private, and I don't have to login every single
-                            time."</p>
-                    </div>
-
+            <!-- Social Links -->
+            <div class="calc-card" style="display: flex; flex-direction: column; align-items: center; text-align: center; padding: 2.5rem 2rem;">
+                <div style="width: 60px; height: 60px; background: linear-gradient(135deg, #10b981, #34d399); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin-bottom: 1.5rem;">
+                    <i class="fa-solid fa-share-nodes" style="color: white; font-size: 1.5rem;"></i>
+                </div>
+                <h3 style="margin: 0 0 1rem 0; color: var(--primary-color);">Connect</h3>
+                <div style="display: flex; gap: 1.5rem;">
+                    <a href="https://www.linkedin.com/in/prudhvi-krishna-raavi-64484a315" target="_blank" style="font-size: 1.8rem; color: #0077b5; transition: transform 0.2s;" onmouseover="this.style.transform='scale(1.2)'" onmouseout="this.style.transform='scale(1)'">
+                        <i class="fa-brands fa-linkedin"></i>
+                    </a>
+                    <a href="https://github.com/PrudhviRaavi/GradeMate.git" target="_blank" style="font-size: 1.8rem; color: var(--text-dark); transition: transform 0.2s;" onmouseover="this.style.transform='scale(1.2)'" onmouseout="this.style.transform='scale(1)'">
+                        <i class="fa-brands fa-github"></i>
+                    </a>
                 </div>
             </div>
         </div>
