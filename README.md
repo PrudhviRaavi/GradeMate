@@ -89,6 +89,33 @@ GradeMate is a state-of-the-art academic utility designed to help students navig
 
 ---
 
+## 🤝 Contributing
+
+Contributions are welcome! If you have ideas for improvements, bug fixes, or new features, feel free to contribute.
+
+1. **Fork** the repository
+2. **Create** your feature branch: `git checkout -b feature/your-feature-name`
+3. **Commit** your changes: `git commit -m "Add: your feature description"`
+4. **Push** to the branch: `git push origin feature/your-feature-name`
+5. **Open a Pull Request** and describe your changes
+
+> [!NOTE]
+> Please make sure your changes are tested on both **mobile** and **desktop** before submitting a PR. Keep the zero-dependency, client-side-only philosophy intact.
+
+**Found a bug or have a suggestion?**
+- Open an [Issue](https://github.com/PrudhviRaavi/GradeMate/issues)
+- Or email directly at [raaviprudhvi1@gmail.com](mailto:raaviprudhvi1@gmail.com)
+
+---
+
+## 📜 License
+
+This project is licensed under the **MIT License** — see the [LICENSE](LICENSE) file for details.
+
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg?style=for-the-badge)](LICENSE)
+
+---
+
 ## 👨‍💻 Developer
 
 Developed by **[Prudhvi Raavi](https://www.linkedin.com/in/prudhvi-krishna-raavi-64484a315)** | [GitHub](https://github.com/PrudhviRaavi/GradeMate)
