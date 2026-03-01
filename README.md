@@ -91,20 +91,16 @@ GradeMate is a state-of-the-art academic utility designed to help students navig
 
 ## 🤝 Contributing
 
-Contributions are welcome! If you have ideas for improvements, bug fixes, or new features, feel free to contribute.
+Contributions are welcome! We have a detailed contributing guide that walks you through every step.
 
-1. **Fork** the repository
-2. **Create** your feature branch: `git checkout -b feature/your-feature-name`
-3. **Commit** your changes: `git commit -m "Add: your feature description"`
-4. **Push** to the branch: `git push origin feature/your-feature-name`
-5. **Open a Pull Request** and describe your changes
+👉 **[Read the full Contributing Guide →](CONTRIBUTING.md)**
 
-> [!NOTE]
-> Please make sure your changes are tested on both **mobile** and **desktop** before submitting a PR. Keep the zero-dependency, client-side-only philosophy intact.
+**Quick summary:**
+1. Fork the repo → Create a branch → Make your changes → Test on mobile & desktop → Push → Open a PR
 
 **Found a bug or have a suggestion?**
 - Open an [Issue](https://github.com/PrudhviRaavi/GradeMate/issues)
-- Or email directly at [raaviprudhvi1@gmail.com](mailto:raaviprudhvi1@gmail.com)
+- Or email [raaviprudhvi1@gmail.com](mailto:raaviprudhvi1@gmail.com)
 
 ---
 
