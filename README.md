@@ -5,6 +5,13 @@
   <img src="https://img.shields.io/badge/Status-Live-brightgreen?style=for-the-badge" alt="Status">
   <img src="https://img.shields.io/badge/UI-Premium-orange?style=for-the-badge" alt="UI">
   <img src="https://img.shields.io/badge/Responsive-Mobile%20%26%20Desktop-purple?style=for-the-badge" alt="Responsive">
+  <img src="https://img.shields.io/badge/License-MIT-yellow?style=for-the-badge" alt="License">
+</p>
+
+<p align="center">
+  <a href="https://grade-mate-gray.vercel.app/" target="_blank">
+    <img src="https://img.shields.io/badge/🌐%20Live%20Demo-grade--mate--gray.vercel.app-0ea5e9?style=for-the-badge" alt="Live Demo">
+  </a>
 </p>
 
 ---

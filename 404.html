@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GradeMate | Page Not Found</title>
+    <meta name="robots" content="noindex">
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Outfit:wght@500;700;800&display=swap"
+        rel="stylesheet">
+    <!-- Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Favicon -->
+    <link rel="icon"
+        href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🎓</text></svg>">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: linear-gradient(135deg, #f0f9ff 0%, #e0f2fe 50%, #f8fafc 100%);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 2rem;
+        }
+
+        .error-icon {
+            font-size: 5rem;
+            margin-bottom: 1.5rem;
+            animation: float 3s ease-in-out infinite;
+        }
+
+        @keyframes float {
+
+            0%,
+            100% {
+                transform: translateY(0);
+            }
+
+            50% {
+                transform: translateY(-15px);
+            }
+        }
+
+        .error-code {
+            font-family: 'Outfit', sans-serif;
+            font-size: 6rem;
+            font-weight: 800;
+            background: linear-gradient(135deg, #1a56db, #0ea5e9);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            line-height: 1;
+            margin-bottom: 1rem;
+        }
+
+        h1 {
+            font-family: 'Outfit', sans-serif;
+            font-size: 1.8rem;
+            color: #1e3a5f;
+            margin-bottom: 1rem;
+        }
+
+        p {
+            color: #64748b;
+            font-size: 1.1rem;
+            max-width: 450px;
+            line-height: 1.7;
+            margin-bottom: 2.5rem;
+        }
+
+        .btn-group {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.85rem 1.8rem;
+            border-radius: 12px;
+            font-family: 'Outfit', sans-serif;
+            font-weight: 600;
+            font-size: 1rem;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            border: none;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, #1a56db, #0ea5e9);
+            color: white;
+            box-shadow: 0 4px 15px rgba(26, 86, 219, 0.3);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(26, 86, 219, 0.4);
+        }
+
+        .btn-secondary {
+            background: white;
+            color: #1a56db;
+            border: 2px solid #e2e8f0;
+        }
+
+        .btn-secondary:hover {
+            border-color: #1a56db;
+            transform: translateY(-3px);
+        }
+
+        .brand {
+            position: fixed;
+            top: 1.5rem;
+            left: 50%;
+            transform: translateX(-50%);
+            font-family: 'Outfit', sans-serif;
+            font-size: 1.8rem;
+            font-weight: 800;
+            color: #1a56db;
+            text-decoration: none;
+        }
+
+        .brand span {
+            color: #1e88e5;
+        }
+    </style>
+</head>
+
+<body>
+    <a href="index.html" class="brand">Grade<span>Mate</span></a>
+
+    <div class="error-icon">🎓</div>
+    <div class="error-code">404</div>
+    <h1>Oops! Page Not Found</h1>
+    <p>The page you're looking for doesn't exist or may have been moved. Let's get you back on track!</p>
+
+    <div class="btn-group">
+        <a href="index.html" class="btn btn-primary">
+            <i class="fa-solid fa-house"></i> Back to Home
+        </a>
+        <a href="utilities.html" class="btn btn-secondary">
+            <i class="fa-solid fa-calculator"></i> Open Calculators
+        </a>
+    </div>
+</body>
+
+</html>

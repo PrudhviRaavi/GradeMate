@@ -1,0 +1,24 @@
+# Temporary / generated files
+old_index.html
+old_index_utf8.html
+old_styles.css
+old_styles_utf8.html
+*.py
+*.ps1
+test_logs.js
+
+# OS files
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Editor directories
+.vscode/
+.idea/
+
+# Logs
+*.log
+npm-debug.log*
+
+# Node (if ever used locally)
+node_modules/
